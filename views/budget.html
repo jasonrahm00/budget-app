@@ -1,5 +1,4 @@
 <h2>Expenses</h2>
-
 <table>
   <tr>
     <th>Category</th>
@@ -13,8 +12,8 @@
     <td>{{ bill.amount | currency}}</td>
     <td>{{ bill.date | date:'MM/dd/yyyy' }}</td>
     <td>
-      <button class="button" class="button"  data-ng-click="editing = true" title="Edit">Edit</button>
-      <button class="button" data-ng-click="removeExpense()" title="Delete">Delete</button>
+      <button data-ng-click="editing = true" title="Edit">Edit</button>
+      <button data-ng-click="removeExpense()" title="Delete">Delete</button>
     </td>
   </tr>
 </table>
@@ -55,7 +54,7 @@
   <input type="text" data-ng-model="payee" placeholder="Payee">
   <input type="number" min="0.01" step="0.01" data-ng-model="amount" placeholder="Amount">
   <input type="date" data-ng-model="date" placeholder="Payment Date">
-  <button class="button" data-ng-click="addNewExpense()">Add Expense</button>
+  <button data-ng-click="addNewExpense()">Add Expense</button>
 </form>
 
 <pre>{{ bills }}</pre>
