@@ -51,7 +51,16 @@ personalWebsite.config(['$stateProvider', '$urlRouterProvider',  function ($stat
         title: 'Contact Jason Rahm',
         description: 'Fill out the form to send an email to Jason Rahm.'
       }
-    });
+    })
+    .state('budget', {
+        url: '/budget',
+        templateUrl: 'views/budget.html',
+        controller: 'budgetController',
+        data: {
+          title: 'Budget Application',
+          description: 'Determine a monthly budget based on your income and expected bills.'
+        }
+      });
   
   $urlRouterProvider.otherwise('/');
   
