@@ -30,8 +30,6 @@ button,
   color: #fff; 
 }
 
-button:focus,
-.button:focus,
 button:hover,
 .button:hover {
   background-color: #dfdfdf;
@@ -169,7 +167,8 @@ table {
   width: 100%;
 }
 
-table td {
+td,
+th {
   padding: 8px;
 }
 

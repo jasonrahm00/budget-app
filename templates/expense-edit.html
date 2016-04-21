@@ -1,0 +1,15 @@
+<form>      
+  <select data-ng-model="bill.category">
+    <option data-ng-repeat="category in categories | orderBy: category">{{ category }}</option>
+  </select>
+  <input type="text" data-ng-model="bill.payee" placeholder="Payee">
+  <input type="number" min="0.01" step="0.01" data-ng-model="bill.amount" placeholder="Amount">
+  <input type="date" data-ng-model="bill.date" placeholder="Payment Date">
+  <button data-ng-click="editing = false" title="Save">Save</button>
+  <button data-ng-click="removeExpense()" title="Delete">Delete</button>
+  <button data-ng-click="cancel()" title="Cancel">Cancel</button>
+</form>
+
+<!-- 
+  Need to use resolve method to pass data to modal controller and then back to budget controller to update bill via modal... I think.
+-->

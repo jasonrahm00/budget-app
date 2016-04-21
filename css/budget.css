@@ -1,7 +1,96 @@
-.budget {
-  display: flex;
+/************************************** 
+  BASE ELEMENT STYLES
+**************************************/
+
+/* ---- Budget Table Defaults ---- */
+
+.budget table {
+  background: #fff;
+  border: 1px solid #ddd;
 }
 
-.budget h2 {
+.budget td {
+  border-bottom: 1px solid #ddd;
+}
+
+.budget td,
+.budget th {
+  border-right: 1px solid #ddd; 
+}
+
+.summary-table td {
+  width: 50%;
+}
+
+.summary-table td:first-child {
+  font-weight: bold;
+}
+
+/* ---- Expenses Table ---- */
+
+.expenses-table td {
+  border-top: 1px solid #ddd; 
+  border-bottom: 0;
+}
+
+.add-bill select,
+.expenses-table th:first-child,
+.expenses-table td:first-child {
+  width: 15%;
+}
+
+.expenses-table th:nth-child(2),
+.expenses-table td:nth-child(2) {
+  width: 30%;
+}
+
+.expenses-table th:last-child,
+.expenses-table td:last-child {
+  width: 15%;
+}
+
+/* ---- Form Elements ---- */
+
+.add-bill input {
+  display: inline-block;
+}
+
+.add-bill select,
+.add-bill button {
+  height: 36px;
+}
+
+.add-bill input:nth-child(2) {
+  width: 29%;
+}
+
+.add-bill input:nth-child(3) {
+  width: 16%;
+}
+
+.add-bill input:nth-child(4) {
+  width: 24%;
+}
+
+/************************************** 
+  MEDIA QUERIES
+**************************************/
+
+@media (min-width: 796px) {
+  header p {
+    float: left;
+    width: 65%;
+  }
+  
+  .summary-table {
+    float: right;
+    width: 30%;
+  }
+  
+  header:after {
+    clear: both;
+    content: "";
+    display: table;
+  }
   
 }
