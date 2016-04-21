@@ -32,7 +32,7 @@
     <td>{{ bill.amount | currency}}</td>
     <td>{{ bill.date | date:'MM/dd/yyyy' }}</td>
     <td>
-      <button data-ng-click="openModal()" title="Edit">Edit</button>
+      <button data-ng-click="openModal(bill.payee)" title="Edit">Edit</button>
       <button data-ng-click="removeExpense()" title="Delete">Delete</button>
     </td>
   </tr>

@@ -4,82 +4,20 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
     VARIABLE DECLARATIONS
   **************************/
   
-  $scope.bills = []; 
+  $scope.bills = [
+    {
+      category: 'Cell Phone', 
+      payee: 'Verizon', 
+      amount: 100
+    },
+    {
+      category: 'Credit Card', 
+      payee: 'Commerce Bank', 
+      amount: 250
+    }
+  ]; 
   
   $scope.billCategories = ['Rent', 'Credit Card', 'Internet', 'Life Insurance', 'Car Insurance', 'Restaurant', 'Entertainment', 'Miscellaneous', 'Savings', 'Groceries', 'Student Loans', 'Cell Phone', 'Mortgage', 'Investments', 'Retirement', 'Health Insurance', 'Gasoline', 'Utilities'];
-
-// Adding parent category/groups to bill categories for sorting. This should become a factory to keep this controller clean.
-//  $scope.billCategories = [ 
-//    {
-//      group: 'Living Expenses',
-//      category: 'Rent'
-//    },
-//    {
-//      group: 'Debt',
-//      category: 'Credit Card'
-//    },
-//    {
-//      group: 'Living Expenses',
-//      category: 'Internet'
-//    },
-//    {
-//      group: 'Insurance',
-//      category: 'Life Insurance'
-//    },
-//    {
-//      group: 'Insurance',
-//      category: 'Car Insurance',
-//    },
-//    {
-//      group: 'Social',
-//      category: 'Restaurant'
-//    },
-//    {
-//      group: 'Social',
-//      category: 'Entertainment'
-//    },
-//    {
-//      group: 'Miscellaneous',
-//      category: 'Miscellaneous'
-//    },
-//    {
-//      group: 'Investment',
-//      category: 'Savings'
-//    },
-//    {
-//      group: 'Living Expenses',
-//      category: 'Groceries'
-//    },
-//    {
-//      group: 'Debt',
-//      category: 'Studen Loans'
-//    },
-//    {
-//      group: 'Living Expenses',
-//      category: 'Cell Phone'
-//    },
-//    {
-//      group: 'Living Expenses',
-//      category: 'Groceries'
-//    },
-//    {
-//      group: 'Investment',
-//      category: 'Retirement'
-//    },
-//    {
-//      group: 'Insurance',
-//      category: 'Health Insurance'
-//    },
-//    {
-//      group: 'Living Expenses',
-//      category: 'Utilities'
-//    },
-//    {
-//      group: 'Commute',
-//      category: 'Gasoline'
-//    }
-//  ];
-  
   
   /**************************
     FUNCTIONS
@@ -111,13 +49,26 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
   };
   
   //This function opens the ui.bootstrap modal
-  $scope.openModal = function () {      
+  $scope.openModal = function (payee) {      
+    
+    var billToEdit;
+    
+    for(var i = 0; i < $scope.bills.length; i += 1) {
+      if($scope.bills[i].payee === payee) {
+        var billToEdit = $scope.bills[i];
+      }
+    }
     
     //Opening the modal creates a modal instance which has an open() method into which you can pass various properties
     var modalInstance = $uibModal.open({
       backdrop: 'static', // Static setting prevents you from closing modal when clicking on backdrop
       controller: 'expenseEditController', //A separate controller is needed for the actual modal instance
-      templateUrl: '/templates/expense-edit.html' //The template for the modal window
+      templateUrl: '/templates/expense-edit.html', //The template for the modal window
+      resolve: {
+        bill: function () {
+          return billToEdit;
+        }
+      }
     });
     
   };  
