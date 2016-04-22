@@ -16,7 +16,7 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
     {
       billId: createLedgerEntryId(),
       category: 'Credit Card', 
-      payee: 'Commerce Bank', 
+      payee: 'Bank, 
       amount: 250
     }
   ]; 
@@ -26,6 +26,8 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
   /**************************
     FUNCTIONS
   **************************/
+  
+  //Most of these functions will need to become factories so they can be reused with the Income portion
   
   //Calculate total expenses using functional programming .reduce and shorthand (y = current bill being iterated over)
   var calculateExpenses = function () {
@@ -72,6 +74,7 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
     var billToEdit;
     
     //Iterate over every object in the bills array to find the object with a matching bill Id
+    //If the bill Ids match, the object is assigned to the billToEdit category to be passed to the modal
     for(var i = 0; i < $scope.bills.length; i += 1) {
       if($scope.bills[i].billId === billId) {
         var billToEdit = $scope.bills[i];
@@ -84,7 +87,7 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
       controller: 'expenseEditController', //A separate controller is needed for the actual modal instance
       templateUrl: '/templates/expense-edit.html', //The template for the modal window
       resolve: {
-        bill: function () {
+        bill: function () { //The billToEdit object is assigned to the 'bill' key which is passed to the modal instance controller as a dependency
           return billToEdit;
         }
       }
