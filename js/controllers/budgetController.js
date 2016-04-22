@@ -4,13 +4,17 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
     VARIABLE DECLARATIONS
   **************************/
   
+  var ledgerEntryIds = [];
+  
   $scope.bills = [
     {
+      billId: createLedgerEntryId(),
       category: 'Cell Phone', 
       payee: 'Verizon', 
       amount: 100
     },
     {
+      billId: createLedgerEntryId(),
       category: 'Credit Card', 
       payee: 'Commerce Bank', 
       amount: 250
@@ -31,9 +35,22 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
   //Call the calculateExpenses function when the controller loads to gain the inital value if there are defaults set in the $scope.bills array
   calculateExpenses();
   
+  //Generate unique ID for each bill so it can be referenced when editing
+  function createLedgerEntryId () {
+    var newId = Math.floor(Math.random() * 10000);
+    if(ledgerEntryIds.indexOf(newId) > -1) {
+      createLedgerEntryId();
+    } else {
+      ledgerEntryIds.push(newId);
+      return newId;
+    }
+  }  
+  
   //Add New Expense by pushing the values to the bills array and resetting the values in the form to empty afterwards. Also the calculate expenses function is triggered to update that value everywhere
   $scope.addNewExpense = function () {
-    $scope.bills.push({category:$scope.selectedCategory, payee: $scope.payee, amount: $scope.amount, date: $scope.date});
+    $scope.billId = createLedgerEntryId();
+    $scope.bills.push({billId: $scope.billId, category: $scope.selectedCategory, payee: $scope.payee, amount: $scope.amount, date: $scope.date});
+    $scope.billId = '';
     $scope.payee = '';
     $scope.amount = '';
     $scope.selectedCategory = '';
@@ -49,12 +66,14 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
   };
   
   //This function opens the ui.bootstrap modal
-  $scope.openModal = function (payee) {      
+  //Payee is passed in from the click funcion on the button
+  $scope.openModal = function (billId) {      
     
     var billToEdit;
     
+    //Iterate over every object in the bills array to find the object with a matching bill Id
     for(var i = 0; i < $scope.bills.length; i += 1) {
-      if($scope.bills[i].payee === payee) {
+      if($scope.bills[i].billId === billId) {
         var billToEdit = $scope.bills[i];
       }
     }
@@ -71,6 +90,6 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
       }
     });
     
-  };  
+  }; 
   
 }]);
