@@ -1,6 +1,6 @@
-<form>      
-  <select data-ng-model="selectedCategory">
-    <option data-ng-repeat="billCategory in billCategories | orderBy: category">{{ billCategory }}</option>
+<form class="edit-bill">      
+  <select data-ng-model="selectedCategory" data-ng-options="billCategory.name for billCategory in billCategories | orderBy: 'name'">
+    <option value="" disabled>-- Bill Category --</option>
   </select>
   <input type="text" data-ng-model="bill.payee" placeholder="Payee">
   <input type="number" min="0.01" step="0.01" data-ng-model="bill.amount" placeholder="Amount">

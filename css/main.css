@@ -25,6 +25,7 @@ body {
 button,
 .button {
   background-color: #002E64;
+  border: 1px solid #ccc;
   border-radius: 4px;
   font-weight: bold;
   color: #fff; 
@@ -211,7 +212,7 @@ h4.panel-title a:focus {
   background-color: #002E64;
 }
 
-/* ---- Contact Form ---- */
+/* ---- Forms ---- */
 
 label {
   display: block;
@@ -228,6 +229,15 @@ textarea {
 
 label span {
   color: red;
+}
+
+select {
+  border-color: #ccc;
+  border-radius: 5px;
+}
+
+select:focus {
+  outline: 0px !important;
 }
 
 

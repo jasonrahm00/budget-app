@@ -1,71 +1,70 @@
-// Adding parent category/groups to bill categories for sorting.
-//  $scope.billCategories = [ 
-//    {
-//      group: 'Living Expenses',
-//      category: 'Rent'
-//    },
-//    {
-//      group: 'Debt',
-//      category: 'Credit Card'
-//    },
-//    {
-//      group: 'Living Expenses',
-//      category: 'Internet'
-//    },
-//    {
-//      group: 'Insurance',
-//      category: 'Life Insurance'
-//    },
-//    {
-//      group: 'Insurance',
-//      category: 'Car Insurance',
-//    },
-//    {
-//      group: 'Social',
-//      category: 'Restaurant'
-//    },
-//    {
-//      group: 'Social',
-//      category: 'Entertainment'
-//    },
-//    {
-//      group: 'Miscellaneous',
-//      category: 'Miscellaneous'
-//    },
-//    {
-//      group: 'Investment',
-//      category: 'Savings'
-//    },
-//    {
-//      group: 'Living Expenses',
-//      category: 'Groceries'
-//    },
-//    {
-//      group: 'Debt',
-//      category: 'Studen Loans'
-//    },
-//    {
-//      group: 'Living Expenses',
-//      category: 'Cell Phone'
-//    },
-//    {
-//      group: 'Living Expenses',
-//      category: 'Groceries'
-//    },
-//    {
-//      group: 'Investment',
-//      category: 'Retirement'
-//    },
-//    {
-//      group: 'Insurance',
-//      category: 'Health Insurance'
-//    },
-//    {
-//      group: 'Living Expenses',
-//      category: 'Utilities'
-//    },
-//    {
-//      group: 'Commute',
-//      category: 'Gasoline'
-//    }
-//  ];
+$scope.billCategories = [ 
+  {
+    group: 'Living Expenses',
+    name: 'Rent'
+  },
+  {
+    group: 'Debt',
+    name: 'Credit Card'
+  },
+  {
+    group: 'Living Expenses',
+    name: 'Internet'
+  },
+  {
+    group: 'Insurance',
+    name: 'Life Insurance'
+  },
+  {
+    group: 'Insurance',
+    name: 'Car Insurance',
+  },
+  {
+    group: 'Social',
+    name: 'Restaurant'
+  },
+  {
+    group: 'Social',
+    name: 'Entertainment'
+  },
+  {
+    group: 'Miscellaneous',
+    name: 'Miscellaneous'
+  },
+  {
+    group: 'Investment',
+    name: 'Savings'
+  },
+  {
+    group: 'Living Expenses',
+    name: 'Groceries'
+  },
+  {
+    group: 'Debt',
+    name: 'Studen Loans'
+  },
+  {
+    group: 'Living Expenses',
+    name: 'Cell Phone'
+  },
+  {
+    group: 'Living Expenses',
+    name: 'Groceries'
+  },
+  {
+    group: 'Investment',
+    name: 'Retirement'
+  },
+  {
+    group: 'Insurance',
+    name: 'Health Insurance'
+  },
+  {
+    group: 'Living Expenses',
+    name: 'Utilities'
+  },
+  {
+    group: 'Commute',
+    name: 'Gasoline'
+  }
+];

@@ -33,7 +33,6 @@
   border-bottom: 0;
 }
 
-.add-bill select,
 .expenses-table th:first-child,
 .expenses-table td:first-child {
   width: 15%;
@@ -51,32 +50,64 @@
 
 /* ---- Form Elements ---- */
 
-.add-bill input {
-  display: inline-block;
-}
-
 .add-bill select,
 .add-bill button {
   height: 36px;
 }
 
-.add-bill input:nth-child(2) {
-  width: 29%;
+select {
+  margin-bottom: 10px;
 }
 
-.add-bill input:nth-child(3) {
-  width: 16%;
+/* ---- Tab Browsing ---- */
+
+#tabs li {
+  display: inline-block;
 }
 
-.add-bill input:nth-child(4) {
-  width: 24%;
+#tabs ul {
+  margin-bottom: 0;
+  padding: 0;
 }
+
+#tabs>ul li {
+  background: #002E64;
+  border: 1px solid #ccc;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom: none;
+}
+
+#tabs ul>li a {
+  color: #a9a9a9;
+  display: block;
+  padding: 10px 15px;
+}
+
+#tabs>div {
+  border: 1px solid #ccc;
+  border-radius: 5pxl;
+  padding: 0 10px 10px;
+}
+
+#tabs>ul li:hover,
+#tabs>ul li.ui-state-active {
+  background:#dfdfdf;
+}
+
+#tabs>ul li:hover a,
+#tabs>ul li.ui-state-active a {
+  color: #002E64;
+}
+
+
 
 /************************************** 
   MEDIA QUERIES
 **************************************/
 
 @media (min-width: 796px) {
+  
   header p {
     float: left;
     width: 65%;
@@ -91,6 +122,28 @@
     clear: both;
     content: "";
     display: table;
+  }
+  
+  /* ---- Form Elements ---- */
+
+  .add-bill select {
+    width: 15%;  
+  }
+
+  .add-bill input {
+    display: inline-block;
+  }
+
+  .add-bill input:nth-child(2) {
+    width: 29%;
+  }
+
+  .add-bill input:nth-child(3) {
+    width: 16%;
+  }
+
+  .add-bill input:nth-child(4) {
+    width: 24%;
   }
   
 }

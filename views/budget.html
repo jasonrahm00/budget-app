@@ -1,6 +1,6 @@
 <header>
   <h1>Personal Budget</h1>  
-  <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt.</p>
+  <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus.</p>
   <table class="summary-table" data-ng-init="calculateExpenses()">
     <tr>
       <td>Available Funds</td>
@@ -17,36 +17,60 @@
   </table>
 </header>
 
-<h2>Expenses</h2>
-<table class="expenses-table">
-  <tr>
-    <th>Category</th>
-    <th>Payee</th>
-    <th>Amount</th>
-    <th>Payment Date</th>
-    <th>Edit</th>
-  </tr>
-  <tr data-ng-repeat="bill in bills | orderBy: 'date'">
-    <td>{{ bill.category }}</td>
-    <td>{{ bill.payee }}</td>
-    <td>{{ bill.amount | currency}}</td>
-    <td>{{ bill.date | date:'MM/dd/yyyy' }}</td>
-    <td>
-      <button data-ng-click="openModal(bill.billId)" title="Edit">Edit</button>
-      <button data-ng-click="removeExpense()" title="Delete">Delete</button>
-    </td>
-  </tr>
-</table>
+<div id="tabs">
+  <ul>
+    <li><a href="#income">Income</a></li>
+    <li><a href="#expenses">Expenses</a></li>
+    <li><a href="#report">Budget Report</a></li>
+  </ul>
+  
+  <!-- Income Tab -->
+  <div id="income">
+    <h2>Income</h2>
+  </div>
+  
+  <!-- Expenses Tab -->
+  <div id="expenses">
+    <h2>Expenses</h2>
+    <table class="expenses-table">
+      <tr>
+        <th>Category</th>
+        <th>Payee</th>
+        <th>Amount</th>
+        <th>Payment Date</th>
+        <th>Edit</th>
+      </tr>
+      <tr data-ng-repeat="bill in bills | orderBy: 'date'">
+        <td>{{ bill.billCategory.name }}</td>
+        <td>{{ bill.payee }}</td>
+        <td>{{ bill.amount | currency}}</td>
+        <td>{{ bill.date | date:'MM/dd/yyyy' }}</td>
+        <td>
+          <button data-ng-click="openModal(bill.billId)" title="Edit">Edit</button>
+          <button data-ng-click="removeExpense()" title="Delete">Delete</button>
+        </td>
+      </tr>
+    </table>
+    
+    <h3>Add New Bill</h3>
+    <form class="add-bill">
+      <select data-ng-model="selectedCategory" data-ng-options="billCategory.name for billCategory in billCategories | orderBy: 'name'">
+        <option value="" disabled>-- Bill Category --</option>
+      </select>
+      <input type="text" data-ng-model="payee" placeholder="Payee">
+      <input type="number" min="0.01" step="0.01" data-ng-model="amount" placeholder="Amount">
+      <input type="date" data-ng-model="date" placeholder="Payment Date">
+      <button data-ng-click="addNewExpense()">Add</button>
+    </form>  
+  </div>
+  
+  <!-- Budget Report Tab -->
+  <div id="report">
+    <h2>Budget Report</h2>
+  </div>
+</div>
 
-<!-- Add New Bill -->
-<form class="add-bill">
-  <select data-ng-model="selectedCategory">
-    <option data-ng-repeat="billCategory in billCategories | orderBy: category">{{ billCategory }}</option>
-  </select>
-  <input type="text" data-ng-model="payee" placeholder="Payee">
-  <input type="number" min="0.01" step="0.01" data-ng-model="amount" placeholder="Amount">
-  <input type="date" data-ng-model="date" placeholder="Payment Date">
-  <button data-ng-click="addNewExpense()">Add</button>
-</form>
-
-<pre>{{ bills }}</pre>
+<pre>
+  {{ bills }}<br>
+  {{ income }}
+</pre>

@@ -1,3 +1,7 @@
+/***********************************************
+  MAIN BUDGET CONTROLLER
+***********************************************/
+
 personalWebsite.controller('budgetController', ['$scope', '$uibModal', function ($scope, $uibModal) {
   
   /**************************
@@ -9,25 +13,101 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
   $scope.bills = [
     {
       billId: createLedgerEntryId(),
-      category: 'Cell Phone', 
+      billCategory: {
+        name: 'Cell Phone'
+      }, 
       payee: 'Verizon', 
       amount: 100
     },
     {
       billId: createLedgerEntryId(),
-      category: 'Credit Card', 
-      payee: 'Bank, 
+      billCategory: {
+        name: 'Credit Card'
+      },  
+      payee: 'Bank', 
       amount: 250
     }
   ]; 
   
-  $scope.billCategories = ['Rent', 'Credit Card', 'Internet', 'Life Insurance', 'Car Insurance', 'Restaurant', 'Entertainment', 'Miscellaneous', 'Savings', 'Groceries', 'Student Loans', 'Cell Phone', 'Mortgage', 'Investments', 'Retirement', 'Health Insurance', 'Gasoline', 'Utilities'];
+  $scope.billCategories = [ 
+    {
+      group: 'Living Expenses',
+      name: 'Rent'
+    },
+    {
+      group: 'Debt',
+      name: 'Credit Card'
+    },
+    {
+      group: 'Living Expenses',
+      name: 'Internet'
+    },
+    {
+      group: 'Insurance',
+      name: 'Life Insurance'
+    },
+    {
+      group: 'Insurance',
+      name: 'Car Insurance',
+    },
+    {
+      group: 'Social',
+      name: 'Restaurant'
+    },
+    {
+      group: 'Social',
+      name: 'Entertainment'
+    },
+    {
+      group: 'Miscellaneous',
+      name: 'Miscellaneous'
+    },
+    {
+      group: 'Investment',
+      name: 'Savings'
+    },
+    {
+      group: 'Living Expenses',
+      name: 'Groceries'
+    },
+    {
+      group: 'Debt',
+      name: 'Studen Loans'
+    },
+    {
+      group: 'Living Expenses',
+      name: 'Cell Phone'
+    },
+    {
+      group: 'Living Expenses',
+      name: 'Groceries'
+    },
+    {
+      group: 'Investment',
+      name: 'Retirement'
+    },
+    {
+      group: 'Insurance',
+      name: 'Health Insurance'
+    },
+    {
+      group: 'Living Expenses',
+      name: 'Utilities'
+    },
+    {
+      group: 'Commute',
+      name: 'Gasoline'
+    }
+  ];
   
   /**************************
     FUNCTIONS
   **************************/
   
-  //Most of these functions will need to become factories so they can be reused with the Income portion
+  //jQuery tab method used to trigger navigation to each tab
+  $(function() {
+    $( "#tabs" ).tabs();
+  });
   
   //Calculate total expenses using functional programming .reduce and shorthand (y = current bill being iterated over)
   var calculateExpenses = function () {
@@ -51,7 +131,7 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
   //Add New Expense by pushing the values to the bills array and resetting the values in the form to empty afterwards. Also the calculate expenses function is triggered to update that value everywhere
   $scope.addNewExpense = function () {
     $scope.billId = createLedgerEntryId();
-    $scope.bills.push({billId: $scope.billId, category: $scope.selectedCategory, payee: $scope.payee, amount: $scope.amount, date: $scope.date});
+    $scope.bills.push({billId: $scope.billId, billCategory: $scope.selectedCategory, payee: $scope.payee, amount: $scope.amount, date: $scope.date});
     $scope.billId = '';
     $scope.payee = '';
     $scope.amount = '';
@@ -74,7 +154,7 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
     var billToEdit;
     
     //Iterate over every object in the bills array to find the object with a matching bill Id
-    //If the bill Ids match, the object is assigned to the billToEdit category to be passed to the modal
+    //If the bill Ids match, the object is assigned to the billToEdit category to be used in the modal.open() method and passed to the modal for editing
     for(var i = 0; i < $scope.bills.length; i += 1) {
       if($scope.bills[i].billId === billId) {
         var billToEdit = $scope.bills[i];
@@ -83,16 +163,37 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
     
     //Opening the modal creates a modal instance which has an open() method into which you can pass various properties
     var modalInstance = $uibModal.open({
-      backdrop: 'static', // Static setting prevents you from closing modal when clicking on backdrop
+      backdrop: 'static', //Static setting prevents you from closing modal when clicking on backdrop
       controller: 'expenseEditController', //A separate controller is needed for the actual modal instance
-      templateUrl: '/templates/expense-edit.html', //The template for the modal window
+      templateUrl: 'templates/expense-edit.html', //The template for the modal window
       resolve: {
-        bill: function () { //The billToEdit object is assigned to the 'bill' key which is passed to the modal instance controller as a dependency
+        bill: function () { //The billToEdit object is assigned to 'bill' which is passed to the modal instance controller as a dependency
           return billToEdit;
+        },
+        categories: function () {
+          return $scope.billCategories;
         }
       }
     });
     
   }; 
+  
+}]);
+
+
+/***********************************************
+  MODAL INSTANCE CONTROLLER
+***********************************************/
+
+personalWebsite.controller('expenseEditController', ['$scope', '$uibModalInstance', 'bill', 'categories', function ($scope, $uibModalInstance, bill, categories) {
+  
+  //The bill object from the modal open function is assigned to the scope so the values can be displayed and edited
+  $scope.bill = bill;
+  
+  $scope.billCategories = categories;
+  
+  $scope.saveClose = function () {  
+    $uibModalInstance.dismiss('cancel');
+  };
   
 }]);
