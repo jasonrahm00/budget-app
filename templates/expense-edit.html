@@ -1,5 +1,5 @@
 <form class="edit-bill">      
-  <select data-ng-model="selectedCategory" data-ng-options="billCategory.name group by billCategory.group for billCategory in billCategories | orderBy: ['group', 'name']">
+  <select data-ng-model="bill.category" data-ng-options="billCategory.name group by billCategory.group for billCategory in billCategories | orderBy: ['group', 'name']">
     <option value="" disabled>-- Bill Category --</option>
   </select>
   <input type="text" data-ng-model="bill.payee" placeholder="Payee">

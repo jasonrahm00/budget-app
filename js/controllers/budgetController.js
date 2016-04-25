@@ -8,26 +8,26 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
     VARIABLE DECLARATIONS
   **************************/
   
-  $scope.negativeFunds = false;
+  $scope.totalExpenses; $scope.totalIncome; $scope.remainingFunds; $scope.ledgerId; $scope.payee; $scope.amount; $scope.selectedCategory; $scope.date; $scope.incomeSource;
   
-  $scope.totalExpenses, $scope.totalIncome;
-  
-  var ledgerEntryIds = [];
+  $scope.ledgerEntryId = 100;
   
   $scope.income = [];
   
   $scope.bills = [
     {
-      billId: createLedgerEntryId(),
-      billCategory: {
+      ledgerId: createLedgerEntryId(),
+      category: {
+        group: 'Living Expenses',
         name: 'Cell Phone'
       }, 
       payee: 'Verizon', 
       amount: 100
     },
     {
-      billId: createLedgerEntryId(),
-      billCategory: {
+      ledgerId: createLedgerEntryId(),
+      category: {
+        group: 'Debt',
         name: 'Credit Card'
       },  
       payee: 'Bank', 
@@ -54,7 +54,7 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
     },
     {
       group: 'Insurance',
-      name: 'Car Insurance',
+      name: 'Car Insurance'
     },
     {
       group: 'Social',
@@ -97,41 +97,13 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
       name: 'Utilities'
     },
     {
-      group: 'Commute',
+      group: 'Travel',
       name: 'Gasoline'
     },
     {
       group: 'Housing',
       name: 'Mortgage'
-    },
-    {
-      group: 'Crime',
-      name: 'Hooker'
-    },
-    {
-      group: 'Crime',
-      name: 'Drugs'
-    },
-    {
-      group: 'Crime',
-      name: 'Bank Heist'
-    },
-    {
-      group: 'Gambling',
-      name: 'Horse Track'
-    },
-    {
-      group: 'Gambling',
-      name: 'Vegas'
-    },
-    {
-      group: 'Crime',
-      name: 'Kickback'
-    },
-    {
-      group: 'Crime',
-      name: 'Ransom'
-    } 
+    }
   ];
   
   $scope.incomeCategories = [
@@ -148,16 +120,8 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
       name: 'Sale of Stock'
     },
     {
-      group: 'Crime',
-      name: 'Bank Heist'
-    },
-    {
-      group: 'Crime',
-      name: 'Kickback'
-    },
-    {
       group: 'Assistance',
-      name: 'Parents'
+      name: 'Family'
     },
     {
       group: 'Retirement',
@@ -184,24 +148,12 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
       name: 'Miscellaneous'
     },
     {
-      group: 'Crime',
-      name: 'Ransom'
-    },
-    {
-      group: 'Gambling',
-      name: 'Horse Track'
-    },
-    {
-      group: 'Gambling',
-      name: 'Vegas'
-    },
-    {
       group: 'Assistance',
       name: 'Disability Insurance'
     },
     {
-      group: 'Crime',
-      name: 'Hooker'
+      group: 'Salary',
+      name: 'Business Income'
     }
   ]
   
@@ -214,90 +166,111 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
     $( "#tabs" ).tabs();
   });
   
-  var checkAmount = function (x) {
-    if(parseInt(x) > 0) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-  
-  //Calculate total expenses using functional programming .reduce and shorthand (y = current bill being iterated over)
+  //Calculate total expenses using functional programming .reduce and shorthand (y = current object being iterated over)
   var calculateExpenses = function () {
     $scope.totalExpenses = $scope.bills.reduce((x,y) => x + y.amount, 0);
     $scope.totalIncome = $scope.income.reduce((x,y) => x + y.amount, 0);
     $scope.remainingFunds = $scope.totalIncome - $scope.totalExpenses;
   }; 
   
-  //Call the calculateExpenses function when the controller loads to gain the inital value if there are defaults set in the $scope.bills array
+  //Call the calculateExpenses function when the controller loads to gain the inital value if there are default bills/sources of income set
   calculateExpenses();
   
-  //Generate unique ID for each bill so it can be referenced when editing
-  function createLedgerEntryId () {
-    var newId = Math.floor(Math.random() * 10000);
-    if(ledgerEntryIds.indexOf(newId) > -1) {
-      createLedgerEntryId();
+  //The reusable resetValues() function clears all of the data in the bill/income creation form once the new object is created
+  var resetValues = function() {
+    $scope.amount = null;
+    $scope.ledgerId = '';
+    $scope.date = '';
+    $scope.incomeSource = '';
+    $scope.payee = '';
+    $scope.selectedCategory = '';
+  }
+  
+  //The checkAmount function is called whenever a new bill or income entry is added.
+  //The function runs the parseInt() method on the input field value. If nothing or a negative value is entered, the function will evaluate to false and trigger an alert box
+  var checkAmount = function (x) {
+    if(parseInt(x) > 0) {
+      return true;
     } else {
-      ledgerEntryIds.push(newId);
-      return newId;
+      return false;
     }
   }  
   
-  //Add New Expense and income by pushing the values to the bill/income array and resetting the values in the form to empty afterwards. Also the calculate expenses function is triggered to update that value everywhere
-
-  $scope.addNewExpense = function () {
-    if(!checkAmount($scope.amount)) {
-      alert ("Please add an amount")
-    } else {
-      $scope.billId = createLedgerEntryId();
-      $scope.bills.push({billId: $scope.billId, billCategory: $scope.selectedCategory, payee: $scope.payee, amount: $scope.amount, date: $scope.date});
-      $scope.billId = '';
-      $scope.payee = '';
-      $scope.amount = '';
-      $scope.selectedCategory = '';
-      $scope.date = '';
-      calculateExpenses();
-    }
-  };
+  //Generate unique ID for each ledger entry (bill/source of income) so it can be referenced when editing
+  function createLedgerEntryId () {
+    var newId = 0;
+    newId = $scope.ledgerEntryId += 1;
+    return newId;
+  }  
   
-  $scope.addNewIncome = function () {
-    if(!checkAmount($scope.amount)) {
-      alert ("Please add an amount")
-    } else {
-      $scope.incomeId = createLedgerEntryId();
-      $scope.income.push({incomeId: $scope.incomeId, incomeCategory: $scope.selectedCategory, incomeSource: $scope.incomeSource, amount: $scope.amount, date: $scope.date});
-      $scope.incomeId = '';
-      $scope.selectedCategory = '';
-      $scope.incomeSource = '';
-      $scope.amount = '';
-      $scope.date = '';
-      calculateExpenses();
-    }
+  /***************** newLedgerEntry Function **************************/
+  /*  
+    The newLedgerEntry function takes an 'entryType' string that is passed via the function call on the HTML 'Add' button; 'income' and 'bill' are the two possible types, currently. 
+    Before anything else happens, the checkAmount() function is called to test whether an amount ($scope.amount) has been entered into the input field. The calculateExpenses function is expecting a number value from the amount intput. If nothing is entered, the field returns 'unassigned' which will break the calculate function, so an alert tells the user to enter an amount, if it is left blank. 
+    When checkAmount evaluates to true, the function then creates a unique ledger entry ID by calling the createLedgerEntryID() function and assigns that value to the ledgerId variable.
+    Then, nested if/else statements use the injected entryType to determine whether a new bill or new income object is being created. The object is then pushed to the appropriate array, the calculateExpenses function updates the summary table and the resetValues function clears the form fields.  
+  */
+  
+  var pushNewBill = function () {
+    return $scope.bills.push({ledgerId: $scope.ledgerId, category: $scope.selectedCategory, payee: $scope.payee, amount: $scope.amount, date: $scope.date});
   }
-    
-  //Remove Expense and Income by targeting the index of the item you want to delete
-  $scope.removeExpense = function (bill) {
-    var index = $scope.bills.indexOf(bill);
-    $scope.bills.splice(index,1);
-    calculateExpenses();
-  };
   
-  $scope.removeIncome = function (income) {
-    var index = $scope.income.indexOf(income);
-    $scope.income.splice(index,1);
-    calculateExpenses();
+  var pushNewIncome = function () {
+    return $scope.income.push({ledgerId: $scope.ledgerId, category: $scope.selectedCategory, incomeSource: $scope.incomeSource, amount: $scope.amount, date: $scope.date});
+  }
+  
+  $scope.newLedgerEntry = function (entryType) {
+    if(!checkAmount($scope.amount)) {
+      alert ("Please add an Amount")
+    } else {
+      $scope.ledgerId = createLedgerEntryId();
+      if(entryType === 'bill' || entryType === 'income') {
+        if(entryType === 'bill') {
+          pushNewBill();
+          calculateExpenses();
+          resetValues();
+        } else if (entryType ==='income') {
+          pushNewIncome();
+          calculateExpenses();
+          resetValues();
+        } else {
+          resetValues();
+          console.log('The nested if/else statements testing the injected values (bill or income) failed.');
+        }
+      } else {
+        console.log('Error with newLedgerEntry function.');
+      }
+    }
   };
+      
+  /***************** removeLedgerEntry Function **************************/
+  /* 
+    This function removes the targeted income or expense objet when the delete button is clicked for that entry. The function accepts a ledgerEntry argument that is a string being passed by the click method on the Delete button. The argument tests whether the entry type is a bill or an income source and it's index is recorded by the subsequent indexOf() method. A series of if/else statments then check whether the entry type is bill or income and slices that entry from the necessary object array. After the entry is removed, the calculateExpenses function fires to update the summary tables.
+  */
+  
+  $scope.removeLedgerEntry = function (ledgerEntry) {
+    var billIndex = $scope.bills.indexOf(ledgerEntry);
+    var incomeIndex = $scope.income.indexOf(ledgerEntry);
+    if(ledgerEntry === 'bill') {
+      $scope.bills.splice(billIndex,1);
+    } else if (ledgerEntry === 'income') {
+      $scope.income.splice(incomeIndex,1);
+    } else {
+      console.log("Error with removeLedgerEntry if/else statements");
+    }
+    calculateExpenses();
+  }
   
   //This function opens the ui.bootstrap modal
-  //Payee is passed in from the click funcion on the button
-  $scope.openModal = function (billId) {      
+  //The unique billId is passed in from the click function on the 'Edit' button
+  $scope.openModal = function (ledgerId) {
     
     var billToEdit;
     
     //Iterate over every object in the bills array to find the object with a matching bill Id
     //If the bill Ids match, the object is assigned to the billToEdit category to be used in the modal.open() method and passed to the modal for editing
     for(var i = 0; i < $scope.bills.length; i += 1) {
-      if($scope.bills[i].billId === billId) {
+      if($scope.bills[i].ledgerId === ledgerId) {
         var billToEdit = $scope.bills[i];
       }
     }

@@ -36,13 +36,13 @@
         <th>Edit</th>
       </tr>
       <tr data-ng-repeat="money in income | orderBy: 'date'">
-        <td>{{ money.incomeCategory.name }}</td>
+        <td>{{ money.category.name }}</td>
         <td>{{ money.incomeSource }}</td>
         <td>{{ money.amount | currency}}</td>
         <td>{{ money.date | date:'MM/dd/yyyy' }}</td>
         <td>
           <button data-ng-click="" title="Edit">Edit</button>
-          <button data-ng-click="" title="Delete">Delete</button>
+          <button data-ng-click="removeLedgerEntry('income')">Delete</button>
         </td>
       </tr>
     </table>
@@ -53,9 +53,9 @@
         <option value="" disabled>-- Income Category --</option>
       </select>
       <input type="text" data-ng-model="incomeSource" placeholder="Source">
-      <input type="number" min="0.01" step="0.01" data-ng-model="amount" placeholder="Amount">
+      <input type="number" min="0" step="0.01" data-ng-model="amount" placeholder="Amount">
       <input type="date" data-ng-model="date">
-      <button data-ng-click="addNewIncome()">Add</button>
+      <button data-ng-click="newLedgerEntry('income')">Add</button>
     </form> 
   </div>
   
@@ -71,13 +71,13 @@
         <th>Edit</th>
       </tr>
       <tr data-ng-repeat="bill in bills | orderBy: 'date'">
-        <td>{{ bill.billCategory.name }}</td>
+        <td>{{ bill.category.name }}</td>
         <td>{{ bill.payee }}</td>
         <td>{{ bill.amount | currency}}</td>
         <td>{{ bill.date | date:'MM/dd/yyyy' }}</td>
         <td>
-          <button data-ng-click="openModal(bill.billId)" title="Edit">Edit</button>
-          <button data-ng-click="removeExpense()" title="Delete">Delete</button>
+          <button data-ng-click="openModal(bill.ledgerId)" title="Edit">Edit</button>
+          <button data-ng-click="removeLedgerEntry('bill')" title="Delete">Delete</button>
         </td>
       </tr>
     </table>
@@ -88,10 +88,11 @@
         <option value="" disabled>-- Bill Category --</option>
       </select>
       <input type="text" data-ng-model="payee" placeholder="Payee">
-      <input type="number" min="0.01" step="0.01" data-ng-model="amount" placeholder="Amount">
+      <input type="number" min="0" step="0.01" data-ng-model="amount" placeholder="Amount">
       <input type="date" data-ng-model="date">
-      <button data-ng-click="addNewExpense()">Add</button>
+      <button data-ng-click="newLedgerEntry('bill')">Add</button>
     </form>  
+  </div>
   </div>
   
   <!-- Budget Report Tab -->
@@ -102,5 +103,5 @@
 
 <pre>
   <strong>income:</strong> {{ income }}<br>
-  <strong>bills:</strong> {{ bills }}  
+  <strong>bills:</strong> {{ bills }}
 </pre>
