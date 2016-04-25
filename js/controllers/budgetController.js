@@ -103,7 +103,35 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
     {
       group: 'Housing',
       name: 'Mortgage'
-    }
+    },
+    {
+      group: 'Crime',
+      name: 'Hooker'
+    },
+    {
+      group: 'Crime',
+      name: 'Drugs'
+    },
+    {
+      group: 'Crime',
+      name: 'Bank Heist'
+    },
+    {
+      group: 'Gambling',
+      name: 'Horse Track'
+    },
+    {
+      group: 'Gambling',
+      name: 'Vegas'
+    },
+    {
+      group: 'Crime',
+      name: 'Kickback'
+    },
+    {
+      group: 'Crime',
+      name: 'Ransom'
+    } 
   ];
   
   $scope.incomeCategories = [
@@ -171,6 +199,10 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
       group: 'Assistance',
       name: 'Disability Insurance'
     },
+    {
+      group: 'Crime',
+      name: 'Hooker'
+    }
   ]
   
   /**************************
@@ -212,9 +244,10 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
   }  
   
   //Add New Expense and income by pushing the values to the bill/income array and resetting the values in the form to empty afterwards. Also the calculate expenses function is triggered to update that value everywhere
+
   $scope.addNewExpense = function () {
     if(!checkAmount($scope.amount)) {
-      alert ("Please fill the amount")
+      alert ("Please add an amount")
     } else {
       $scope.billId = createLedgerEntryId();
       $scope.bills.push({billId: $scope.billId, billCategory: $scope.selectedCategory, payee: $scope.payee, amount: $scope.amount, date: $scope.date});
@@ -229,7 +262,7 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
   
   $scope.addNewIncome = function () {
     if(!checkAmount($scope.amount)) {
-      alert ("Please fill the amount")
+      alert ("Please add an amount")
     } else {
       $scope.incomeId = createLedgerEntryId();
       $scope.income.push({incomeId: $scope.incomeId, incomeCategory: $scope.selectedCategory, incomeSource: $scope.incomeSource, amount: $scope.amount, date: $scope.date});
