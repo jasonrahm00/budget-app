@@ -28,30 +28,30 @@
 
 /* ---- Expenses Table ---- */
 
-.expenses-table td {
+.budget-table td {
   border-top: 1px solid #ddd; 
   border-bottom: 0;
 }
 
-.expenses-table th:first-child,
-.expenses-table td:first-child {
+.budget-table th:first-child,
+.budget-table td:first-child {
   width: 15%;
 }
 
-.expenses-table th:nth-child(2),
-.expenses-table td:nth-child(2) {
+.budget-table th:nth-child(2),
+.budget-table td:nth-child(2) {
   width: 30%;
 }
 
-.expenses-table th:last-child,
-.expenses-table td:last-child {
+.budget-table th:last-child,
+.budget-table td:last-child {
   width: 15%;
 }
 
 /* ---- Form Elements ---- */
 
-.add-bill select,
-.add-bill button {
+.add select,
+.add button {
   height: 36px;
 }
 
@@ -61,13 +61,13 @@ select {
 
 /* ---- Tab Browsing ---- */
 
-#tabs li {
-  display: inline-block;
-}
-
 #tabs ul {
   margin-bottom: 0;
   padding: 0;
+}
+
+#tabs li {
+  display: inline-block;
 }
 
 #tabs>ul li {
@@ -126,23 +126,23 @@ select {
   
   /* ---- Form Elements ---- */
 
-  .add-bill select {
+  .add select {
     width: 15%;  
   }
 
-  .add-bill input {
+  .add input {
     display: inline-block;
   }
 
-  .add-bill input:nth-child(2) {
+  .add input:nth-child(2) {
     width: 29%;
   }
 
-  .add-bill input:nth-child(3) {
+  .add input:nth-child(3) {
     width: 16%;
   }
 
-  .add-bill input:nth-child(4) {
+  .add input:nth-child(4) {
     width: 24%;
   }
   

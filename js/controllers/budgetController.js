@@ -8,7 +8,13 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
     VARIABLE DECLARATIONS
   **************************/
   
+  $scope.negativeFunds = false;
+  
+  $scope.totalExpenses, $scope.totalIncome;
+  
   var ledgerEntryIds = [];
+  
+  $scope.income = [];
   
   $scope.bills = [
     {
@@ -31,7 +37,7 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
   
   $scope.billCategories = [ 
     {
-      group: 'Living Expenses',
+      group: 'Housing',
       name: 'Rent'
     },
     {
@@ -79,10 +85,6 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
       name: 'Cell Phone'
     },
     {
-      group: 'Living Expenses',
-      name: 'Groceries'
-    },
-    {
       group: 'Investment',
       name: 'Retirement'
     },
@@ -91,14 +93,85 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
       name: 'Health Insurance'
     },
     {
-      group: 'Living Expenses',
+      group: 'Housing',
       name: 'Utilities'
     },
     {
       group: 'Commute',
       name: 'Gasoline'
+    },
+    {
+      group: 'Housing',
+      name: 'Mortgage'
     }
   ];
+  
+  $scope.incomeCategories = [
+    {
+      group: 'Salary',
+      name: 'Pay Check'
+    },
+    {
+      group: 'Investments',
+      name: 'Dividends'
+    },
+    {
+      group: 'Investments',
+      name: 'Sale of Stock'
+    },
+    {
+      group: 'Crime',
+      name: 'Bank Heist'
+    },
+    {
+      group: 'Crime',
+      name: 'Kickback'
+    },
+    {
+      group: 'Assistance',
+      name: 'Parents'
+    },
+    {
+      group: 'Retirement',
+      name: '401k/IRA Payments'
+    },
+    {
+      group: 'Retirement',
+      name: 'Social Security'
+    },
+    {
+      group: 'Assistance',
+      name: 'Welfare'
+    },
+    {
+      group: 'Assistance',
+      name: 'Unemployment'
+    },
+    {
+      group: 'Investments',
+      name: 'Property Sale'
+    },
+    {
+      group: 'Miscellaneous',
+      name: 'Miscellaneous'
+    },
+    {
+      group: 'Crime',
+      name: 'Ransom'
+    },
+    {
+      group: 'Gambling',
+      name: 'Horse Track'
+    },
+    {
+      group: 'Gambling',
+      name: 'Vegas'
+    },
+    {
+      group: 'Assistance',
+      name: 'Disability Insurance'
+    },
+  ]
   
   /**************************
     FUNCTIONS
@@ -109,9 +182,19 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
     $( "#tabs" ).tabs();
   });
   
+  var checkAmount = function (x) {
+    if(parseInt(x) > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
   //Calculate total expenses using functional programming .reduce and shorthand (y = current bill being iterated over)
   var calculateExpenses = function () {
     $scope.totalExpenses = $scope.bills.reduce((x,y) => x + y.amount, 0);
+    $scope.totalIncome = $scope.income.reduce((x,y) => x + y.amount, 0);
+    $scope.remainingFunds = $scope.totalIncome - $scope.totalExpenses;
   }; 
   
   //Call the calculateExpenses function when the controller loads to gain the inital value if there are defaults set in the $scope.bills array
@@ -128,22 +211,47 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
     }
   }  
   
-  //Add New Expense by pushing the values to the bills array and resetting the values in the form to empty afterwards. Also the calculate expenses function is triggered to update that value everywhere
+  //Add New Expense and income by pushing the values to the bill/income array and resetting the values in the form to empty afterwards. Also the calculate expenses function is triggered to update that value everywhere
   $scope.addNewExpense = function () {
-    $scope.billId = createLedgerEntryId();
-    $scope.bills.push({billId: $scope.billId, billCategory: $scope.selectedCategory, payee: $scope.payee, amount: $scope.amount, date: $scope.date});
-    $scope.billId = '';
-    $scope.payee = '';
-    $scope.amount = '';
-    $scope.selectedCategory = '';
-    $scope.date = '';
-    calculateExpenses();
+    if(!checkAmount($scope.amount)) {
+      alert ("Please fill the amount")
+    } else {
+      $scope.billId = createLedgerEntryId();
+      $scope.bills.push({billId: $scope.billId, billCategory: $scope.selectedCategory, payee: $scope.payee, amount: $scope.amount, date: $scope.date});
+      $scope.billId = '';
+      $scope.payee = '';
+      $scope.amount = '';
+      $scope.selectedCategory = '';
+      $scope.date = '';
+      calculateExpenses();
+    }
   };
+  
+  $scope.addNewIncome = function () {
+    if(!checkAmount($scope.amount)) {
+      alert ("Please fill the amount")
+    } else {
+      $scope.incomeId = createLedgerEntryId();
+      $scope.income.push({incomeId: $scope.incomeId, incomeCategory: $scope.selectedCategory, incomeSource: $scope.incomeSource, amount: $scope.amount, date: $scope.date});
+      $scope.incomeId = '';
+      $scope.selectedCategory = '';
+      $scope.incomeSource = '';
+      $scope.amount = '';
+      $scope.date = '';
+      calculateExpenses();
+    }
+  }
     
-  //Remove Expense by targeting the index of the bill you want to delete
+  //Remove Expense and Income by targeting the index of the item you want to delete
   $scope.removeExpense = function (bill) {
     var index = $scope.bills.indexOf(bill);
     $scope.bills.splice(index,1);
+    calculateExpenses();
+  };
+  
+  $scope.removeIncome = function (income) {
+    var index = $scope.income.indexOf(income);
+    $scope.income.splice(index,1);
     calculateExpenses();
   };
   

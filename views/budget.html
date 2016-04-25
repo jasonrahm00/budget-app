@@ -4,7 +4,7 @@
   <table class="summary-table" data-ng-init="calculateExpenses()">
     <tr>
       <td>Available Funds</td>
-      <td>{{ totalFunds | currency }}</td>
+      <td>{{ totalIncome | currency }}</td>
     </tr>
     <tr>
       <td>Expenses</td>
@@ -12,7 +12,7 @@
     </tr>
     <tr>
       <td>Remaining</td>
-      <td></td>
+      <td>{{ remainingFunds | currency }}</td>
     </tr>
   </table>
 </header>
@@ -27,12 +27,42 @@
   <!-- Income Tab -->
   <div id="income">
     <h2>Income</h2>
+    <table class="budget-table">
+      <tr>
+        <th>Category</th>
+        <th>Source</th>
+        <th>Amount</th>
+        <th>Income Date</th>
+        <th>Edit</th>
+      </tr>
+      <tr data-ng-repeat="money in income | orderBy: 'date'">
+        <td>{{ money.incomeCategory.name }}</td>
+        <td>{{ money.incomeSource }}</td>
+        <td>{{ money.amount | currency}}</td>
+        <td>{{ money.date | date:'MM/dd/yyyy' }}</td>
+        <td>
+          <button data-ng-click="" title="Edit">Edit</button>
+          <button data-ng-click="" title="Delete">Delete</button>
+        </td>
+      </tr>
+    </table>
+    
+    <h3>Add More Money</h3>
+    <form class="add">
+      <select data-ng-model="selectedCategory" data-ng-options="incomeCategory.name group by incomeCategory.group for incomeCategory in incomeCategories | orderBy: ['group', 'name']">
+        <option value="" disabled>-- Income Category --</option>
+      </select>
+      <input type="text" data-ng-model="incomeSource" placeholder="Source">
+      <input type="number" min="0.01" step="0.01" data-ng-model="amount" placeholder="Amount">
+      <input type="date" data-ng-model="date" placeholder="Income Date">
+      <button data-ng-click="addNewIncome()">Add</button>
+    </form> 
   </div>
   
   <!-- Expenses Tab -->
   <div id="expenses">
     <h2>Expenses</h2>
-    <table class="expenses-table">
+    <table class="budget-table">
       <tr>
         <th>Category</th>
         <th>Payee</th>
@@ -53,8 +83,8 @@
     </table>
     
     <h3>Add New Bill</h3>
-    <form class="add-bill">
-      <select data-ng-model="selectedCategory" data-ng-options="billCategory.name for billCategory in billCategories | orderBy: 'name'">
+    <form class="add">
+      <select data-ng-model="selectedCategory" data-ng-options="billCategory.name group by billCategory.group for billCategory in billCategories | orderBy: ['group', 'name']">
         <option value="" disabled>-- Bill Category --</option>
       </select>
       <input type="text" data-ng-model="payee" placeholder="Payee">
@@ -71,6 +101,6 @@
 </div>
 
 <pre>
-  {{ bills }}<br>
-  {{ income }}
+  <strong>income:</strong> {{ income }}<br>
+  <strong>bills:</strong> {{ bills }}  
 </pre>
