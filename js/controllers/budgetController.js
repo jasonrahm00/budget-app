@@ -11,7 +11,7 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
   $scope.totalExpenses; $scope.totalIncome; $scope.remainingFunds; $scope.ledgerId; $scope.payee; $scope.amount; $scope.selectedCategory; $scope.date; $scope.incomeSource;
   
   $scope.ledgerEntryId = 100;
-  
+
   $scope.income = [];
   
   $scope.bills = [
@@ -261,8 +261,11 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
     calculateExpenses();
   }
   
-  //This function opens the ui.bootstrap modal
-  //The unique billId is passed in from the click function on the 'Edit' button
+  /***************** Open Modal Function **************************/
+  /* 
+    This function opens the ui.bootstrap modal
+    The unique billId is passed in from the click function on the 'Edit' button
+  */
   $scope.openModal = function (ledgerId) {
     
     var billToEdit;
