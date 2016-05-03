@@ -266,40 +266,62 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
     This function opens the ui.bootstrap modal
     The unique billId is passed in from the click function on the 'Edit' button
   */
-  $scope.openModal = function (ledgerId) {
+  $scope.openModal = function (ledgerId, entryType) {
     
-    var billToEdit;
+    var incomeToEdit, billToEdit;
     
     //Iterate over every object in the bills array to find the object with a matching bill Id
     //If the bill Ids match, the object is assigned to the billToEdit category to be used in the modal.open() method and passed to the modal for editing
-    for(var i = 0; i < $scope.bills.length; i += 1) {
-      if($scope.bills[i].ledgerId === ledgerId) {
-        var billToEdit = $scope.bills[i];
-      }
-    }
-    
-    //Opening the modal creates a modal instance which has an open() method into which you can pass various properties
-    var modalInstance = $uibModal.open({
-      backdrop: 'static', //Static setting prevents you from closing modal when clicking on backdrop
-      controller: 'expenseEditController', //A separate controller is needed for the actual modal instance
-      templateUrl: 'templates/expense-edit.html', //The template for the modal window
-      resolve: {
-        bill: function () { //The billToEdit object is assigned to 'bill' which is passed to the modal instance controller as a dependency
-          return billToEdit;
-        },
-        categories: function () {
-          return $scope.billCategories;
+    if(entryType === 'bill') {
+      for(var i = 0; i < $scope.bills.length; i += 1) {
+        if($scope.bills[i].ledgerId === ledgerId) {
+          var billToEdit = $scope.bills[i];
         }
       }
-    });
-    
+
+      //Opening the modal creates a modal instance which has an open() method into which you can pass various properties
+      var modalInstance = $uibModal.open({
+        backdrop: 'static', //Static setting prevents you from closing modal when clicking on backdrop
+        controller: 'expenseEditController', //A separate controller is needed for the actual modal instance
+        templateUrl: 'templates/expense-edit.html', //The template for the modal window
+        resolve: {
+          bill: function () { //The billToEdit object is assigned to 'bill' which is passed to the modal instance controller as a dependency
+            return billToEdit;
+          },
+          categories: function () {
+            return $scope.billCategories;
+          }
+        }
+      });
+    } else if(entryType === 'income') {
+      for(var i = 0; i < $scope.income.length; i += 1) {
+        if($scope.income[i].ledgerId === ledgerId) {
+          var incomeToEdit = $scope.income[i];
+        }
+      }
+      var modalInstance = $uibModal.open({
+        backdrop: 'static', //Static setting prevents you from closing modal when clicking on backdrop
+        controller: 'incomeEditController', //A separate controller is needed for the actual modal instance
+        templateUrl: 'templates/income-edit.html', //The template for the modal window
+        resolve: {
+          income: function () { //The billToEdit object is assigned to 'bill' which is passed to the modal instance controller as a dependency
+            return incomeToEdit;
+          },
+          categories: function () {
+            return $scope.incomeCategories;
+          }
+        }
+      });
+    } else {
+      console.log("Error with openModal dependency injection if/else statements");
+    }
   }; 
   
 }]);
 
 
 /***********************************************
-  MODAL INSTANCE CONTROLLER
+  MODAL INSTANCE CONTROLLERS
 ***********************************************/
 
 personalWebsite.controller('expenseEditController', ['$scope', '$uibModalInstance', 'bill', 'categories', function ($scope, $uibModalInstance, bill, categories) {
@@ -308,6 +330,19 @@ personalWebsite.controller('expenseEditController', ['$scope', '$uibModalInstanc
   $scope.bill = bill;
   
   $scope.billCategories = categories;
+  
+  $scope.saveClose = function () {  
+    $uibModalInstance.dismiss('cancel');
+  };
+  
+}]);
+
+personalWebsite.controller('incomeEditController', ['$scope', '$uibModalInstance', 'income', 'categories', function ($scope, $uibModalInstance, income, categories) {
+  
+  //The bill object from the modal open function is assigned to the scope so the values can be displayed and edited
+  $scope.income = income;
+  
+  $scope.incomeCategories = categories;
   
   $scope.saveClose = function () {  
     $uibModalInstance.dismiss('cancel');
