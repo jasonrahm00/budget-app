@@ -283,7 +283,7 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
           entryToEdit.push($scope.income[i], 'income');
         }
       }
-    } else {console.log('entryType is not properly being passed into the openModal function. Check the ng-click on the edit button to make sure the entryType is spelled correctly and is a lowercase sting.')}
+    } else {console.log('entryType is not properly being passed into the openModal function. Check the ng-click on the edit button to make sure the entryType is spelled correctly and is a lowercase string.')}
     
     //Opening the modal creates a modal instance which has an open() method into which you can pass various properties
     var modalInstance = $uibModal.open({
@@ -313,7 +313,7 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
 
 
 /***********************************************
-  MODAL INSTANCE CONTROLLERS
+  MODAL INSTANCE CONTROLLER
 ***********************************************/
 
 personalWebsite.controller('editLedgerController', ['$scope', '$uibModalInstance', 'entry', 'billCategories', 'incomeCategories', function ($scope, $uibModalInstance, entry, billCategories, incomeCategories) {
@@ -325,7 +325,7 @@ personalWebsite.controller('editLedgerController', ['$scope', '$uibModalInstance
   $scope.incomeCategories = incomeCategories;
   
   $scope.saveClose = function () {  
-    $uibModalInstance.close($scope.entry);
+    $uibModalInstance.close();
   };
   
   $scope.cancel = function () {
