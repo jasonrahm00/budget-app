@@ -302,8 +302,13 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
         }
       }
     });
+    
+    //The result promise allows you to track when the modal closes, how it closes and execute behaviors.
+    modalInstance.result.then(function () {
+      calculateExpenses();
+    });    
   } 
-  
+
 }]);
 
 
@@ -313,14 +318,18 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
 
 personalWebsite.controller('editLedgerController', ['$scope', '$uibModalInstance', 'entry', 'billCategories', 'incomeCategories', function ($scope, $uibModalInstance, entry, billCategories, incomeCategories) {
   
-  //The bill object from the modal open function is assigned to the scope so the values can be displayed and edited
+  //The injected objects from the modal open function is assigned to the scope so the values can be displayed and edited
   $scope.entry = entry[0];
-  $scope.typeOfEntry = entry[1];
+  $scope.typeOfEntry = entry[1]; //Needs to be a string
   $scope.billCategories = billCategories;
   $scope.incomeCategories = incomeCategories;
   
   $scope.saveClose = function () {  
-    $uibModalInstance.dismiss('cancel');
+    $uibModalInstance.close($scope.entry);
+  };
+  
+  $scope.cancel = function () {
+    $uibModalInstance.dismiss();
   };
   
 }]);
