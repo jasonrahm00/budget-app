@@ -38,7 +38,7 @@
       </tr>
       <tr data-ng-repeat="money in income | orderBy: 'date'">
         <td>{{ money.category.name }}</td>
-        <td>{{ money.incomeSource }}</td>
+        <td>{{ money.payeeSource }}</td>
         <td>{{ money.amount | currency}}</td>
         <td>{{ money.date | date:'MM/dd/yyyy' }}</td>
         <td>
@@ -53,7 +53,7 @@
       <select data-ng-model="selectedCategory" data-ng-options="incomeCategory.name group by incomeCategory.group for incomeCategory in incomeCategories | orderBy: ['group', 'name']">
         <option value="" disabled>-- Income Category --</option>
       </select>
-      <input type="text" data-ng-model="incomeSource" placeholder="Source">
+      <input type="text" data-ng-model="payeeSource" placeholder="Source">
       <input type="number" min="0" step="0.01" data-ng-model="amount" placeholder="Amount">
       <input type="date" data-ng-model="date">
       <button data-ng-click="newLedgerEntry('income')">Add</button>
@@ -73,7 +73,7 @@
       </tr>
       <tr data-ng-repeat="bill in bills | orderBy: 'date'">
         <td>{{ bill.category.name }}</td>
-        <td>{{ bill.payee }}</td>
+        <td>{{ bill.payeeSource }}</td>
         <td>{{ bill.amount | currency}}</td>
         <td>{{ bill.date | date:'MM/dd/yyyy' }}</td>
         <td>
@@ -88,7 +88,7 @@
       <select data-ng-model="selectedCategory" data-ng-options="billCategory.name group by billCategory.group for billCategory in billCategories | orderBy: ['group', 'name']">
         <option value="" disabled>-- Bill Category --</option>
       </select>
-      <input type="text" data-ng-model="payee" placeholder="Payee">
+      <input type="text" data-ng-model="payeeSource" placeholder="Payee">
       <input type="number" min="0" step="0.01" data-ng-model="amount" placeholder="Amount">
       <input type="date" data-ng-model="date">
       <button data-ng-click="newLedgerEntry('bill')">Add</button>

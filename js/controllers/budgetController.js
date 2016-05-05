@@ -8,7 +8,7 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
     VARIABLE DECLARATIONS
   **************************/
   
-  $scope.totalExpenses; $scope.totalIncome; $scope.remainingFunds; $scope.ledgerId; $scope.payee; $scope.amount; $scope.selectedCategory; $scope.date; $scope.incomeSource;
+  $scope.totalExpenses; $scope.totalIncome; $scope.remainingFunds; $scope.ledgerId; $scope.payeeSource; $scope.amount; $scope.selectedCategory; $scope.date;
   
   $scope.ledgerEntryId = 100;
 
@@ -21,7 +21,7 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
         group: 'Living Expenses',
         name: 'Cell Phone'
       }, 
-      payee: 'Verizon', 
+      payeeSource: 'Verizon', 
       amount: 100
     },
     {
@@ -30,7 +30,7 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
         group: 'Debt',
         name: 'Credit Card'
       },  
-      payee: 'Bank', 
+      payeeSource: 'Bank', 
       amount: 250
     }
   ]; 
@@ -175,14 +175,13 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
   
   //Call the calculateExpenses function when the controller loads to gain the inital value if there are default bills/sources of income set
   calculateExpenses();
-  
+    
   //The reusable resetValues() function clears all of the data in the bill/income creation form once the new object is created
   var resetValues = function() {
     $scope.amount = null;
     $scope.ledgerId = '';
     $scope.date = '';
-    $scope.incomeSource = '';
-    $scope.payee = '';
+    $scope.payeeSource = '';
     $scope.selectedCategory = '';
   }
   
@@ -212,11 +211,11 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
   */
   
   var pushNewBill = function () {
-    return $scope.bills.push({ledgerId: $scope.ledgerId, category: $scope.selectedCategory, payee: $scope.payee, amount: $scope.amount, date: $scope.date});
+    return $scope.bills.push({ledgerId: $scope.ledgerId, category: $scope.selectedCategory, payeeSource: $scope.payeeSource, amount: $scope.amount, date: $scope.date});
   }
   
   var pushNewIncome = function () {
-    return $scope.income.push({ledgerId: $scope.ledgerId, category: $scope.selectedCategory, incomeSource: $scope.incomeSource, amount: $scope.amount, date: $scope.date});
+    return $scope.income.push({ledgerId: $scope.ledgerId, category: $scope.selectedCategory, payeeSource: $scope.payeeSource, amount: $scope.amount, date: $scope.date});
   }
   
   $scope.newLedgerEntry = function (entryType) {
@@ -264,58 +263,46 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
   /***************** Open Modal Function **************************/
   /* 
     This function opens the ui.bootstrap modal
-    The unique billId is passed in from the click function on the 'Edit' button
+    The unique lederlId and entry type are passed in from the click function on the 'Edit' button
+    If/Else statements check to see if the entryType is a bill or income and iterates over the matching array of objects to find the one that was clicked. That object is then assigned to the entryToEdit variable so it can bep passed to the modal.
+    When the modal is opened, a separte intance is created with its own scope, so the various dependencies need to be assigned to that local scope to allow two-way-databinding with the main budget controller 
   */
   $scope.openModal = function (ledgerId, entryType) {
     
-    var incomeToEdit, billToEdit;
+    var entryToEdit = [];
     
-    //Iterate over every object in the bills array to find the object with a matching bill Id
-    //If the bill Ids match, the object is assigned to the billToEdit category to be used in the modal.open() method and passed to the modal for editing
     if(entryType === 'bill') {
       for(var i = 0; i < $scope.bills.length; i += 1) {
         if($scope.bills[i].ledgerId === ledgerId) {
-          var billToEdit = $scope.bills[i];
+          entryToEdit.push($scope.bills[i], 'bill');
         }
       }
-
-      //Opening the modal creates a modal instance which has an open() method into which you can pass various properties
-      var modalInstance = $uibModal.open({
-        backdrop: 'static', //Static setting prevents you from closing modal when clicking on backdrop
-        controller: 'expenseEditController', //A separate controller is needed for the actual modal instance
-        templateUrl: 'templates/expense-edit.html', //The template for the modal window
-        resolve: {
-          bill: function () { //The billToEdit object is assigned to 'bill' which is passed to the modal instance controller as a dependency
-            return billToEdit;
-          },
-          categories: function () {
-            return $scope.billCategories;
-          }
-        }
-      });
-    } else if(entryType === 'income') {
+    } else if (entryType === 'income') {
       for(var i = 0; i < $scope.income.length; i += 1) {
         if($scope.income[i].ledgerId === ledgerId) {
-          var incomeToEdit = $scope.income[i];
+          entryToEdit.push($scope.income[i], 'income');
         }
       }
-      var modalInstance = $uibModal.open({
-        backdrop: 'static', //Static setting prevents you from closing modal when clicking on backdrop
-        controller: 'incomeEditController', //A separate controller is needed for the actual modal instance
-        templateUrl: 'templates/income-edit.html', //The template for the modal window
-        resolve: {
-          income: function () { //The billToEdit object is assigned to 'bill' which is passed to the modal instance controller as a dependency
-            return incomeToEdit;
-          },
-          categories: function () {
-            return $scope.incomeCategories;
-          }
+    } else {console.log('entryType is not properly being passed into the openModal function. Check the ng-click on the edit button to make sure the entryType is spelled correctly and is a lowercase sting.')}
+    
+    //Opening the modal creates a modal instance which has an open() method into which you can pass various properties
+    var modalInstance = $uibModal.open({
+      backdrop: 'static', //Static setting prevents you from closing modal when clicking on backdrop
+      controller: 'editLedgerController', //A separate controller is needed for the actual modal instance
+      templateUrl: 'templates/edit-ledger.html', //The template for the modal window
+      resolve: {
+        entry: function () { //The entryToEdit object is assigned to 'entry' which is passed to the modal instance controller as a dependency
+          return entryToEdit;
+        },
+        billCategories: function () {
+          return $scope.billCategories;
+        },
+        incomeCategories: function () {
+          return $scope.incomeCategories;
         }
-      });
-    } else {
-      console.log("Error with openModal dependency injection if/else statements");
-    }
-  }; 
+      }
+    });
+  } 
   
 }]);
 
@@ -324,25 +311,13 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
   MODAL INSTANCE CONTROLLERS
 ***********************************************/
 
-personalWebsite.controller('expenseEditController', ['$scope', '$uibModalInstance', 'bill', 'categories', function ($scope, $uibModalInstance, bill, categories) {
+personalWebsite.controller('editLedgerController', ['$scope', '$uibModalInstance', 'entry', 'billCategories', 'incomeCategories', function ($scope, $uibModalInstance, entry, billCategories, incomeCategories) {
   
   //The bill object from the modal open function is assigned to the scope so the values can be displayed and edited
-  $scope.bill = bill;
-  
-  $scope.billCategories = categories;
-  
-  $scope.saveClose = function () {  
-    $uibModalInstance.dismiss('cancel');
-  };
-  
-}]);
-
-personalWebsite.controller('incomeEditController', ['$scope', '$uibModalInstance', 'income', 'categories', function ($scope, $uibModalInstance, income, categories) {
-  
-  //The bill object from the modal open function is assigned to the scope so the values can be displayed and edited
-  $scope.income = income;
-  
-  $scope.incomeCategories = categories;
+  $scope.entry = entry[0];
+  $scope.typeOfEntry = entry[1];
+  $scope.billCategories = billCategories;
+  $scope.incomeCategories = incomeCategories;
   
   $scope.saveClose = function () {  
     $uibModalInstance.dismiss('cancel');
