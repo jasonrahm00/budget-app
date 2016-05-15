@@ -12,28 +12,18 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
   
   $scope.ledgerEntryId = 100;
 
-  $scope.income = [];
+  $scope.ledger = [
+    // Bills array $scope.ledger[0]
+    [],
+    // Income array $scope.ledger[1]
+    [],
+    // Spending array $scope.ledger[2]
+    []
+  ];
   
-  $scope.bills = [
-    {
-      ledgerId: createLedgerEntryId(),
-      category: {
-        group: 'Living Expenses',
-        name: 'Cell Phone'
-      }, 
-      payeeSource: 'Verizon', 
-      amount: 100
-    },
-    {
-      ledgerId: createLedgerEntryId(),
-      category: {
-        group: 'Debt',
-        name: 'Credit Card'
-      },  
-      payeeSource: 'Bank', 
-      amount: 250
-    }
-  ]; 
+  var bills = $scope.ledger[0];
+  
+  var income = $scope.ledger[1];
   
   $scope.billCategories = [ 
     {
@@ -168,8 +158,8 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
   
   //Calculate total expenses using functional programming .reduce and shorthand (y = current object being iterated over)
   var calculateExpenses = function () {
-    $scope.totalExpenses = $scope.bills.reduce((x,y) => x + y.amount, 0);
-    $scope.totalIncome = $scope.income.reduce((x,y) => x + y.amount, 0);
+    $scope.totalExpenses = bills.reduce((x,y) => x + y.amount, 0);
+    $scope.totalIncome = income.reduce((x,y) => x + y.amount, 0);
     $scope.remainingFunds = $scope.totalIncome - $scope.totalExpenses;
   }; 
   
@@ -211,11 +201,11 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
   */
   
   var pushNewBill = function () {
-    return $scope.bills.push({ledgerId: $scope.ledgerId, category: $scope.selectedCategory, payeeSource: $scope.payeeSource, amount: $scope.amount, date: $scope.date});
+    return $scope.ledger[0].push({ledgerId: $scope.ledgerId, category: $scope.selectedCategory, payeeSource: $scope.payeeSource, amount: $scope.amount, date: $scope.date});
   }
   
   var pushNewIncome = function () {
-    return $scope.income.push({ledgerId: $scope.ledgerId, category: $scope.selectedCategory, payeeSource: $scope.payeeSource, amount: $scope.amount, date: $scope.date});
+    return $scope.ledger[1].push({ledgerId: $scope.ledgerId, category: $scope.selectedCategory, payeeSource: $scope.payeeSource, amount: $scope.amount, date: $scope.date});
   }
   
   $scope.newLedgerEntry = function (entryType) {
@@ -248,14 +238,14 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
   */
   
   $scope.removeLedgerEntry = function (ledgerEntry) {
-    var billIndex = $scope.bills.indexOf(ledgerEntry);
-    var incomeIndex = $scope.income.indexOf(ledgerEntry);
     if(ledgerEntry === 'bill') {
+      var billIndex = $scope.bills.indexOf(ledgerEntry);
       $scope.bills.splice(billIndex,1);
     } else if (ledgerEntry === 'income') {
+      var incomeIndex = $scope.income.indexOf(ledgerEntry);
       $scope.income.splice(incomeIndex,1);
     } else {
-      console.log("Error with removeLedgerEntry if/else statements");
+      console.log("Error with removeLedgerEntry() if/else statements");
     }
     calculateExpenses();
   }
@@ -272,15 +262,15 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
     var entryToEdit = [];
     
     if(entryType === 'bill') {
-      for(var i = 0; i < $scope.bills.length; i += 1) {
-        if($scope.bills[i].ledgerId === ledgerId) {
-          entryToEdit.push($scope.bills[i], 'bill');
+      for(var i = 0; i < bills.length; i += 1) {
+        if(bills[i].ledgerId === ledgerId) {
+          entryToEdit.push(bills[i], 'bill');
         }
       }
     } else if (entryType === 'income') {
-      for(var i = 0; i < $scope.income.length; i += 1) {
-        if($scope.income[i].ledgerId === ledgerId) {
-          entryToEdit.push($scope.income[i], 'income');
+      for(var i = 0; i < income.length; i += 1) {
+        if(income[i].ledgerId === ledgerId) {
+          entryToEdit.push(income[i], 'income');
         }
       }
     } else {console.log('entryType is not properly being passed into the openModal function. Check the ng-click on the edit button to make sure the entryType is spelled correctly and is a lowercase sting.')}
