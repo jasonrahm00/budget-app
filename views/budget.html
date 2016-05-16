@@ -21,7 +21,6 @@
   <ul>
     <li><a href="#income">Income</a></li>
     <li><a href="#expenses">Expenses</a></li>
-    <li><a href="#spending">Spending</a></li>
     <li><a href="#report">Budget Report</a></li>
   </ul>
   
@@ -42,8 +41,8 @@
         <td>{{ money.amount | currency}}</td>
         <td>{{ money.date | date:'MM/dd/yyyy' }}</td>
         <td>
-          <button data-ng-click="openModal(money.ledgerId, 'income')" title="Edit">Edit</button>
-          <button data-ng-click="removeLedgerEntry('income')">Delete</button>
+          <button data-ng-click="openModal('income', money.ledgerId)" title="Edit">Edit</button>
+          <button data-ng-click="removeLedgerEntry('income', money.ledgerId)">Delete</button>
         </td>
       </tr>
     </table>
@@ -71,14 +70,14 @@
         <th>Payment Date</th>
         <th>Edit</th>
       </tr>
-      <tr data-ng-repeat="bill in ledger[0] | orderBy: 'date'">
+      <tr data-ng-repeat="bill in ledger[0] | orderBy: 'date'">    
         <td>{{ bill.category.name }}</td>
         <td>{{ bill.payeeSource }}</td>
         <td>{{ bill.amount | currency}}</td>
         <td>{{ bill.date | date:'MM/dd/yyyy' }}</td>
         <td>
-          <button data-ng-click="openModal(bill.ledgerId, 'bill')" title="Edit">Edit</button>
-          <button data-ng-click="removeLedgerEntry()" title="Delete">Delete</button>
+          <button data-ng-click="openModal('bill', bill.ledgerId)" title="Edit">Edit</button>
+          <button data-ng-click="removeLedgerEntry('bill', bill.ledgerId)" title="Delete">Delete</button>
         </td>
       </tr>
     </table>
@@ -93,12 +92,6 @@
       <input type="date" data-ng-model="date">
       <button data-ng-click="newLedgerEntry('bill')">Add</button>
     </form>  
-  </div>
-  
-  <!-- Spending Tab -->
-  <div id="spending">
-    <h2>Spending</h2>
-    <p>Enter your actual spending from the previous month to see how it compares to your budget and make adustments to your budget accordingly.</p>
   </div>
   
   <!-- Budget Report Tab -->
