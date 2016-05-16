@@ -12,28 +12,18 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
   
   $scope.ledgerEntryId = 100;
 
-  $scope.income = [];
+  $scope.ledger = [
+    // Bills array $scope.ledger[0]
+    [],
+    // Income array $scope.ledger[1]
+    [],
+    // Spending array $scope.ledger[2]
+    []
+  ];
   
-  $scope.bills = [
-    {
-      ledgerId: createLedgerEntryId(),
-      category: {
-        group: 'Living Expenses',
-        name: 'Cell Phone'
-      }, 
-      payeeSource: 'Verizon', 
-      amount: 100
-    },
-    {
-      ledgerId: createLedgerEntryId(),
-      category: {
-        group: 'Debt',
-        name: 'Credit Card'
-      },  
-      payeeSource: 'Bank', 
-      amount: 250
-    }
-  ]; 
+  var bills = $scope.ledger[0];
+  
+  var income = $scope.ledger[1];
   
   $scope.billCategories = [ 
     {
@@ -168,8 +158,8 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
   
   //Calculate total expenses using functional programming .reduce and shorthand (y = current object being iterated over)
   var calculateExpenses = function () {
-    $scope.totalExpenses = $scope.bills.reduce((x,y) => x + y.amount, 0);
-    $scope.totalIncome = $scope.income.reduce((x,y) => x + y.amount, 0);
+    $scope.totalExpenses = bills.reduce((x,y) => x + y.amount, 0);
+    $scope.totalIncome = income.reduce((x,y) => x + y.amount, 0);
     $scope.remainingFunds = $scope.totalIncome - $scope.totalExpenses;
   }; 
   
@@ -211,11 +201,11 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
   */
   
   var pushNewBill = function () {
-    return $scope.bills.push({ledgerId: $scope.ledgerId, category: $scope.selectedCategory, payeeSource: $scope.payeeSource, amount: $scope.amount, date: $scope.date});
+    return $scope.ledger[0].push({ledgerId: $scope.ledgerId, category: $scope.selectedCategory, payeeSource: $scope.payeeSource, amount: $scope.amount, date: $scope.date});
   }
   
   var pushNewIncome = function () {
-    return $scope.income.push({ledgerId: $scope.ledgerId, category: $scope.selectedCategory, payeeSource: $scope.payeeSource, amount: $scope.amount, date: $scope.date});
+    return $scope.ledger[1].push({ledgerId: $scope.ledgerId, category: $scope.selectedCategory, payeeSource: $scope.payeeSource, amount: $scope.amount, date: $scope.date});
   }
   
   $scope.newLedgerEntry = function (entryType) {
@@ -244,18 +234,24 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
       
   /***************** removeLedgerEntry Function **************************/
   /* 
-    This function removes the targeted income or expense objet when the delete button is clicked for that entry. The function accepts a ledgerEntry argument that is a string being passed by the click method on the Delete button. The argument tests whether the entry type is a bill or an income source and it's index is recorded by the subsequent indexOf() method. A series of if/else statments then check whether the entry type is bill or income and slices that entry from the necessary object array. After the entry is removed, the calculateExpenses function fires to update the summary tables.
+    This function removes the targeted income or expense object when the delete button is clicked for that entry. The function accepts entryType and ledgerId as arguments. The first set of if/else statments test the entryType while the subsequent for loop iterates over the matching array and the nested if statement searches each object in the array for one with a matching ledgerId to the one you are trying to delete. If a match is found, that object is removed from the array. Finally the calcualteExpenses() function is called to update the total expenses variable.
   */
-  
-  $scope.removeLedgerEntry = function (ledgerEntry) {
-    var billIndex = $scope.bills.indexOf(ledgerEntry);
-    var incomeIndex = $scope.income.indexOf(ledgerEntry);
-    if(ledgerEntry === 'bill') {
-      $scope.bills.splice(billIndex,1);
-    } else if (ledgerEntry === 'income') {
-      $scope.income.splice(incomeIndex,1);
+    
+  $scope.removeLedgerEntry = function (entryType, ledgerId) {
+    if (entryType === 'bill') {
+      for(var i = 0; i < bills.length; i += 1) {
+        if (bills[i].ledgerId === ledgerId) {
+          bills.splice(i, 1);
+        }
+      }
+    } else if (entryType === 'income') {
+      for(var i=0; i < income.length; i += 1) {
+        if (income[i].ledgerId === ledgerId) {
+          income.splice(i, 1);
+        }
+      }
     } else {
-      console.log("Error with removeLedgerEntry if/else statements");
+      console.log("Error with removeLedgerEntry() if/else statements");
     }
     calculateExpenses();
   }
@@ -267,20 +263,20 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
     If/Else statements check to see if the entryType is a bill or income and iterates over the matching array of objects to find the one that was clicked. That object is then assigned to the entryToEdit variable so it can bep passed to the modal.
     When the modal is opened, a separte intance is created with its own scope, so the various dependencies need to be assigned to that local scope to allow two-way-databinding with the main budget controller 
   */
-  $scope.openModal = function (ledgerId, entryType) {
+  $scope.openModal = function (entryType, ledgerId) {
     
     var entryToEdit = [];
     
     if(entryType === 'bill') {
-      for(var i = 0; i < $scope.bills.length; i += 1) {
-        if($scope.bills[i].ledgerId === ledgerId) {
-          entryToEdit.push($scope.bills[i], 'bill');
+      for(var i = 0; i < bills.length; i += 1) {
+        if(bills[i].ledgerId === ledgerId) {
+          entryToEdit.push(bills[i], 'bill');
         }
       }
     } else if (entryType === 'income') {
-      for(var i = 0; i < $scope.income.length; i += 1) {
-        if($scope.income[i].ledgerId === ledgerId) {
-          entryToEdit.push($scope.income[i], 'income');
+      for(var i = 0; i < income.length; i += 1) {
+        if(income[i].ledgerId === ledgerId) {
+          entryToEdit.push(income[i], 'income');
         }
       }
     } else {console.log('entryType is not properly being passed into the openModal function. Check the ng-click on the edit button to make sure the entryType is spelled correctly and is a lowercase string.')}
@@ -293,6 +289,9 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
       resolve: {
         entry: function () { //The entryToEdit object is assigned to 'entry' which is passed to the modal instance controller as a dependency
           return entryToEdit;
+        },
+        deleteEntry: function () {
+          return $scope.removeLedgerEntry;
         },
         billCategories: function () {
           return $scope.billCategories;
@@ -316,9 +315,10 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
   MODAL INSTANCE CONTROLLER
 ***********************************************/
 
-personalWebsite.controller('editLedgerController', ['$scope', '$uibModalInstance', 'entry', 'billCategories', 'incomeCategories', function ($scope, $uibModalInstance, entry, billCategories, incomeCategories) {
+personalWebsite.controller('editLedgerController', ['$scope', '$uibModalInstance', 'entry', 'deleteEntry', 'billCategories', 'incomeCategories', function ($scope, $uibModalInstance, entry, deleteEntry, billCategories, incomeCategories) {
   
   //The injected objects from the modal open function is assigned to the scope so the values can be displayed and edited
+  $scope.removeLedgerEntry = deleteEntry;
   $scope.entry = entry[0];
   $scope.typeOfEntry = entry[1]; //Needs to be a string
   $scope.billCategories = billCategories;
@@ -328,8 +328,8 @@ personalWebsite.controller('editLedgerController', ['$scope', '$uibModalInstance
     $uibModalInstance.close();
   };
   
-  $scope.cancel = function () {
-    $uibModalInstance.dismiss();
+  $scope.delete = function (entryType, ledgerId) {
+    $uibModalInstance.close($scope.removeLedgerEntry(entryType, ledgerId));
   };
   
 }]);
