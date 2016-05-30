@@ -43,8 +43,7 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   display: flex;
-  justify-content:space-around;
-  margin-bottom: 5px;
+  justify-content: space-around;
 }
 
 .mobile-table-caption {
@@ -75,7 +74,7 @@ form.edit-ledger {
   padding: 10px;
 }
 .modal-dialog {
-  margin-top: 50%;
+  margin-top: 20%;
 }
 
 /* ---- Tab Browsing ---- */
@@ -125,7 +124,7 @@ form.edit-ledger {
   MEDIA QUERIES
 **************************************/
 
-@media (min-width: 820px) {
+@media (min-width: 769px) {
   
   .mobile-table {
     display: none;
@@ -165,12 +164,6 @@ form.edit-ledger {
   .budget-table td {
     border-top: 1px solid #ccc; 
     border-bottom: 0;
-  }
-  
-  /* ---- Modal Styling ---- */
-  
-  .modal-dialog {
-    margin-top: 20%;
   }
   
 }

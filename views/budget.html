@@ -40,7 +40,7 @@
     </form> 
     
     <div class="mobile-table">
-      <span class="mobile-table-caption">Tap on a row to edit the contents</span>
+      <span class="mobile-table-caption">Tap/Click on a row to edit the entry</span>
       <div class="mobile-table-row" data-ng-click="openModal('income', income.ledgerId)" data-ng-repeat="income in ledger[1] | orderBy: 'date'">
         <span class="entry-date">{{ income.date | date:'MM/dd/yyyy' }}</span>
         <span class="entry-payee-source">{{ income.payeeSource }}</span>
@@ -85,7 +85,7 @@
     </form>  
     
     <div class="mobile-table">
-      <span class="mobile-table-caption">Tap on a row to edit the contents</span>
+      <span class="mobile-table-caption">Tap/Click on a row to edit the entry</span>
       <div class="mobile-table-row" data-ng-click="openModal('expense', expense.ledgerId)" data-ng-repeat="expense in ledger[0] | orderBy: 'date'">
         <span class="entry-date">{{ expense.date | date:'MM/dd/yyyy' }}</span>
         <span class="entry-payee-source">{{ expense.payeeSource }}</span>
@@ -118,7 +118,55 @@
   <!-- Budget Report Tab -->
   <div id="report">
     <h2>Budget Report</h2>
+    
+    <div class="mobile-table">
+      
+      <div class="mobile-table-row" data-ng-repeat="income in ledger[1] | orderBy: 'date'">
+        <span class="entry-type">Income</span>
+        <span class="entry-date">{{ income.date | date:'MM/dd/yyyy' }}</span>
+        <span class="entry-payee-source">{{ income.payeeSource }}</span>
+        <span class="entry-amount">{{ income.amount | currency}}</span>
+      </div>
+      
+      <div class="mobile-table-row" data-ng-repeat="expense in ledger[0] | orderBy: 'date'">
+        <span class="entry-type">Expense</span>
+        <span class="entry-date">{{ expense.date | date:'MM/dd/yyyy' }}</span>
+        <span class="entry-payee-source">{{ expense.payeeSource }}</span>
+        <span class="entry-amount">{{ expense.amount | currency}}</span>
+      </div>
+      
+    </div>
+    
+    <table class="budget-table">
+
+      <th class="entry-type">Entry Type</th>
+      <th class="entry-date">Payment Date</th>
+      <th class="entry-category">Category</th>
+      <th class="entry-payee-source">Payee</th>
+      <th class="entry-amount">Amount</th>
+
+      <tr data-ng-repeat="income in ledger[1] | orderBy: 'date'">
+        <td class="entry-type">Income</td>
+        <td class="entry-date">{{ income.date | date:'MM/dd/yyyy' }}</td>
+        <td class="entry-category">{{ income.category.name }}</td>
+        <td class="entry-payee-source">{{ income.payeeSource }}</td>
+        <td class="entry-amount">{{ income.amount | currency}}</td>
+      </tr>
+
+      <tr data-ng-repeat="expense in ledger[0] | orderBy: 'date'">  
+        <td class="entry-type">Expense</td>
+        <td class="entry-date">{{ expense.date | date:'MM/dd/yyyy' }}</td>
+        <td class="entry-category">{{ expense.category.name }}</td>
+        <td class="entry-payee-source">{{ expense.payeeSource }}</td>
+        <td class="entry-amount">{{ expense.amount | currency}}</td>
+      </tr>
+
+    </table>
+    
   </div>
+  
+  
+  
 </div>
 
 <pre>
