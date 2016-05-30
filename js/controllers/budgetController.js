@@ -13,7 +13,7 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
   $scope.ledgerEntryId = 100;
 
   $scope.ledger = [
-    // Bills array $scope.ledger[0]
+    // Expenses array $scope.ledger[0]
     [],
     // Income array $scope.ledger[1]
     [],
@@ -21,11 +21,11 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
     []
   ];
   
-  var bills = $scope.ledger[0];
+  var expenses = $scope.ledger[0];
   
   var income = $scope.ledger[1];
   
-  $scope.billCategories = [ 
+  $scope.expenseCategories = [ 
     {
       group: 'Housing',
       name: 'Rent'
@@ -158,15 +158,15 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
   
   //Calculate total expenses using functional programming .reduce and shorthand (y = current object being iterated over)
   var calculateExpenses = function () {
-    $scope.totalExpenses = bills.reduce((x,y) => x + y.amount, 0);
+    $scope.totalExpenses = expenses.reduce((x,y) => x + y.amount, 0);
     $scope.totalIncome = income.reduce((x,y) => x + y.amount, 0);
     $scope.remainingFunds = $scope.totalIncome - $scope.totalExpenses;
   }; 
   
-  //Call the calculateExpenses function when the controller loads to gain the inital value if there are default bills/sources of income set
+  //Call the calculateExpenses function when the controller loads to gain the inital value if there are default expenses/sources of income set
   calculateExpenses();
     
-  //The reusable resetValues() function clears all of the data in the bill/income creation form once the new object is created
+  //The reusable resetValues() function clears all of the data in the expense/income creation form once the new object is created
   var resetValues = function() {
     $scope.amount = null;
     $scope.ledgerId = '';
@@ -175,7 +175,7 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
     $scope.selectedCategory = '';
   }
   
-  //The checkAmount function is called whenever a new bill or income entry is added.
+  //The checkAmount function is called whenever a new expense or income entry is added.
   //The function runs the parseInt() method on the input field value. If nothing or a negative value is entered, the function will evaluate to false and trigger an alert box
   var checkAmount = function (x) {
     if(parseInt(x) > 0) {
@@ -185,7 +185,7 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
     }
   }  
   
-  //Generate unique ID for each ledger entry (bill/source of income) so it can be referenced when editing
+  //Generate unique ID for each ledger entry (expense/source of income) so it can be referenced when editing
   function createLedgerEntryId () {
     var newId = 0;
     newId = $scope.ledgerEntryId += 1;
@@ -194,13 +194,13 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
   
   /***************** newLedgerEntry Function **************************/
   /*  
-    The newLedgerEntry function takes an 'entryType' string that is passed via the function call on the HTML 'Add' button; 'income' and 'bill' are the two possible types, currently. 
+    The newLedgerEntry function takes an 'entryType' string that is passed via the function call on the HTML 'Add' button; 'income' and 'expense' are the two possible types, currently. 
     Before anything else happens, the checkAmount() function is called to test whether an amount ($scope.amount) has been entered into the input field. The calculateExpenses function is expecting a number value from the amount intput. If nothing is entered, the field returns 'unassigned' which will break the calculate function, so an alert tells the user to enter an amount, if it is left blank. 
     When checkAmount evaluates to true, the function then creates a unique ledger entry ID by calling the createLedgerEntryID() function and assigns that value to the ledgerId variable.
-    Then, nested if/else statements use the injected entryType to determine whether a new bill or new income object is being created. The object is then pushed to the appropriate array, the calculateExpenses function updates the summary table and the resetValues function clears the form fields.  
+    Then, nested if/else statements use the injected entryType to determine whether a new expense or new income object is being created. The object is then pushed to the appropriate array, the calculateExpenses function updates the summary table and the resetValues function clears the form fields.  
   */
   
-  var pushNewBill = function () {
+  var pushNewExpense = function () {
     return $scope.ledger[0].push({ledgerId: $scope.ledgerId, category: $scope.selectedCategory, payeeSource: $scope.payeeSource, amount: $scope.amount, date: $scope.date});
   }
   
@@ -213,9 +213,9 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
       alert ("Please add an Amount")
     } else {
       $scope.ledgerId = createLedgerEntryId();
-      if(entryType === 'bill' || entryType === 'income') {
-        if(entryType === 'bill') {
-          pushNewBill();
+      if(entryType === 'expense' || entryType === 'income') {
+        if(entryType === 'expense') {
+          pushNewExpense();
           calculateExpenses();
           resetValues();
         } else if (entryType ==='income') {
@@ -224,7 +224,7 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
           resetValues();
         } else {
           resetValues();
-          console.log('The nested if/else statements testing the injected values (bill or income) failed.');
+          console.log('The nested if/else statements testing the injected values (expense or income) failed.');
         }
       } else {
         console.log('Error with newLedgerEntry function.');
@@ -238,10 +238,10 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
   */
     
   $scope.removeLedgerEntry = function (entryType, ledgerId) {
-    if (entryType === 'bill') {
-      for(var i = 0; i < bills.length; i += 1) {
-        if (bills[i].ledgerId === ledgerId) {
-          bills.splice(i, 1);
+    if (entryType === 'expense') {
+      for(var i = 0; i < expenses.length; i += 1) {
+        if (expenses[i].ledgerId === ledgerId) {
+          expenses.splice(i, 1);
         }
       }
     } else if (entryType === 'income') {
@@ -260,17 +260,17 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
   /* 
     This function opens the ui.bootstrap modal
     The unique lederlId and entry type are passed in from the click function on the 'Edit' button
-    If/Else statements check to see if the entryType is a bill or income and iterates over the matching array of objects to find the one that was clicked. That object is then assigned to the entryToEdit variable so it can bep passed to the modal.
+    If/Else statements check to see if the entryType is a expense or income and iterates over the matching array of objects to find the one that was clicked. That object is then assigned to the entryToEdit variable so it can bep passed to the modal.
     When the modal is opened, a separte intance is created with its own scope, so the various dependencies need to be assigned to that local scope to allow two-way-databinding with the main budget controller 
   */
   $scope.openModal = function (entryType, ledgerId) {
     
     var entryToEdit = [];
     
-    if(entryType === 'bill') {
-      for(var i = 0; i < bills.length; i += 1) {
-        if(bills[i].ledgerId === ledgerId) {
-          entryToEdit.push(bills[i], 'bill');
+    if(entryType === 'expense') {
+      for(var i = 0; i < expenses.length; i += 1) {
+        if(expenses[i].ledgerId === ledgerId) {
+          entryToEdit.push(expenses[i], 'expense');
         }
       }
     } else if (entryType === 'income') {
@@ -293,8 +293,8 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
         deleteEntry: function () {
           return $scope.removeLedgerEntry;
         },
-        billCategories: function () {
-          return $scope.billCategories;
+        expenseCategories: function () {
+          return $scope.expenseCategories;
         },
         incomeCategories: function () {
           return $scope.incomeCategories;
@@ -315,13 +315,13 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
   MODAL INSTANCE CONTROLLER
 ***********************************************/
 
-personalWebsite.controller('editLedgerController', ['$scope', '$uibModalInstance', 'entry', 'deleteEntry', 'billCategories', 'incomeCategories', function ($scope, $uibModalInstance, entry, deleteEntry, billCategories, incomeCategories) {
+personalWebsite.controller('editLedgerController', ['$scope', '$uibModalInstance', 'entry', 'deleteEntry', 'expenseCategories', 'incomeCategories', function ($scope, $uibModalInstance, entry, deleteEntry, expenseCategories, incomeCategories) {
   
   //The injected objects from the modal open function is assigned to the scope so the values can be displayed and edited
   $scope.removeLedgerEntry = deleteEntry;
   $scope.entry = entry[0];
   $scope.typeOfEntry = entry[1]; //Needs to be a string
-  $scope.billCategories = billCategories;
+  $scope.expenseCategories = expenseCategories;
   $scope.incomeCategories = incomeCategories;
   
   $scope.saveClose = function () {  

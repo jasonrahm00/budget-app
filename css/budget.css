@@ -18,6 +18,10 @@
   border-right: 1px solid #ccc; 
 }
 
+.budget-table {
+  display: none;
+}
+
 .summary-table td {
   width: 50%;
 }
@@ -26,32 +30,32 @@
   font-weight: bold;
 }
 
-/* ---- Expenses Table ---- */
-
-.budget-table td {
-  border-top: 1px solid #ccc; 
-  border-bottom: 0;
+.mobile-table {
+  padding-top: 20px;
 }
 
-.budget-table th:first-child,
-.budget-table td:first-child {
-  width: 15%;
+.mobile-table span {
+  padding: 10px;
 }
 
-.budget-table th:nth-child(2),
-.budget-table td:nth-child(2) {
-  width: 30%;
+.mobile-table-row {
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: flex;
+  justify-content:space-around;
+  margin-bottom: 5px;
 }
 
-.budget-table th:last-child,
-.budget-table td:last-child {
-  width: 15%;
+.mobile-table-caption {
+  font-size: .75em;
+  font-style: italic;
 }
 
 /* ---- Form Elements ---- */
 
-.add select,
-.add button {
+.add-entry select,
+.add-entry button {
   height: 36px;
 }
 
@@ -101,7 +105,7 @@ form.edit-ledger {
 
 #tabs>div {
   border: 1px solid #ccc;
-  border-radius: 5pxl;
+  border-radius: 5px;
   padding: 0 10px 10px;
 }
 
@@ -121,7 +125,11 @@ form.edit-ledger {
   MEDIA QUERIES
 **************************************/
 
-@media (min-width: 796px) {
+@media (min-width: 820px) {
+  
+  .mobile-table {
+    display: none;
+  }
   
   header p {
     float: left;
@@ -132,33 +140,31 @@ form.edit-ledger {
     float: right;
     width: 30%;
   }
-  
-  header:after {
-    clear: both;
-    content: "";
-    display: table;
-  }
-  
-  /* ---- Form Elements ---- */
-  
-  .add select {
-    width: 15%;  
-  }
 
-  .add input {
+  .add-entry input {
     display: inline-block;
   }
-
-  .add input:nth-child(2) {
-    width: 29%;
+  
+  .entry-payee-source {
+    width: 39%;
   }
-
-  .add input:nth-child(3) {
-    width: 16%;
+  
+  .entry-date,
+  .entry-category,
+  .entry-amount,
+  .add-edit-entry {
+    width: 15%;
   }
-
-  .add input:nth-child(4) {
-    width: 24%;
+  
+  /* ---- Budget Table ---- */
+  
+  .budget-table {
+    display: table;  
+  }
+  
+  .budget-table td {
+    border-top: 1px solid #ccc; 
+    border-bottom: 0;
   }
   
   /* ---- Modal Styling ---- */

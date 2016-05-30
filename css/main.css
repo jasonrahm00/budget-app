@@ -30,6 +30,12 @@ button,
   font-weight: bold;
   color: #fff; 
 }
+  
+.clearfix:after {
+  clear: both;
+  content: "";
+  display: table;
+}
 
 button:hover,
 .button:hover {
@@ -317,14 +323,6 @@ select:focus {
 
   nav li {
     display: inline-block;
-  }
-  
-  /* ---- Float Clearfix ---- */
-  
-  nav div:after {
-    clear: both;
-    content: "";
-    display: table;
   }
   
   /* ---- Contact Form ---- */
