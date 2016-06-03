@@ -1,0 +1,175 @@
+<header class="clearfix">
+  <h1>Personal Budget</h1>  
+  <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus.</p>
+  <table class="summary-table" data-ng-init="calculateExpenses()">
+    <tr>
+      <td>Available Funds</td>
+      <td>{{ totalIncome | currency }}</td>
+    </tr>
+    <tr>
+      <td>Expenses</td>
+      <td>{{ totalExpenses | currency }}</td>
+    </tr>
+    <tr>
+      <td>Remaining</td>
+      <td>{{ remainingFunds | currency }}</td>
+    </tr>
+  </table>
+</header>
+
+<div id="tabs">
+  <ul>
+    <li><a href="#income">Income</a></li>
+    <li><a href="#expenses">Expenses</a></li>
+    <li><a href="#report">Report</a></li>
+  </ul>
+  
+  <!-- Income Tab -->
+  <div id="income">
+
+    <h2>Add Money</h2>
+    
+    <form class="add-entry">
+      <input class="entry-date" type="date" data-ng-model="date">
+      <select class="entry-category" data-ng-model="selectedCategory" data-ng-options="incomeCategory.name group by incomeCategory.group for incomeCategory in incomeCategories | orderBy: ['group', 'name']">
+        <option value="" disabled>-- Income Category --</option>
+      </select>
+      <input class="entry-payee-source" type="text" data-ng-model="payeeSource" placeholder="Source">
+      <input class="entry-amount" type="number" min="0" step="0.01" data-ng-model="amount" placeholder="Amount">
+      <button data-ng-click="newLedgerEntry('income')">Add</button>
+    </form> 
+    
+    <div class="mobile-table">
+      <span class="mobile-table-caption">Tap/Click on a row to edit the entry</span>
+      <div class="mobile-table-row" data-ng-click="openModal('income', income.ledgerId)" data-ng-repeat="income in ledger[1] | orderBy: 'date'">
+        <span class="entry-date">{{ income.date | date:'MM/dd/yyyy' }}</span>
+        <span class="entry-payee-source">{{ income.payeeSource }}</span>
+        <span class="entry-amount">{{ income.amount | currency}}</span>
+      </div>
+    </div>
+    
+    <table class="budget-table">
+      <tr>
+        <th class="entry-date">Income Date</th>
+        <th class="entry-category">Category</th>
+        <th class="entry-payee-source">Source</th>
+        <th class="entry-amount">Amount</th>
+        <th class="add-edit-entry">Edit</th>
+      </tr>
+      <tr data-ng-repeat="income in ledger[1] | orderBy: 'date'">
+        <td class="entry-date">{{ income.date | date:'MM/dd/yyyy' }}</td>
+        <td class="entry-category">{{ income.category.name }}</td>
+        <td class="entry-payee-source">{{ income.payeeSource }}</td>
+        <td class="entry-amount">{{ income.amount | currency}}</td>
+        <td class="add-edit-entry">
+          <button data-ng-click="openModal('income', income.ledgerId)" title="Edit">Edit</button>
+          <button data-ng-click="removeLedgerEntry('income', income.ledgerId)">Delete</button>
+        </td>
+      </tr>
+    </table>
+    
+  </div>
+  
+  <!-- Expenses Tab -->
+  <div id="expenses">
+    <h2>Add Expense</h2>
+    
+    <form class="add-entry">
+      <input class="entry-date" type="date" data-ng-model="date">
+      <select class="entry-category" data-ng-model="selectedCategory" data-ng-options="expenseCategory.name group by expenseCategory.group for expenseCategory in expenseCategories | orderBy: ['group', 'name']">
+        <option value="" disabled>-- Expense Category --</option>
+      </select>
+      <input class="entry-payee-source" type="text" data-ng-model="payeeSource" placeholder="Payee">
+      <input class="entry-amount" type="number" min="0" step="0.01" data-ng-model="amount" placeholder="Amount">
+      <button data-ng-click="newLedgerEntry('expense')">Add</button>
+    </form>  
+    
+    <div class="mobile-table">
+      <span class="mobile-table-caption">Tap/Click on a row to edit the entry</span>
+      <div class="mobile-table-row" data-ng-click="openModal('expense', expense.ledgerId)" data-ng-repeat="expense in ledger[0] | orderBy: 'date'">
+        <span class="entry-date">{{ expense.date | date:'MM/dd/yyyy' }}</span>
+        <span class="entry-payee-source">{{ expense.payeeSource }}</span>
+        <span class="entry-amount">{{ expense.amount | currency}}</span>
+      </div>
+    </div>
+    
+    <table class="budget-table">
+      <tr>
+        <th class="entry-date">Payment Date</th>
+        <th class="entry-category">Category</th>
+        <th class="entry-payee-source">Payee</th>
+        <th class="entry-amount">Amount</th>
+        <th class="add-edit-entry">Edit</th>
+      </tr>
+      <tr data-ng-repeat="expense in ledger[0] | orderBy: 'date'">  
+        <td class="entry-date">{{ expense.date | date:'MM/dd/yyyy' }}</td>
+        <td class="entry-category">{{ expense.category.name }}</td>
+        <td class="entry-payee-source">{{ expense.payeeSource }}</td>
+        <td class="entry-amount">{{ expense.amount | currency}}</td>
+        <td class="add-edit-entry">
+          <button data-ng-click="openModal('expense', expense.ledgerId)" title="Edit">Edit</button>
+          <button data-ng-click="removeLedgerEntry('expense', expense.ledgerId)" title="Delete">Delete</button>
+        </td>
+      </tr>
+    </table>
+    
+  </div>
+  
+  <!-- Budget Report Tab -->
+  <div id="report">
+    <h2>Budget Report</h2>
+    
+    <div class="mobile-table">
+      
+      <div class="mobile-table-row" data-ng-repeat="income in ledger[1] | orderBy: 'date'">
+        <span class="entry-type">Income</span>
+        <span class="entry-date">{{ income.date | date:'MM/dd/yyyy' }}</span>
+        <span class="entry-payee-source">{{ income.payeeSource }}</span>
+        <span class="entry-amount">{{ income.amount | currency}}</span>
+      </div>
+      
+      <div class="mobile-table-row" data-ng-repeat="expense in ledger[0] | orderBy: 'date'">
+        <span class="entry-type">Expense</span>
+        <span class="entry-date">{{ expense.date | date:'MM/dd/yyyy' }}</span>
+        <span class="entry-payee-source">{{ expense.payeeSource }}</span>
+        <span class="entry-amount">{{ expense.amount | currency}}</span>
+      </div>
+      
+    </div>
+    
+    <table class="budget-table">
+
+      <th class="entry-type">Entry Type</th>
+      <th class="entry-date">Payment Date</th>
+      <th class="entry-category">Category</th>
+      <th class="entry-payee-source">Payee</th>
+      <th class="entry-amount">Amount</th>
+
+      <tr data-ng-repeat="income in ledger[1] | orderBy: 'date'">
+        <td class="entry-type">Income</td>
+        <td class="entry-date">{{ income.date | date:'MM/dd/yyyy' }}</td>
+        <td class="entry-category">{{ income.category.name }}</td>
+        <td class="entry-payee-source">{{ income.payeeSource }}</td>
+        <td class="entry-amount">{{ income.amount | currency}}</td>
+      </tr>
+
+      <tr data-ng-repeat="expense in ledger[0] | orderBy: 'date'">  
+        <td class="entry-type">Expense</td>
+        <td class="entry-date">{{ expense.date | date:'MM/dd/yyyy' }}</td>
+        <td class="entry-category">{{ expense.category.name }}</td>
+        <td class="entry-payee-source">{{ expense.payeeSource }}</td>
+        <td class="entry-amount">{{ expense.amount | currency}}</td>
+      </tr>
+
+    </table>
+    
+  </div>
+  
+  
+  
+</div>
+
+<pre>
+  <strong>income:</strong> {{ ledger[1] }}<br>
+  <strong>bills:</strong> {{ ledger[0] }}
+</pre>

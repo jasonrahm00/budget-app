@@ -1,0 +1,38 @@
+<header>
+  <h1>{{mainHeader}}</h1>
+  <p>{{objective}}</p>
+</header>
+
+<section>
+  <h2>Qualifications</h2>
+  <ul>
+    <li data-ng-repeat="qualification in qualifications">{{qualification}}</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Skills</h2>
+  <table class="skills">
+    <tr data-ng-repeat="(key, value) in skills">
+      <td><strong>{{key}}</strong></td>
+      <td>{{value.join(", ")}}</td>
+    </tr>
+  </table>
+</section>
+
+<section>
+  <h2>Work History</h2>
+  <section data-ng-repeat="job in jobs">
+    <h3>{{job.title}} | {{job.employer}} | {{job.start.month}}, {{job.start.year}} &ndash; <span data-ng-if="job.end">{{job.end.month}}, {{job.end.year}}</span><span data-ng-if="!job.end">Present</span></h3>
+    <p>{{job.description}}</p>
+    <ul>
+      <li data-ng-repeat="duty in job.duties">{{duty}}</li>
+    </ul>
+  </section>
+</section>
+
+<section>
+  <h2>Education</h2>
+  <p><strong>{{education.degree}} in {{education.major}} &ndash; {{education.completed}}</strong></p>
+  <p>{{education.school}}</p>
+</section>

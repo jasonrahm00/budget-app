@@ -1,0 +1,13 @@
+<header>
+  <h1>{{mainHeader}}</h1>
+  <p>I began my professional career as a web-content writer. It was as a writer that I gained my first exposure to HTML, CSS and web-development processes. In an effort to improve my skillset and marketability to employers, I decided to learn front-end web development; it helps that I find it very engaging and empowering.</p>
+</header>
+
+<uib-accordion close-others="oneAtATime">
+  <uib-accordion-group heading="{{portfolio.section}}" data-ng-repeat="portfolio in portfolio" is-open="portfolio.isOpen">
+    <p>{{portfolio.description}}</p>
+    <ul>
+      <li data-ng-repeat="example in portfolio.examples"><span data-ng-show="example.link"><a href="{{example.link}}" target="_blank">{{example.anchor}}</a> &ndash; </span>{{example.explanation}}</li>
+    </ul>
+  </uib-accordion-group>
+</uib-accordion>

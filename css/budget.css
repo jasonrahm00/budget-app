@@ -1,0 +1,169 @@
+/************************************** 
+  BASE ELEMENT STYLES
+**************************************/
+
+/* ---- Budget Table Defaults ---- */
+
+.budget table {
+  background: #fff;
+  border: 1px solid #ccc;
+}
+
+.budget td {
+  border-bottom: 1px solid #ccc;
+}
+
+.budget td,
+.budget th {
+  border-right: 1px solid #ccc; 
+}
+
+.budget-table {
+  display: none;
+}
+
+.summary-table td {
+  width: 50%;
+}
+
+.summary-table td:first-child {
+  font-weight: bold;
+}
+
+.mobile-table {
+  padding-top: 20px;
+}
+
+.mobile-table span {
+  padding: 10px;
+}
+
+.mobile-table-row {
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.mobile-table-caption {
+  font-size: .75em;
+  font-style: italic;
+}
+
+/* ---- Form Elements ---- */
+
+.add-entry select,
+.add-entry button {
+  height: 36px;
+}
+
+select {
+  margin-bottom: 10px;
+}
+
+/* ---- Modal Styling ---- */
+
+form.edit-ledger {
+  padding: 15px;
+}
+
+.modal-content h3 {
+  border-bottom: 1px solid #ccc;
+  margin: 0;
+  padding: 10px;
+}
+.modal-dialog {
+  margin-top: 20%;
+}
+
+/* ---- Tab Browsing ---- */
+
+#tabs ul {
+  margin-bottom: 0;
+  padding: 0;
+}
+
+#tabs li {
+  display: inline-block;
+}
+
+#tabs>ul li {
+  background: #002E64;
+  border: 1px solid #ccc;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom: none;
+}
+
+#tabs ul>li a {
+  color: #a9a9a9;
+  display: block;
+  padding: 10px 15px;
+}
+
+#tabs>div {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 0 10px 10px;
+}
+
+#tabs>ul li:hover,
+#tabs>ul li.ui-state-active {
+  background:#dfdfdf;
+}
+
+#tabs>ul li:hover a,
+#tabs>ul li.ui-state-active a {
+  color: #002E64;
+}
+
+
+
+/************************************** 
+  MEDIA QUERIES
+**************************************/
+
+@media (min-width: 769px) {
+  
+  .mobile-table {
+    display: none;
+  }
+  
+  header p {
+    float: left;
+    width: 65%;
+  }
+  
+  .summary-table {
+    float: right;
+    width: 30%;
+  }
+
+  .add-entry input {
+    display: inline-block;
+  }
+  
+  .entry-payee-source {
+    width: 39%;
+  }
+  
+  .entry-date,
+  .entry-category,
+  .entry-amount,
+  .add-edit-entry {
+    width: 15%;
+  }
+  
+  /* ---- Budget Table ---- */
+  
+  .budget-table {
+    display: table;  
+  }
+  
+  .budget-table td {
+    border-top: 1px solid #ccc; 
+    border-bottom: 0;
+  }
+  
+}

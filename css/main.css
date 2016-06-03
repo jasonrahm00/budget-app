@@ -1,0 +1,344 @@
+/************************************** 
+  BASE ELEMENT STYLES
+**************************************/
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  /* Permanently places a scrollbar on the right even if the page isn't wide enough for a scroll. This is to prevent the nav elements from shifting when a new view is loaded that doesn't require a scroll bar */
+  overflow-y: scroll; 
+}
+
+a,
+a:focus,
+a:hover {
+  text-decoration: none;
+}
+
+body {
+  background-color: whitesmoke;
+  font-family: Helvetica, sans-serif;
+}
+
+button,
+.button {
+  background-color: #002E64;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-weight: bold;
+  color: #fff; 
+}
+  
+.clearfix:after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+button:hover,
+.button:hover {
+  background-color: #dfdfdf;
+  color: #002E64;
+}
+
+h1 {
+  margin-top: 0;
+}
+
+h2 {
+  color: #002E64;
+}
+
+h1, 
+h2, 
+h3, 
+h4, 
+a {
+  font-weight: bold;
+}
+
+main {
+  margin: 0 auto;
+  max-width: 1150px;
+  padding: 1em 1.5em;
+}
+
+main a {
+  color: #337ab7;
+}
+
+main ul {
+  list-style-position: inside;
+  padding-left: 15px;
+}
+
+ul li a:focus, 
+ul li a:hover {
+  color: #dfdfdf;
+}
+
+.profile-picture {
+  border-radius: 5px;
+  float: right;
+  margin-left: 1em;
+}
+
+/* Override default button and input borders and outlines */ 
+
+a,
+textarea,
+input,
+button,
+textarea:hover, 
+input:hover, 
+textarea:active, 
+input:active, 
+textarea:focus, 
+input:focus,
+button:focus,
+button:active,
+button:hover {
+  outline: 0px !important;
+  -webkit-appearance:none;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
+  border-color: #ccc !important;
+}
+
+
+
+/************************************** 
+  BASE LAYOUT STYLES
+**************************************/
+
+/* ---- Navigation ---- */
+
+nav {
+  background-color: #000f21;
+  left: 0;
+  right: 0;
+}
+
+nav a {
+  color: #a9a9a9;
+  display: block;
+  padding: 10px 15px;
+  text-align: center;
+}
+
+nav div {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1150px;
+  padding: 0 1.5em 1em;
+}
+
+nav div>a {
+  font-size: 1.5em;
+}
+
+nav li {
+  list-style: none;
+}
+
+nav li {
+  background: rgba(0, 46, 100, .60);
+  border-radius: 2px;
+  margin-bottom: 5px;
+}
+
+nav li:hover,
+nav li.active {
+  background: rgba(0, 46, 100, 1);
+}
+
+nav div>a:active,
+nav div>a:focus,
+nav a:hover,
+nav li.active a {
+  color: #dfdfdf
+}
+
+nav ul {
+  margin: 0;
+  padding: 0;
+}
+
+/* ---- Tables ---- */
+
+table {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+td,
+th {
+  padding: 8px;
+}
+
+table.skills tr {
+  border-top: 1px solid #DDD;
+}
+
+/* ---- Accordion ---- */
+
+a.accordion-toggle {
+  display: block;
+  padding: 10px  15px;
+}
+
+div.panel-heading {
+  padding: 0;
+}
+
+h4.panel-title {
+  color: #a9a9a9;
+}
+
+h4.panel-title a:hover {
+  text-decoration: none;
+  color: #dfdfdf;
+}
+
+h4.panel-title a:focus {
+  text-decoration: none;
+  outline: 0;
+  border: none;
+}
+
+.panel-defaul, 
+.panel-primary {
+  border-color: #ddd;
+}
+
+.panel>.panel-heading {
+  background-color: #002E64;
+}
+
+/* ---- Forms ---- */
+
+label {
+  display: block;
+}
+
+input,
+textarea {
+  display: block;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+label span {
+  color: red;
+}
+
+select {
+  border-color: #ccc;
+  border-radius: 5px;
+}
+
+select:focus {
+  outline: 0px !important;
+}
+
+
+
+/*****************************
+  ANIMATIONS
+*****************************/
+
+/* View Change Navigation */
+
+.slide-view {
+  position: relative;
+}
+
+.slide-view.ng-enter {
+  transition: 0.5s linear all;
+  transition-delay: 0.45s;
+  z-index: 100;
+  left: 7em;
+  opacity: 0;
+}
+
+.slide-view.ng-enter.ng-enter-active {
+  left: 0;
+  opacity: 1;
+}
+
+.slide-view.ng-leave {
+  transition: 0.5s linear all;
+  z-index: 101;
+  opacity: 1;
+  left: 0;
+}
+
+.slide-view.ng-leave.ng-leave-active {
+  left: -7em;
+  opacity:0;
+}
+
+
+
+/************************************** 
+  MEDIA QUERIES
+**************************************/
+
+@media (min-width: 796px) {
+  
+  body {
+    padding-top: 60px; /* to account for the fixed navbar */
+  }
+  
+  main {
+    padding: 1.5em 2.25em;
+  }
+  
+  /* ---- Navigation ---- */
+  
+  nav {
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  nav div {
+    padding: 0 1.5em;
+  }
+  
+  nav div>a {
+    float: left;
+    padding-left: 0;
+  }
+
+  nav ul {
+    float: right;
+    margin-top: 5px;
+  }
+
+  nav li {
+    display: inline-block;
+  }
+  
+  /* ---- Contact Form ---- */
+
+  .contact {
+    margin: 0 auto;
+    max-width: 800px;
+  }
+  
+  input,
+  textarea {
+    width: 75%;
+  }
+  
+  input.button {
+    width: 85px;
+  }
+
+}
