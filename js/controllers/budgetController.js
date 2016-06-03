@@ -2,7 +2,7 @@
   MAIN BUDGET CONTROLLER
 ***********************************************/
 
-personalWebsite.controller('budgetController', ['$scope', '$uibModal', function ($scope, $uibModal) {
+budgetApp.controller('budgetController', ['$scope', '$uibModal', function ($scope, $uibModal) {
   
   /**************************
     VARIABLE DECLARATIONS
@@ -315,7 +315,7 @@ personalWebsite.controller('budgetController', ['$scope', '$uibModal', function 
   MODAL INSTANCE CONTROLLER
 ***********************************************/
 
-personalWebsite.controller('editLedgerController', ['$scope', '$uibModalInstance', 'entry', 'deleteEntry', 'expenseCategories', 'incomeCategories', function ($scope, $uibModalInstance, entry, deleteEntry, expenseCategories, incomeCategories) {
+budgetApp.controller('editLedgerController', ['$scope', '$uibModalInstance', 'entry', 'deleteEntry', 'expenseCategories', 'incomeCategories', function ($scope, $uibModalInstance, entry, deleteEntry, expenseCategories, incomeCategories) {
   
   //The injected objects from the modal open function is assigned to the scope so the values can be displayed and edited
   $scope.removeLedgerEntry = deleteEntry;
