@@ -2,6 +2,22 @@
   BASE ELEMENT STYLES
 **************************************/
 
+header {
+  padding-bottom: 20px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.green {
+  color: #00640e;
+}
+
+.red {
+  color: #a11e2d;
+}
+
 /* ---- Budget Table Defaults ---- */
 
 .budget table {
@@ -44,6 +60,7 @@
   border-radius: 5px;
   display: flex;
   justify-content: space-around;
+  margin-bottom: 5px;
 }
 
 .mobile-table-caption {

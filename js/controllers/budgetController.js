@@ -8,6 +8,9 @@ budgetApp.controller('budgetController', ['$scope', '$uibModal', function ($scop
     VARIABLE DECLARATIONS
   **************************/
   
+  var date = new Date();
+  var firstOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+  
   $scope.totalExpenses; $scope.totalIncome; $scope.remainingFunds; $scope.ledgerId; $scope.payeeSource; $scope.amount; $scope.selectedCategory; $scope.date;
   
   $scope.ledgerEntryId = 100;
@@ -16,7 +19,18 @@ budgetApp.controller('budgetController', ['$scope', '$uibModal', function ($scop
     // Expenses array $scope.ledger[0]
     [],
     // Income array $scope.ledger[1]
-    [],
+    [
+      {
+        "ledgerId": 100,
+        "category": {
+          "group": "Initial",
+          "name": "Carryover Balance"
+        },
+        "payeeSource": "Previous Month",
+        "amount": 0,
+        "date": firstOfMonth
+      }
+    ],
     // Spending array $scope.ledger[2]
     []
   ];
@@ -144,6 +158,10 @@ budgetApp.controller('budgetController', ['$scope', '$uibModal', function ($scop
     {
       group: 'Salary',
       name: 'Business Income'
+    },
+    {
+      group: 'Initial',
+      name: 'Carryover Balance'
     }
   ]
   

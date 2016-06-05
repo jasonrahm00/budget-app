@@ -42,7 +42,7 @@
           </tr>
           <tr>
             <td>Remaining</td>
-            <td>{{ remainingFunds | currency }}</td>
+            <td data-ng-class="remainingFunds < 0 ? 'bold red' : ''">{{ remainingFunds | currency }}</td>
           </tr>
         </table>
       </header>
@@ -72,9 +72,15 @@
           <div class="mobile-table">
             <span class="mobile-table-caption">Tap/Click on a row to edit the entry</span>
             <div class="mobile-table-row" data-ng-click="openModal('income', income.ledgerId)" data-ng-repeat="income in ledger[1] | orderBy: 'date'">
-              <span class="entry-date">{{ income.date | date:'MM/dd/yyyy' }}</span>
-              <span class="entry-payee-source">{{ income.payeeSource }}</span>
+              
+              <span class="entry-date" data-ng-if="income.date">{{ income.date | date:'MM/dd/yyyy' }}</span>
+              <span class="entry-date" data-ng-if="!income.date"><em>No Date</em></span>
+              
+              <span class="entry-payee-source" data-ng-if="income.payeeSource">{{ income.payeeSource }}</span>
+              <span class="entry-payee-source" data-ng-if="!income.payeeSource"><em>No Source</em></span>
+              
               <span class="entry-amount">{{ income.amount | currency}}</span>
+              
             </div>
           </div>
 
@@ -86,16 +92,25 @@
               <th class="entry-amount">Amount</th>
               <th class="add-edit-entry">Edit</th>
             </tr>
+            
             <tr data-ng-repeat="income in ledger[1] | orderBy: 'date'">
-              <td class="entry-date">{{ income.date | date:'MM/dd/yyyy' }}</td>
-              <td class="entry-category">{{ income.category.name }}</td>
-              <td class="entry-payee-source">{{ income.payeeSource }}</td>
+              
+              <td class="entry-date" data-ng-if="income.date">{{ income.date | date:'MM/dd/yyyy' }}</td>
+              <td class="entry-date" data-ng-if="!income.date"><em>No Date Entered</em></td>
+              
+              <td class="entry-category" data-ng-if="income.category.name">{{ income.category.name }}</td>
+              <td class="entry-category" data-ng-if="!income.category.name"><em>No Category</em></td>
+              
+              <td class="entry-payee-source" data-ng-if="income.payeeSource">{{ income.payeeSource }}</td>
+              <td class="entry-payee-source" data-ng-if="!income.payeeSource"><em>No Source</em></td>
+              
               <td class="entry-amount">{{ income.amount | currency}}</td>
               <td class="add-edit-entry">
                 <button data-ng-click="openModal('income', income.ledgerId)" title="Edit">Edit</button>
                 <button data-ng-click="removeLedgerEntry('income', income.ledgerId)">Delete</button>
               </td>
             </tr>
+            
           </table>
 
         </div>
@@ -117,8 +132,13 @@
           <div class="mobile-table">
             <span class="mobile-table-caption">Tap/Click on a row to edit the entry</span>
             <div class="mobile-table-row" data-ng-click="openModal('expense', expense.ledgerId)" data-ng-repeat="expense in ledger[0] | orderBy: 'date'">
-              <span class="entry-date">{{ expense.date | date:'MM/dd/yyyy' }}</span>
-              <span class="entry-payee-source">{{ expense.payeeSource }}</span>
+              
+              <span class="entry-date" data-ng-if="expense.date">{{ expense.date | date:'MM/dd/yyyy' }}</span>
+              <span class="entry-date" data-ng-if="!expense.date"><em>No Date</em></span>
+              
+              <span class="entry-payee-source" data-ng-if="expense.payeeSource">{{ expense.payeeSource }}</span>
+              <span class="entry-payee-source" data-ng-if="!expense.payeeSource"><em>No Payee</em></span>
+              
               <span class="entry-amount">{{ expense.amount | currency}}</span>
             </div>
           </div>
@@ -132,9 +152,15 @@
               <th class="add-edit-entry">Edit</th>
             </tr>
             <tr data-ng-repeat="expense in ledger[0] | orderBy: 'date'">  
-              <td class="entry-date">{{ expense.date | date:'MM/dd/yyyy' }}</td>
-              <td class="entry-category">{{ expense.category.name }}</td>
-              <td class="entry-payee-source">{{ expense.payeeSource }}</td>
+              <td class="entry-date" data-ng-if="expense.date">{{ expense.date | date:'MM/dd/yyyy' }}</td>
+              <td class="entry-date" data-ng-if="!expense.date"><em>No Date</em></td>
+              
+              <td class="entry-category" data-ng-if="expense.category.name">{{ expense.category.name }}</td>
+              <td class="entry-category" data-ng-if="!expense.category.name"><em>No Category</em></td>
+              
+              <td class="entry-payee-source" data-ng-if="expense.payeeSource">{{ expense.payeeSource }}</td>
+              <td class="entry-payee-source" data-ng-if="!expense.payeeSource"><em>No Payee</em></td>
+              
               <td class="entry-amount">{{ expense.amount | currency}}</td>
               <td class="add-edit-entry">
                 <button data-ng-click="openModal('expense', expense.ledgerId)" title="Edit">Edit</button>
@@ -152,16 +178,24 @@
           <div class="mobile-table">
 
             <div class="mobile-table-row" data-ng-repeat="income in ledger[1] | orderBy: 'date'">
-              <span class="entry-type">Income</span>
-              <span class="entry-date">{{ income.date | date:'MM/dd/yyyy' }}</span>
-              <span class="entry-payee-source">{{ income.payeeSource }}</span>
+              <span class="entry-type green bold">+</span>
+              <span class="entry-date" data-ng-if="income.date">{{ income.date | date:'M/d/yy' }}</span>
+              <span class="entry-date" data-ng-if="!income.date"><em>No Date</em></span>
+              
+              <span class="entry-payee-source" data-ng-if="income.payeeSource">{{ income.payeeSource }}</span>
+              <span class="entry-payee-source" data-ng-if="!income.payeeSource"><em>No Source</em></span>
+              
               <span class="entry-amount">{{ income.amount | currency}}</span>
             </div>
 
             <div class="mobile-table-row" data-ng-repeat="expense in ledger[0] | orderBy: 'date'">
-              <span class="entry-type">Expense</span>
-              <span class="entry-date">{{ expense.date | date:'MM/dd/yyyy' }}</span>
-              <span class="entry-payee-source">{{ expense.payeeSource }}</span>
+              <span class="entry-type red bold">-</span>
+              <span class="entry-date" data-ng-if="expense.date">{{ expense.date | date:'M/d/yy' }}</span>
+              <span class="entry-date" data-ng-if="!expense.date"><em>No Date</em></span>
+              
+              <span class="entry-payee-source" data-ng-if="expense.payeeSource">{{ expense.payeeSource }}</span>
+              <span class="entry-payee-source" data-ng-if="!expense.payeeSource"><em>No Payee</em></span>
+              
               <span class="entry-amount">{{ expense.amount | currency}}</span>
             </div>
 
@@ -177,17 +211,30 @@
 
             <tr data-ng-repeat="income in ledger[1] | orderBy: 'date'">
               <td class="entry-type">Income</td>
-              <td class="entry-date">{{ income.date | date:'MM/dd/yyyy' }}</td>
-              <td class="entry-category">{{ income.category.name }}</td>
-              <td class="entry-payee-source">{{ income.payeeSource }}</td>
+              <td class="entry-date" data-ng-if="income.date">{{ income.date | date:'MM/dd/yyyy' }}</td>
+              <td class="entry-date" data-ng-if="!income.date"><em>No Date</em></td>
+              
+              <td class="entry-category" data-ng-if="income.category.name">{{ income.category.name }}</td>
+              <td class="entry-category" data-ng-if="!income.category.name"><em>No Date</em></td>
+              
+              <td class="entry-payee-source" data-ng-if="income.payeeSource">{{ income.payeeSource }}</td>
+              <td class="entry-payee-source" data-ng-if="!income.payeeSource"><em>No Source</em></td>
+              
               <td class="entry-amount">{{ income.amount | currency}}</td>
             </tr>
 
             <tr data-ng-repeat="expense in ledger[0] | orderBy: 'date'">  
               <td class="entry-type">Expense</td>
-              <td class="entry-date">{{ expense.date | date:'MM/dd/yyyy' }}</td>
-              <td class="entry-category">{{ expense.category.name }}</td>
-              <td class="entry-payee-source">{{ expense.payeeSource }}</td>
+              
+              <td class="entry-date" data-ng-if="expense.date">{{ expense.date | date:'MM/dd/yyyy' }}</td>
+              <td class="entry-date" data-ng-if="!expense.date"><em>No Date</em></td>
+              
+              <td class="entry-category" data-ng-if="expense.category.name">{{ expense.category.name }}</td>
+              <td class="entry-category" data-ng-if="!expense.category.name"><em>No Category</em></td>
+              
+              <td class="entry-payee-source" data-ng-if="expense.payeeSource">{{ expense.payeeSource }}</td>
+              <td class="entry-payee-source" data-ng-if="!expense.payeeSource"><em>No Payee</em></td>
+              
               <td class="entry-amount">{{ expense.amount | currency}}</td>
             </tr>
 
@@ -196,11 +243,6 @@
         </div>
 
       </div>
-
-      <pre>
-        <strong>income:</strong> {{ ledger[1] }}<br>
-        <strong>bills:</strong> {{ ledger[0] }}
-      </pre>
     
     </main>
 
