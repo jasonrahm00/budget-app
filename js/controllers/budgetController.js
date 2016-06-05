@@ -208,7 +208,7 @@ budgetApp.controller('budgetController', ['$scope', '$uibModal', function ($scop
     var newId = 0;
     newId = $scope.ledgerEntryId += 1;
     return newId;
-  }  
+  }
   
   /***************** newLedgerEntry Function **************************/
   /*  
@@ -324,8 +324,8 @@ budgetApp.controller('budgetController', ['$scope', '$uibModal', function ($scop
     modalInstance.result.then(function () {
       calculateExpenses();
     });    
-  } 
-
+  }
+  
 }]);
 
 

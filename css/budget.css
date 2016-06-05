@@ -18,6 +18,14 @@ header {
   color: #a11e2d;
 }
 
+.sortorder:after {
+  content: '\25b2';
+}
+
+.sortorder.reverse:after {
+  content: '\25bc';
+}
+
 /* ---- Budget Table Defaults ---- */
 
 .budget table {
