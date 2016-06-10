@@ -174,6 +174,7 @@ budgetApp.controller('budgetController', ['$scope', '$window', '$uibModal', func
     $( "#tabs" ).tabs();
   });
   
+  //Print Window
   $scope.printReport = function() { 
     $window.print(); 
   }
@@ -307,7 +308,7 @@ budgetApp.controller('budgetController', ['$scope', '$window', '$uibModal', func
     var modalInstance = $uibModal.open({
       backdrop: 'static', //Static setting prevents you from closing modal when clicking on backdrop
       controller: 'editLedgerController', //A separate controller is needed for the actual modal instance
-      templateUrl: 'templates/edit-ledger.html', //The template for the modal window
+      templateUrl: 'budget/templates/edit-ledger.html', //The template for the modal window
       resolve: {
         entry: function () { //The entryToEdit object is assigned to 'entry' which is passed to the modal instance controller as a dependency
           return entryToEdit;
