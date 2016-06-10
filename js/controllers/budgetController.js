@@ -2,7 +2,7 @@
   MAIN BUDGET CONTROLLER
 ***********************************************/
 
-budgetApp.controller('budgetController', ['$scope', '$uibModal', function ($scope, $uibModal) {
+budgetApp.controller('budgetController', ['$scope', '$window', '$uibModal', function ($scope, $window, $uibModal) {
   
   /**************************
     VARIABLE DECLARATIONS
@@ -173,6 +173,10 @@ budgetApp.controller('budgetController', ['$scope', '$uibModal', function ($scop
   $(function() {
     $( "#tabs" ).tabs();
   });
+  
+  $scope.printReport = function() { 
+    $window.print(); 
+  }
   
   //Calculate total expenses using functional programming .reduce and shorthand (y = current object being iterated over)
   var calculateExpenses = function () {

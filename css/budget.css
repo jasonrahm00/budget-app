@@ -18,12 +18,12 @@ header {
   color: #a11e2d;
 }
 
-.sortorder:after {
-  content: '\25b2';
+.income {
+  border-color: #00640e;
 }
 
-.sortorder.reverse:after {
-  content: '\25bc';
+.expense {
+  border-color: #a11e2d;
 }
 
 /* ---- Budget Table Defaults ---- */
@@ -98,6 +98,7 @@ form.edit-ledger {
   margin: 0;
   padding: 10px;
 }
+
 .modal-dialog {
   margin-top: 20%;
 }
@@ -149,6 +150,7 @@ form.edit-ledger {
   MEDIA QUERIES
 **************************************/
 
+/*Large Screens */
 @media (min-width: 769px) {
   
   .mobile-table {
@@ -189,6 +191,31 @@ form.edit-ledger {
   .budget-table td {
     border-top: 1px solid #ccc; 
     border-bottom: 0;
+  }
+  
+}
+
+/* Print View */
+@media print {
+  
+  button,
+  header,
+  .mobile-table,
+  #tabs>ul {
+    display: none;
+  }
+  
+  .budget-table {
+    display: table;
+  }
+  
+  .budget-table th {
+    border-bottom: 1px solid #ccc;
+  }
+  
+  #tabs>div {
+    border: none;
+    padding: 0;
   }
   
 }
