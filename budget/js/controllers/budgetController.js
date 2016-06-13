@@ -4,6 +4,8 @@
 
 budgetApp.controller('budgetController', ['$scope', '$window', '$uibModal', function ($scope, $window, $uibModal) {
   
+  "use strict";
+  
   /**************************
     VARIABLE DECLARATIONS
   **************************/
@@ -181,8 +183,12 @@ budgetApp.controller('budgetController', ['$scope', '$window', '$uibModal', func
   
   //Calculate total expenses using functional programming .reduce and shorthand (y = current object being iterated over)
   var calculateExpenses = function () {
-    $scope.totalExpenses = expenses.reduce((x,y) => x + y.amount, 0);
-    $scope.totalIncome = income.reduce((x,y) => x + y.amount, 0);
+    $scope.totalExpenses = expenses.reduce(function(x, y) {
+      return x + y.amount
+    },0);
+    $scope.totalIncome = income.reduce(function(x, y) {
+      return x + y.amount;
+    },0);
     $scope.remainingFunds = $scope.totalIncome - $scope.totalExpenses;
   }; 
   
