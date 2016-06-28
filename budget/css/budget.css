@@ -52,6 +52,10 @@ header {
   color: #002E64;
 }
 
+.ui-tabs .ui-tabs-nav li {
+  margin: 0;
+}
+
 #ui-datepicker-div {
   background: #fff;
   border: 1px solid #ccc;
