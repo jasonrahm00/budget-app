@@ -16,12 +16,14 @@
     
     <link src="//normalize-css.googlecode.com/svn/trunk/normalize.css" rel="stylesheet">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="budget/css/jquery-ui-1-11-4.min.css" rel="stylesheet">
     <link href="budget/css/main.css" rel="stylesheet">
     <link href="budget/css/budget.css" rel="stylesheet"><!-- Loading separate stylesheet for budget app styles to keep better track of new custom styles -->
     
     <script src="//code.jquery.com/jquery-3.0.0.min.js"></script>
-    <script src="budget/js/vendor/jquery-ui.min.js"></script>
+    <script src="budget/js/vendor/jquery-ui-1.11.4.min.js"></script>
     <script src="//code.angularjs.org/1.5.3/angular.min.js"></script>
+    <script src="//code.angularjs.org/1.5.3/angular-animate.min.js"></script>
     <script src="budget/js/vendor/ui-bootstrap-tpls-1.3.1.min.js"></script>
     
   </head>
@@ -61,7 +63,7 @@
           <h2>Add Money</h2>
 
           <form class="add-entry">
-            <input class="entry-date" type="date" data-ng-model="date">
+            <input class="entry-date" type="text" data-ng-model="date" placeholder="Date" datepicker>
             <select class="entry-category" data-ng-model="selectedCategory" data-ng-options="incomeCategory.name group by incomeCategory.group for incomeCategory in incomeCategories | orderBy: ['group', 'name']">
               <option value="" disabled>-- Income Category --</option>
             </select>
@@ -121,7 +123,7 @@
           <h2>Add Expense</h2>
 
           <form class="add-entry">
-            <input class="entry-date" type="date" data-ng-model="date">
+            <input class="entry-date" type="text" data-ng-model="date" placeholder="Date" datepicker>
             <select class="entry-category" data-ng-model="selectedCategory" data-ng-options="expenseCategory.name group by expenseCategory.group for expenseCategory in expenseCategories | orderBy: ['group', 'name']">
               <option value="" disabled>-- Expense Category --</option>
             </select>

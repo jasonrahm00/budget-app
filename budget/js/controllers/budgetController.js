@@ -181,6 +181,11 @@ budgetApp.controller('budgetController', ['$scope', '$window', '$uibModal', func
     $window.print(); 
   }
   
+  //jQuery UI Datepicker
+  $(function() {
+    $("input[type=date]").datepicker();
+  });
+  
   //Calculate total expenses using functional programming .reduce and shorthand (y = current object being iterated over)
   var calculateExpenses = function () {
     $scope.totalExpenses = expenses.reduce(function(x, y) {
@@ -206,8 +211,8 @@ budgetApp.controller('budgetController', ['$scope', '$window', '$uibModal', func
   
   //The checkAmount function is called whenever a new expense or income entry is added.
   //The function runs the parseInt() method on the input field value. If nothing or a negative value is entered, the function will evaluate to false and trigger an alert box
-  var checkAmount = function (x) {
-    if(parseInt(x) > 0) {
+  function checkAmount(x) {
+    if(parseInt(x) >= 0) {
       return true;
     } else {
       return false;
@@ -360,5 +365,5 @@ budgetApp.controller('editLedgerController', ['$scope', '$uibModalInstance', 'en
   $scope.delete = function (entryType, ledgerId) {
     $uibModalInstance.close($scope.removeLedgerEntry(entryType, ledgerId));
   };
-  
+    
 }]);

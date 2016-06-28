@@ -26,6 +26,37 @@ header {
   border-color: #a11e2d;
 }
 
+.ui-state-hover,
+.ui-widget-content,
+.ui-widget-header,
+.ui-widget-content .ui-state-hover {
+  border: none;
+  background: none;
+}
+
+.ui-state-hover,
+.ui-datepicker-title,
+.ui-widget-content .ui-state-hover {
+  color: #002E64;
+}
+
+.ui-state-highlight, 
+.ui-widget-content .ui-state-highlight {
+  border: 1px solid #ccc;
+  background: #002E64;
+  color: #fff;
+}
+
+.ui-state-active, 
+.ui-widget-content .ui-state-active {
+  color: #002E64;
+}
+
+#ui-datepicker-div {
+  background: #fff;
+  border: 1px solid #ccc;
+}
+
 /* ---- Budget Table Defaults ---- */
 
 .budget table {
