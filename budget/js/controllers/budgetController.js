@@ -10,9 +10,6 @@ budgetApp.controller('budgetController', ['$scope', '$window', '$uibModal', func
     VARIABLE DECLARATIONS
   **************************/
   
-  var date = new Date();
-  var firstOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
-  
   $scope.totalExpenses; $scope.totalIncome; $scope.remainingFunds; $scope.ledgerId; $scope.payeeSource; $scope.amount; $scope.selectedCategory; $scope.date;
   
   $scope.ledgerEntryId = 100;
@@ -29,8 +26,7 @@ budgetApp.controller('budgetController', ['$scope', '$window', '$uibModal', func
           "name": "Carryover Balance"
         },
         "payeeSource": "Previous Month",
-        "amount": 0,
-        "date": firstOfMonth
+        "amount": 0
       }
     ],
     // Spending array $scope.ledger[2]
