@@ -1,7 +1,7 @@
 <h3>Edit Ledger Entry</h3>
 <form class="edit-ledger">  
 
-  <input type="text" data-ng-model="entry.date" placeholder="Date" datepicker>
+  <input class="entry-date" type="text" data-ng-model="date" placeholder="Date" datepicker readonly="true">
 
   <!-- Only one of the following dropdowns is displayed based on the ng-if statement and the typeOfEntry value in the modal instance controller -->
   <select data-ng-model="entry.category" data-ng-options="expenseCategory.name group by expenseCategory.group for expenseCategory in expenseCategories | orderBy: ['group', 'name']" data-ng-if="typeOfEntry === 'bill'">

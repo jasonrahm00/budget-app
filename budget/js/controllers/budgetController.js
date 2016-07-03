@@ -23,10 +23,9 @@ budgetApp.controller('budgetController', ['$scope', '$window', '$uibModal', func
         "ledgerId": 100,
         "category": {
           "group": "Initial",
-          "name": "Carryover Balance"
+          "name": "Beginning Balance"
         },
-        "payeeSource": "Previous Month",
-        "amount": 0
+        "amount": 0.00
       }
     ],
     // Spending array $scope.ledger[2]

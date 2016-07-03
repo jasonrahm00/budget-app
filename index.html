@@ -63,7 +63,7 @@
           <h2>Add Money</h2>
 
           <form class="add-entry">
-            <input class="entry-date" type="text" data-ng-model="date" placeholder="Date" datepicker>
+            <input class="entry-date" type="text" data-ng-model="date" placeholder="Date" datepicker readonly="true">
             <select class="entry-category" data-ng-model="selectedCategory" data-ng-options="incomeCategory.name group by incomeCategory.group for incomeCategory in incomeCategories | orderBy: ['group', 'name']">
               <option value="" disabled>-- Income Category --</option>
             </select>
@@ -123,7 +123,7 @@
           <h2>Add Expense</h2>
 
           <form class="add-entry">
-            <input class="entry-date" type="text" data-ng-model="date" placeholder="Date" datepicker>
+            <input class="entry-date" type="text" data-ng-model="date" placeholder="Date" datepicker readonly="true">
             <select class="entry-category" data-ng-model="selectedCategory" data-ng-options="expenseCategory.name group by expenseCategory.group for expenseCategory in expenseCategories | orderBy: ['group', 'name']">
               <option value="" disabled>-- Expense Category --</option>
             </select>
