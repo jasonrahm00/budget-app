@@ -56,6 +56,10 @@ header {
   margin: 0;
 }
 
+a.ui-state-highlight.ui-state-active {
+  background: #fff;
+}
+
 #ui-datepicker-div {
   background: #fff;
   border: 1px solid #ccc;

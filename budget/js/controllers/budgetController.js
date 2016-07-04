@@ -331,6 +331,7 @@ budgetApp.controller('budgetController', ['$scope', '$window', '$uibModal', func
       }
     });
     
+    console.log(entryToEdit);
     //The result promise allows you to track when the modal closes, how it closes and execute behaviors.
     modalInstance.result.then(function () {
       calculateExpenses();
@@ -352,8 +353,17 @@ budgetApp.controller('editLedgerController', ['$scope', '$uibModalInstance', 'en
   $scope.typeOfEntry = entry[1]; //Needs to be a string
   $scope.expenseCategories = expenseCategories;
   $scope.incomeCategories = incomeCategories;
+  $scope.entryDate = entry[0].date;
   
-  $scope.saveClose = function () {  
+  //The jQuery Datepicker only updates the scope of the parent controller, in this case the modal controller
+    //So, if the date is changed in the modal, the following function is needed to update the date of the entry object
+    //The function is called when the modal closes, so the property is updated at that time.
+  function getNewDate() {
+    $scope.entry.date = $scope.entryDate;
+  }
+  
+  $scope.saveClose = function () { 
+    getNewDate();
     $uibModalInstance.close();
   };
   
