@@ -2,10 +2,19 @@
   MAIN BUDGET CONTROLLER
 ***********************************************/
 
-budgetApp.controller('budgetController', ['$scope', '$window', '$uibModal', function ($scope, $window, $uibModal) {
+budgetApp.controller('budgetController', ['$scope', '$window', '$uibModal', 'catFactory', function ($scope, $window, $uibModal, catFactory) {
   
   "use strict";
   
+  $scope.ledgerCategories;
+  
+  catFactory.getLedgerCategories()
+    .then(function(response) {
+      $scope.ledgerCategories = response.data;
+    }, function(error) {
+      console.log(error.message);
+  });
+    
   /**************************
     VARIABLE DECLARATIONS
   **************************/
@@ -18,16 +27,7 @@ budgetApp.controller('budgetController', ['$scope', '$window', '$uibModal', func
     // Expenses array $scope.ledger[0]
     [],
     // Income array $scope.ledger[1]
-    [
-      {
-        "ledgerId": 100,
-        "category": {
-          "group": "Initial",
-          "name": "Beginning Balance"
-        },
-        "amount": 0.00
-      }
-    ],
+    [],
     // Spending array $scope.ledger[2]
     []
   ];
@@ -36,131 +36,6 @@ budgetApp.controller('budgetController', ['$scope', '$window', '$uibModal', func
   
   var income = $scope.ledger[1];
   
-  $scope.expenseCategories = [ 
-    {
-      group: 'Housing',
-      name: 'Rent'
-    },
-    {
-      group: 'Debt',
-      name: 'Credit Card'
-    },
-    {
-      group: 'Living Expenses',
-      name: 'Internet'
-    },
-    {
-      group: 'Insurance',
-      name: 'Life Insurance'
-    },
-    {
-      group: 'Insurance',
-      name: 'Car Insurance'
-    },
-    {
-      group: 'Social',
-      name: 'Restaurant'
-    },
-    {
-      group: 'Social',
-      name: 'Entertainment'
-    },
-    {
-      group: 'Miscellaneous',
-      name: 'Miscellaneous'
-    },
-    {
-      group: 'Investment',
-      name: 'Savings'
-    },
-    {
-      group: 'Living Expenses',
-      name: 'Groceries'
-    },
-    {
-      group: 'Debt',
-      name: 'Studen Loans'
-    },
-    {
-      group: 'Living Expenses',
-      name: 'Cell Phone'
-    },
-    {
-      group: 'Investment',
-      name: 'Retirement'
-    },
-    {
-      group: 'Insurance',
-      name: 'Health Insurance'
-    },
-    {
-      group: 'Housing',
-      name: 'Utilities'
-    },
-    {
-      group: 'Travel',
-      name: 'Gasoline'
-    },
-    {
-      group: 'Housing',
-      name: 'Mortgage'
-    }
-  ];
-  
-  $scope.incomeCategories = [
-    {
-      group: 'Salary',
-      name: 'Pay Check'
-    },
-    {
-      group: 'Investments',
-      name: 'Dividends'
-    },
-    {
-      group: 'Investments',
-      name: 'Sale of Stock'
-    },
-    {
-      group: 'Assistance',
-      name: 'Family'
-    },
-    {
-      group: 'Retirement',
-      name: '401k/IRA Payments'
-    },
-    {
-      group: 'Retirement',
-      name: 'Social Security'
-    },
-    {
-      group: 'Assistance',
-      name: 'Welfare'
-    },
-    {
-      group: 'Assistance',
-      name: 'Unemployment'
-    },
-    {
-      group: 'Investments',
-      name: 'Property Sale'
-    },
-    {
-      group: 'Miscellaneous',
-      name: 'Miscellaneous'
-    },
-    {
-      group: 'Assistance',
-      name: 'Disability Insurance'
-    },
-    {
-      group: 'Salary',
-      name: 'Business Income'
-    },
-    {
-      group: 'Initial',
-      name: 'Carryover Balance'
-    }
-  ]
   
   /**************************
     FUNCTIONS
@@ -321,12 +196,6 @@ budgetApp.controller('budgetController', ['$scope', '$window', '$uibModal', func
         },
         deleteEntry: function () {
           return $scope.removeLedgerEntry;
-        },
-        expenseCategories: function () {
-          return $scope.expenseCategories;
-        },
-        incomeCategories: function () {
-          return $scope.incomeCategories;
         }
       }
     });
@@ -345,14 +214,29 @@ budgetApp.controller('budgetController', ['$scope', '$window', '$uibModal', func
   MODAL INSTANCE CONTROLLER
 ***********************************************/
 
-budgetApp.controller('editLedgerController', ['$scope', '$uibModalInstance', 'entry', 'deleteEntry', 'expenseCategories', 'incomeCategories', function ($scope, $uibModalInstance, entry, deleteEntry, expenseCategories, incomeCategories) {
+budgetApp.controller('editLedgerController', ['$scope', '$uibModalInstance', 'entry', 'deleteEntry', 'catFactory', function ($scope, $uibModalInstance, entry, deleteEntry, catFactory) {
+  
+  "use strict";
+  
+  $scope.ledgerCategories;
+  
+  catFactory.getLedgerCategories()
+    .then(function(response) {
+      $scope.ledgerCategories = response.data;
+    }, function(error) {
+      console.log(error.message);
+  });
   
   //The injected objects from the modal open function is assigned to the scope so the values can be displayed and edited
   $scope.removeLedgerEntry = deleteEntry;
   $scope.entry = entry[0];
   $scope.typeOfEntry = entry[1]; //Needs to be a string
-  $scope.expenseCategories = expenseCategories;
-  $scope.incomeCategories = incomeCategories;
+  
+  //$scope.expenseCategories = expenseCategories;
+  //$scope.incomeCategories = incomeCategories;
+  
+  $scope.category = entry.category;
+  
   $scope.entryDate = entry[0].date;
   
   //The jQuery Datepicker only updates the scope of the parent controller, in this case the modal controller

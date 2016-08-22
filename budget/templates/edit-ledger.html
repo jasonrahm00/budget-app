@@ -4,10 +4,10 @@
   <input class="entry-date" type="text" data-ng-model="entryDate" placeholder="Date" datepicker readonly="true">
 
   <!-- Only one of the following dropdowns is displayed based on the ng-if statement and the typeOfEntry value in the modal instance controller -->
-  <select data-ng-model="entry.category" data-ng-options="expenseCategory.name group by expenseCategory.group for expenseCategory in expenseCategories | orderBy: ['group', 'name']" data-ng-if="typeOfEntry === 'bill'">
+  <select data-ng-model="entry.category" data-ng-options="expenseCategory.name group by expenseCategory.group for expenseCategory in ledgerCategories.expenseCategories | orderBy: ['group', 'name']" data-ng-if="typeOfEntry === 'bill'">
     <option value="" disabled>-- Expense Category --</option>
   </select>
-  <select data-ng-model="entry.category" data-ng-options="incomeCategory.name group by incomeCategory.group for incomeCategory in incomeCategories | orderBy: ['group', 'name']" data-ng-if="typeOfEntry === 'income'">
+  <select data-ng-model="entry.category" data-ng-options="incomeCategory.name group by incomeCategory.group for incomeCategory in ledgerCategories.incomeCategories | orderBy: ['group', 'name']" data-ng-if="typeOfEntry === 'income'">
     <option value="" disabled>-- Income Category --</option>
   </select>
   

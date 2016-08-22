@@ -64,7 +64,7 @@
 
           <form class="add-entry">
             <input class="entry-date" type="text" data-ng-model="date" placeholder="Date" datepicker readonly="true">
-            <select class="entry-category" data-ng-model="selectedCategory" data-ng-options="incomeCategory.name group by incomeCategory.group for incomeCategory in incomeCategories | orderBy: ['group', 'name']">
+            <select class="entry-category" data-ng-model="selectedCategory" data-ng-options="incomeCategory.name group by incomeCategory.group for incomeCategory in ledgerCategories.incomeCategories | orderBy: ['group', 'name']">
               <option value="" disabled>-- Income Category --</option>
             </select>
             <input class="entry-payee-source" type="text" data-ng-model="payeeSource" placeholder="Source">
@@ -124,7 +124,7 @@
 
           <form class="add-entry">
             <input class="entry-date" type="text" data-ng-model="date" placeholder="Date" datepicker readonly="true">
-            <select class="entry-category" data-ng-model="selectedCategory" data-ng-options="expenseCategory.name group by expenseCategory.group for expenseCategory in expenseCategories | orderBy: ['group', 'name']">
+            <select class="entry-category" data-ng-model="selectedCategory" data-ng-options="expenseCategory.name group by expenseCategory.group for expenseCategory in ledgerCategories.expenseCategories | orderBy: ['group', 'name']">
               <option value="" disabled>-- Expense Category --</option>
             </select>
             <input class="entry-payee-source" type="text" data-ng-model="payeeSource" placeholder="Payee">
@@ -261,6 +261,7 @@
     <!-- Directives -->
     
     <!-- Factories -->  
+    <script src="budget/js/factories/catFactory.js"></script>
     
     <!-- Services -->
 
