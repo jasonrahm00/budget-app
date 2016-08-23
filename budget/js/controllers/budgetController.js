@@ -166,7 +166,7 @@ budgetApp.controller('budgetController', ['$scope', '$window', '$uibModal', 'cat
     The unique lederlId and entry type are passed in from the click function on the 'Edit' button
     If/Else statements check to see if the entryType is a expense or income and iterates over the matching array of objects to find the one that was clicked. That object is then assigned to the entryToEdit variable so it can bep passed to the modal.
     When the modal is opened, a separte intance is created with its own scope, so the various dependencies need to be assigned to that local scope to allow two-way-databinding with the main budget controller 
-  */
+  
   $scope.openModal = function (entryType, ledgerId) {
     
     var entryToEdit = [];
@@ -206,6 +206,7 @@ budgetApp.controller('budgetController', ['$scope', '$window', '$uibModal', 'cat
       calculateExpenses();
     });    
   }
+  */
   
 }]);
 
@@ -214,6 +215,7 @@ budgetApp.controller('budgetController', ['$scope', '$window', '$uibModal', 'cat
   MODAL INSTANCE CONTROLLER
 ***********************************************/
 
+/*
 budgetApp.controller('editLedgerController', ['$scope', '$uibModalInstance', 'entry', 'deleteEntry', 'catFactory', function ($scope, $uibModalInstance, entry, deleteEntry, catFactory) {
   
   "use strict";
@@ -256,3 +258,4 @@ budgetApp.controller('editLedgerController', ['$scope', '$uibModalInstance', 'en
   };
     
 }]);
+*/

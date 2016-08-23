@@ -74,7 +74,7 @@
 
           <div class="mobile-table">
             <span class="mobile-table-caption">Tap/Click on a row to edit the entry</span>
-            <div class="mobile-table-row" data-ng-click="openModal('income', income.ledgerId)" data-ng-repeat="income in ledger[1] | orderBy: 'date'">
+            <div class="mobile-table-row" data-ng-repeat="income in ledger[1] | orderBy: 'date'">
               
               <span class="entry-date" data-ng-if="income.date">{{ income.date | date:'MM/dd/yyyy' }}</span>
               <span class="entry-date" data-ng-if="!income.date"><em>No Date</em></span>
@@ -109,7 +109,7 @@
               
               <td class="entry-amount">{{ income.amount | currency}}</td>
               <td class="add-edit-entry">
-                <button data-ng-click="openModal('income', income.ledgerId)" title="Edit">Edit</button>
+                <button title="Edit">Edit</button>
                 <button data-ng-click="removeLedgerEntry('income', income.ledgerId)">Delete</button>
               </td>
             </tr>
@@ -166,7 +166,7 @@
               
               <td class="entry-amount">{{ expense.amount | currency}}</td>
               <td class="add-edit-entry">
-                <button data-ng-click="openModal('expense', expense.ledgerId)" title="Edit">Edit</button>
+                <button title="Edit">Edit</button>
                 <button data-ng-click="removeLedgerEntry('expense', expense.ledgerId)" title="Delete">Delete</button>
               </td>
             </tr>
