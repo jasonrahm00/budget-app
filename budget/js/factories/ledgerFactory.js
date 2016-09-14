@@ -15,8 +15,11 @@ budgetApp.factory('ledgerFactory', function() {
     return newId;
   }
   
+  /***************** addNewEntry Function **************************/
+  //Takes form data as inputs and pushes a new object to the ledger.entries array
   ledger.addNewEntry = function(payeeSource, amount, category, date) {
     this.entries.push({
+      "entryType": "",
       "ledgerId": createLedgerEntryId(),
       "payeeSource": payeeSource,
       "amount": amount,
@@ -26,6 +29,8 @@ budgetApp.factory('ledgerFactory', function() {
     return this; 
   }
   
+  /***************** removeLedgerEntry Function **************************/
+  //Takes ledgerId and searches ledger.entries array for matching object then removes that entrie from the array
   ledger.removeEntry = function(ledgerId) {
     for(var i = 0; i < this.entries.length; i++) {
       var entry = this.entries[i];
@@ -38,6 +43,7 @@ budgetApp.factory('ledgerFactory', function() {
     return this;
   }
 
+  //Return ledger value from factory
   return ledger;
     
 });

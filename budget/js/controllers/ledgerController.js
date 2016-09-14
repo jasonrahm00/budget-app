@@ -6,21 +6,20 @@ budgetApp.controller('ledgerController', ['$scope', 'catFactory', 'ledgerFactory
   
   "use strict";
   
-  $scope.ledgerCategories;
+  /**************************
+    VARIABLE DECLARATIONS
+  **************************/
   
+  $scope.totalExpenses; $scope.totalIncome; $scope.remainingFunds; $scope.payeeSource; $scope.amount; $scope.selectedCategory; $scope.date; $scope.ledger; $scope.ledgerCategories;
+  
+  //Get ledgery categories from data file and assign values to the legderCategories scope variable
   catFactory.getLedgerCategories()
     .then(function(response) {
       $scope.ledgerCategories = response.data;
     }, function(error) {
       console.log(error.message);
   });
-    
-  /**************************
-    VARIABLE DECLARATIONS
-  **************************/
-  
-  $scope.totalExpenses; $scope.totalIncome; $scope.remainingFunds; $scope.ledgerId; $scope.payeeSource; $scope.amount; $scope.selectedCategory; $scope.date; $scope.ledger;
-  
+
   /**************************
     FUNCTIONS
   **************************/
@@ -46,6 +45,22 @@ budgetApp.controller('ledgerController', ['$scope', 'catFactory', 'ledgerFactory
   //Call the calculateExpenses function when the controller loads to gain the inital value if there are default expenses/sources of income set
   //calculateExpenses();
     
+  /***************** addNewEntry Function **************************/
+
+  $scope.newLedgerEntry = function () {
+    if(!checkAmount($scope.amount)) {
+      alert ("Please add an Amount")
+    } else {
+      $scope.ledger = ledgerFactory.addNewEntry(
+        $scope.payeeSource, 
+        $scope.amount, 
+        $scope.selectedCategory, 
+        $scope.date
+      );
+      resetValues();
+    }
+  };
+  
   //The reusable resetValues() function clears all of the data in the expense/income creation form once the new object is created
   var resetValues = function() {
     $scope.amount = null;
@@ -63,26 +78,9 @@ budgetApp.controller('ledgerController', ['$scope', 'catFactory', 'ledgerFactory
       return false;
     }
   }  
- 
-  $scope.newLedgerEntry = function () {
-    if(!checkAmount($scope.amount)) {
-      alert ("Please add an Amount")
-    } else {
-      $scope.ledger = ledgerFactory.addNewEntry(
-        $scope.payeeSource, 
-        $scope.amount, 
-        $scope.selectedCategory, 
-        $scope.date
-      );
-      resetValues();
-    }
-  };
       
   /***************** removeLedgerEntry Function **************************/
-  /* 
-    This function removes the targeted income or expense object when the delete button is clicked for that entry. The function accepts entryType and ledgerId as arguments. The first set of if/else statments test the entryType while the subsequent for loop iterates over the matching array and the nested if statement searches each object in the array for one with a matching ledgerId to the one you are trying to delete. If a match is found, that object is removed from the array. Finally the calcualteExpenses() function is called to update the total expenses variable.
-  */
-    
+      
   $scope.removeEntry = function (ledgerId) {
     $scope.ledger = ledgerFactory.removeEntry(ledgerId);
   }
