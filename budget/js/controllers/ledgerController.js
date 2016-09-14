@@ -2,13 +2,13 @@
   MAIN BUDGET CONTROLLER
 ***********************************************/
 
-budgetApp.controller('ledgerController', ['$scope', 'ledgerFactory', function ($scope, ledgerFactory) {
+budgetApp.controller('ledgerController', ['$scope', 'catFactory', 'ledgerFactory', function ($scope, catFactory, ledgerFactory) {
   
   "use strict";
   
   $scope.ledgerCategories;
   
-  ledgerFactory.getLedgerCategories()
+  catFactory.getLedgerCategories()
     .then(function(response) {
       $scope.ledgerCategories = response.data;
     }, function(error) {
@@ -23,7 +23,7 @@ budgetApp.controller('ledgerController', ['$scope', 'ledgerFactory', function ($
   
   $scope.ledgerEntryId = 100;
 
-  $scope.ledger = [];  
+  $scope.ledger = [];
   
   /**************************
     FUNCTIONS

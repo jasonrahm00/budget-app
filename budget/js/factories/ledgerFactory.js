@@ -1,11 +1,5 @@
-budgetApp.factory('ledgerFactory', ['$http', function($http){
+budgetApp.factory('ledgerFactory', [function(){
   
-  var catData = {};
-  
-  catData.getLedgerCategories = function() {
-    return $http.get('budget/js/data/ledgerCategories.json');
-  }
-
-  return catData;
-  
+  //Get category data
+    
 }]);

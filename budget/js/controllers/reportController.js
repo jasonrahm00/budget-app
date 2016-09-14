@@ -1,4 +1,4 @@
-budgetApp.controller('ledgerController', ['$scope', '$window', 'ledgerFactory', function ($scope, $window, ledgerFactory) { 
+budgetApp.controller('ledgerController', ['$scope', '$window', function ($scope, $window) { 
 
   //Print Window
   $scope.printReport = function() { 
