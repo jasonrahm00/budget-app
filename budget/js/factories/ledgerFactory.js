@@ -1,4 +1,4 @@
-budgetApp.factory('catFactory', ['$http', function($http){
+budgetApp.factory('ledgerFactory', ['$http', function($http){
   
   var catData = {};
   
