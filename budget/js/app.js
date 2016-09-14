@@ -36,7 +36,7 @@ budgetApp.config(['$stateProvider', '$urlRouterProvider',  function ($stateProvi
     .state('report', {
       url: '/report',
       templateUrl: 'views/report.html',
-      controller: 'ledgerController'
+      controller: 'reportController'
     });
   
   $urlRouterProvider.otherwise('/');

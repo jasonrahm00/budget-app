@@ -1,6 +1,5 @@
 budgetApp.factory('catFactory', ['$http', function($http){
-  
-  //Get category data
+
   var catData = {};
   
   catData.getLedgerCategories = function() {

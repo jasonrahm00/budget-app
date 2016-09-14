@@ -19,11 +19,7 @@ budgetApp.controller('ledgerController', ['$scope', 'catFactory', 'ledgerFactory
     VARIABLE DECLARATIONS
   **************************/
   
-  $scope.totalExpenses; $scope.totalIncome; $scope.remainingFunds; $scope.ledgerId; $scope.payeeSource; $scope.amount; $scope.selectedCategory; $scope.date;
-  
-  $scope.ledgerEntryId = 100;
-
-  $scope.ledger = [];
+  $scope.totalExpenses; $scope.totalIncome; $scope.remainingFunds; $scope.ledgerId; $scope.payeeSource; $scope.amount; $scope.selectedCategory; $scope.date; $scope.ledger;
   
   /**************************
     FUNCTIONS
@@ -53,7 +49,6 @@ budgetApp.controller('ledgerController', ['$scope', 'catFactory', 'ledgerFactory
   //The reusable resetValues() function clears all of the data in the expense/income creation form once the new object is created
   var resetValues = function() {
     $scope.amount = null;
-    $scope.ledgerId = '';
     $scope.date = '';
     $scope.payeeSource = '';
     $scope.selectedCategory = '';
@@ -68,32 +63,17 @@ budgetApp.controller('ledgerController', ['$scope', 'catFactory', 'ledgerFactory
       return false;
     }
   }  
-  
-  //Generate unique ID for each ledger entry (expense/source of income) so it can be referenced when editing
-  function createLedgerEntryId () {
-    var newId = 0;
-    newId = $scope.ledgerEntryId += 1;
-    return newId;
-  }
-  
-  /***************** newLedgerEntry Function **************************/
-  /*  
-    The newLedgerEntry function takes an 'entryType' string that is passed via the function call on the HTML 'Add' button; 'income' and 'expense' are the two possible types, currently. 
-    Before anything else happens, the checkAmount() function is called to test whether an amount ($scope.amount) has been entered into the input field. The calculateExpenses function is expecting a number value from the amount intput. If nothing is entered, the field returns 'unassigned' which will break the calculate function, so an alert tells the user to enter an amount, if it is left blank. 
-    When checkAmount evaluates to true, the function then creates a unique ledger entry ID by calling the createLedgerEntryID() function and assigns that value to the ledgerId variable.
-    Then, nested if/else statements use the injected entryType to determine whether a new expense or new income object is being created. The object is then pushed to the appropriate array, the calculateExpenses function updates the summary table and the resetValues function clears the form fields.  
-  */
-  
-  var pushNewEntry = function () {
-    return $scope.ledger.push({ledgerId: $scope.ledgerId, category: $scope.selectedCategory, payeeSource: $scope.payeeSource, amount: $scope.amount, date: $scope.date});
-  }
-  
+ 
   $scope.newLedgerEntry = function () {
     if(!checkAmount($scope.amount)) {
       alert ("Please add an Amount")
     } else {
-      $scope.ledgerId = createLedgerEntryId();
-      pushNewEntry();
+      $scope.ledger = ledgerFactory.addNewEntry(
+        $scope.payeeSource, 
+        $scope.amount, 
+        $scope.selectedCategory, 
+        $scope.date
+      );
       resetValues();
     }
   };

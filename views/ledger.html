@@ -19,7 +19,7 @@
     <th class="add-edit-entry">Edit</th>
   </tr>
 
-  <tr data-ng-repeat="entry in ledger | orderBy: 'date'">
+  <tr data-ng-repeat="entry in ledger.entries | orderBy: 'date'">
 
     <td class="entry-date" data-ng-if="entry.date">{{ entry.date | date:'MM/dd/yyyy' }}</td>
     <td class="entry-date" data-ng-if="!entry.date"><em>No Date Entered</em></td>
@@ -33,7 +33,7 @@
     <td class="entry-amount">{{ entry.amount | currency}}</td>
     <td class="add-edit-entry">
       <button title="Edit">Edit</button>
-      <button data-ng-click="removeLedgerEntry(entry.ledgerId)">Delete</button>
+      <button data-ng-click="removeEntry(entry.ledgerId)">Delete</button>
     </td>
   </tr>
 
