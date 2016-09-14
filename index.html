@@ -18,22 +18,22 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link href="budget/css/jquery-ui-1-11-4.min.css" rel="stylesheet">
     <link href="budget/css/main.css" rel="stylesheet">
-    <link href="budget/css/budget.css" rel="stylesheet"><!-- Loading separate stylesheet for budget app styles to keep better track of new custom styles -->
+    <link href="budget/css/budget.css" rel="stylesheet">
     
     <script src="//code.jquery.com/jquery-3.0.0.min.js"></script>
     <script src="budget/js/vendor/jquery-ui-1.11.4.min.js"></script>
     <script src="//code.angularjs.org/1.5.3/angular.min.js"></script>
-    <script src="//code.angularjs.org/1.5.3/angular-animate.min.js"></script>
-    <script src="budget/js/vendor/ui-bootstrap-tpls-1.3.1.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js"></script>
     
   </head>
-  <body data-ng-controller="ledgerController">
   
-    <main class="budget">
-    
+  <body class="budget">
+
       <header class="clearfix">
         <h1>Personal Budget</h1>  
         <p>I've never been good at creating and following a personal budget. On the rare occasions I tried to budget, any free software I could find was all based on Excel spreadsheets. I hate spreadsheets. There's just something about them that I find inelegant. So, I decided to create this simple budget application to get away from spreadsheets, try to budget better and learn more development tricks along the way. I do realize that, in its current form, this app is little better than a spreadsheet, but it's a work-in-progress.</p>
+        
+        <!--
         <table class="summary-table" data-ng-init="calculateExpenses()">
           <tr>
             <td>Available Funds</td>
@@ -48,102 +48,25 @@
             <td data-ng-class="remainingFunds < 0 ? 'bold red' : ''">{{ remainingFunds | currency }}</td>
           </tr>
         </table>
+        -->
+        
       </header>
-
-      <div id="tabs">
-        <ul>
-          <li><a href="#income">Income</a></li>
-          <li><a href="#report">Report</a></li>
-        </ul>
-
-        <!-- Income Tab -->
-        <div id="income">
-
-          <h2>Add Money</h2>
-
-          <form class="add-entry">
-            <input class="entry-date" type="text" data-ng-model="date" placeholder="Date" datepicker readonly="true">
-            <select class="entry-category" data-ng-model="selectedCategory" data-ng-options="incomeCategory.name group by incomeCategory.group for incomeCategory in ledgerCategories.incomeCategories | orderBy: ['group', 'name']">
-              <option value="" disabled>-- Income Category --</option>
-            </select>
-            <input class="entry-payee-source" type="text" data-ng-model="payeeSource" placeholder="Source">
-            <input class="entry-amount" type="number" min="0" step="0.01" data-ng-model="amount" placeholder="Amount">
-            <button data-ng-click="newLedgerEntry()">Add</button>
-          </form> 
-
-          <table class="budget-table">
-            <tr>
-              <th class="entry-date">Income Date</th>
-              <th class="entry-category">Category</th>
-              <th class="entry-payee-source">Source</th>
-              <th class="entry-amount">Amount</th>
-              <th class="add-edit-entry">Edit</th>
-            </tr>
-            
-            <tr data-ng-repeat="entry in ledger | orderBy: 'date'">
-              
-              <td class="entry-date" data-ng-if="entry.date">{{ entry.date | date:'MM/dd/yyyy' }}</td>
-              <td class="entry-date" data-ng-if="!entry.date"><em>No Date Entered</em></td>
-              
-              <td class="entry-category" data-ng-if="entry.category.name">{{ entry.category.name }}</td>
-              <td class="entry-category" data-ng-if="!entry.category.name"><em>No Category</em></td>
-              
-              <td class="entry-payee-source" data-ng-if="entry.payeeSource">{{ entry.payeeSource }}</td>
-              <td class="entry-payee-source" data-ng-if="!entry.payeeSource"><em>No Source</em></td>
-              
-              <td class="entry-amount">{{ entry.amount | currency}}</td>
-              <td class="add-edit-entry">
-                <button title="Edit">Edit</button>
-                <button data-ng-click="removeLedgerEntry(entry.ledgerId)">Delete</button>
-              </td>
-            </tr>
-            
-          </table>
-
-        </div>
-
-        <!-- Budget Report Tab -->
-        <div id="report">
-          <h2>Budget Report</h2>
-
-          <table class="budget-table report">
-            <tr>
-              <th class="entry-type">Entry Type</th>
-              <th class="entry-date">Payment Date</th>
-              <th class="entry-category">Category</th>
-              <th class="entry-payee-source">Payee</th>
-              <th class="entry-amount">Amount</th>
-            </tr>
-            
-            <tr data-ng-repeat="entry in ledger | orderBy: 'date'">
-              <td class="entry-type">Income</td>
-              <td class="entry-date" data-ng-if="entry.date">{{ entry.date | date:'MM/dd/yyyy' }}</td>
-              <td class="entry-date" data-ng-if="!entry.date"><em>No Date</em></td>
-              
-              <td class="entry-category" data-ng-if="entry.category.name">{{ entry.category.name }}</td>
-              <td class="entry-category" data-ng-if="!entry.category.name"><em>No Date</em></td>
-              
-              <td class="entry-payee-source" data-ng-if="entry.payeeSource">{{ entry.payeeSource }}</td>
-              <td class="entry-payee-source" data-ng-if="!entry.payeeSource"><em>No Source</em></td>
-              
-              <td class="entry-amount">{{ entry.amount | currency}}</td>
-            </tr>
-            
-          </table>
-          
-          <button data-ng-click="printReport()">Print Report</button>
-          
-        </div>
-
-      </div>
     
-    </main>
+    <nav>
+      <ul>
+        <li><a data-ui-sref="ledger">Ledger</a></li>
+        <li><a data-ui-sref="report">Report</a></li>
+      </ul>
+    </nav>
+    
+    <main data-ui-view></main>
 
     <!-- App -->
     <script src="budget/js/app.js"></script>
 
     <!-- Controllers -->
     <script src="budget/js/controllers/ledgerController.js"></script>
+    <script src="budget/js/controllers/reportController.js"></script>
 
     <!-- Directives -->
     

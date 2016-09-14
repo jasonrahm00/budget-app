@@ -26,6 +26,35 @@ header {
   border-color: #a11e2d;
 }
 
+body.budget {
+  padding-top: 20px;
+}
+
+.budget header,
+.budget nav {
+  margin: 0 auto;
+  max-width: 1150px;
+  padding: 1em 1.5em 0;
+}
+
+.budget main {
+  padding: 0 1.25em 2.25em;
+}
+
+.budget nav {
+  background: none;
+  position: relative;
+}
+
+.budget nav ul {
+  float: none;
+  margin-top: 0;
+}
+
+.budget nav li {
+  background: rgb(0, 46, 100);
+}
+
 .ui-state-hover,
 .ui-widget-content,
 .ui-widget-header,
@@ -50,10 +79,6 @@ header {
 .ui-state-active, 
 .ui-widget-content .ui-state-active {
   color: #002E64;
-}
-
-.ui-tabs .ui-tabs-nav li {
-  margin: 0;
 }
 
 a.ui-state-highlight.ui-state-active {
@@ -142,48 +167,6 @@ form.edit-ledger {
   margin-top: 20%;
 }
 
-/* ---- Tab Browsing ---- */
-
-#tabs ul {
-  margin-bottom: 0;
-  padding: 0;
-}
-
-#tabs li {
-  display: inline-block;
-}
-
-#tabs>ul li {
-  background: #002E64;
-  border: 1px solid #ccc;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  border-bottom: none;
-}
-
-#tabs ul>li a {
-  color: #a9a9a9;
-  display: block;
-  padding: 10px 15px;
-}
-
-#tabs>div {
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 0 10px 10px;
-}
-
-#tabs>ul li:hover,
-#tabs>ul li.ui-state-active {
-  background:#dfdfdf;
-}
-
-#tabs>ul li:hover a,
-#tabs>ul li.ui-state-active a {
-  color: #002E64;
-}
-
-
 
 /************************************** 
   MEDIA QUERIES
@@ -238,9 +221,7 @@ form.edit-ledger {
 @media print {
   
   button,
-  header,
-  .mobile-table,
-  #tabs>ul {
+  header {
     display: none;
   }
   
@@ -250,11 +231,6 @@ form.edit-ledger {
   
   .budget-table th {
     border-bottom: 1px solid #ccc;
-  }
-  
-  #tabs>div {
-    border: none;
-    padding: 0;
   }
   
 }

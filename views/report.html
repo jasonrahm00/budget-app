@@ -1,0 +1,31 @@
+<div id="report">
+  <h2>Budget Report</h2>
+
+  <table class="budget-table report">
+    <tr>
+      <th class="entry-type">Entry Type</th>
+      <th class="entry-date">Payment Date</th>
+      <th class="entry-category">Category</th>
+      <th class="entry-payee-source">Payee</th>
+      <th class="entry-amount">Amount</th>
+    </tr>
+
+    <tr data-ng-repeat="entry in ledger | orderBy: 'date'">
+      <td class="entry-type">Income</td>
+      <td class="entry-date" data-ng-if="entry.date">{{ entry.date | date:'MM/dd/yyyy' }}</td>
+      <td class="entry-date" data-ng-if="!entry.date"><em>No Date</em></td>
+
+      <td class="entry-category" data-ng-if="entry.category.name">{{ entry.category.name }}</td>
+      <td class="entry-category" data-ng-if="!entry.category.name"><em>No Date</em></td>
+
+      <td class="entry-payee-source" data-ng-if="entry.payeeSource">{{ entry.payeeSource }}</td>
+      <td class="entry-payee-source" data-ng-if="!entry.payeeSource"><em>No Source</em></td>
+
+      <td class="entry-amount">{{ entry.amount | currency}}</td>
+    </tr>
+
+  </table>
+
+  <button data-ng-click="printReport()">Print Report</button>
+
+</div>

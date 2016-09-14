@@ -1,4 +1,4 @@
-var budgetApp = angular.module('budgetApp', ['ngAnimate', 'ui.bootstrap']);
+var budgetApp = angular.module('budgetApp', ['ui.router']);
 
 budgetApp.directive("datepicker", function () {
   return {
@@ -19,3 +19,26 @@ budgetApp.directive("datepicker", function () {
     }
   }
 });
+
+//ROUTES
+
+budgetApp.config(['$stateProvider', '$urlRouterProvider',  function ($stateProvider, $urlRouterProvider) {
+  
+  $stateProvider
+    
+    // View states for main pages linked in Nav
+  
+    .state('ledger', {
+      url: '/',
+      templateUrl: 'views/ledger.html',
+      controller: 'ledgerController'
+    })
+    .state('report', {
+      url: '/report',
+      templateUrl: 'views/report.html',
+      controller: 'ledgerController'
+    });
+  
+  $urlRouterProvider.otherwise('/');
+  
+}]);

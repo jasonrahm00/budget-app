@@ -2,7 +2,7 @@
   MAIN BUDGET CONTROLLER
 ***********************************************/
 
-budgetApp.controller('ledgerController', ['$scope', '$window', 'ledgerFactory', function ($scope, $window, ledgerFactory) {
+budgetApp.controller('ledgerController', ['$scope', 'ledgerFactory', function ($scope, ledgerFactory) {
   
   "use strict";
   
@@ -28,11 +28,6 @@ budgetApp.controller('ledgerController', ['$scope', '$window', 'ledgerFactory', 
   /**************************
     FUNCTIONS
   **************************/
-  
-  //Print Window
-  $scope.printReport = function() { 
-    $window.print(); 
-  }
   
   //jQuery UI Datepicker
   $(function() {

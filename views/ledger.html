@@ -1,0 +1,40 @@
+<h2>Add Money</h2>
+
+<form class="add-entry">
+  <input class="entry-date" type="text" data-ng-model="date" placeholder="Date" datepicker readonly="true">
+  <select class="entry-category" data-ng-model="selectedCategory" data-ng-options="incomeCategory.name group by incomeCategory.group for incomeCategory in ledgerCategories.incomeCategories | orderBy: ['group', 'name']">
+    <option value="" disabled>-- Income Category --</option>
+  </select>
+  <input class="entry-payee-source" type="text" data-ng-model="payeeSource" placeholder="Source">
+  <input class="entry-amount" type="number" min="0" step="0.01" data-ng-model="amount" placeholder="Amount">
+  <button data-ng-click="newLedgerEntry()">Add</button>
+</form> 
+
+<table class="budget-table">
+  <tr>
+    <th class="entry-date">Income Date</th>
+    <th class="entry-category">Category</th>
+    <th class="entry-payee-source">Source</th>
+    <th class="entry-amount">Amount</th>
+    <th class="add-edit-entry">Edit</th>
+  </tr>
+
+  <tr data-ng-repeat="entry in ledger | orderBy: 'date'">
+
+    <td class="entry-date" data-ng-if="entry.date">{{ entry.date | date:'MM/dd/yyyy' }}</td>
+    <td class="entry-date" data-ng-if="!entry.date"><em>No Date Entered</em></td>
+
+    <td class="entry-category" data-ng-if="entry.category.name">{{ entry.category.name }}</td>
+    <td class="entry-category" data-ng-if="!entry.category.name"><em>No Category</em></td>
+
+    <td class="entry-payee-source" data-ng-if="entry.payeeSource">{{ entry.payeeSource }}</td>
+    <td class="entry-payee-source" data-ng-if="!entry.payeeSource"><em>No Source</em></td>
+
+    <td class="entry-amount">{{ entry.amount | currency}}</td>
+    <td class="add-edit-entry">
+      <button title="Edit">Edit</button>
+      <button data-ng-click="removeLedgerEntry(entry.ledgerId)">Delete</button>
+    </td>
+  </tr>
+
+</table>
