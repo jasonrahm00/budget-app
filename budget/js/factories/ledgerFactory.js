@@ -25,6 +25,18 @@ budgetApp.factory('ledgerFactory', function() {
     });
     return this; 
   }
+  
+  ledger.removeEntry = function(ledgerId) {
+    for(var i = 0; i < this.entries.length; i++) {
+      var entry = this.entries[i];
+      if(entry.ledgerId === ledgerId) {
+        ledger.entries.splice(i, 1);
+      } else {
+        console.log("Error with removeLedgerEntry() if/else statements");
+      }
+    }
+    return this;
+  }
 
   return ledger;
     

@@ -83,15 +83,8 @@ budgetApp.controller('ledgerController', ['$scope', 'catFactory', 'ledgerFactory
     This function removes the targeted income or expense object when the delete button is clicked for that entry. The function accepts entryType and ledgerId as arguments. The first set of if/else statments test the entryType while the subsequent for loop iterates over the matching array and the nested if statement searches each object in the array for one with a matching ledgerId to the one you are trying to delete. If a match is found, that object is removed from the array. Finally the calcualteExpenses() function is called to update the total expenses variable.
   */
     
-  $scope.removeLedgerEntry = function (ledgerId) {
-    var ledger = $scope.ledger;
-    for(var i = 0; i < ledger.length; i += 1) {
-      if (ledger[i].ledgerId === ledgerId) {
-        ledger.splice(i, 1);
-      } else {
-        console.log("Error with removeLedgerEntry() if/else statements");
-      }
-    }
+  $scope.removeEntry = function (ledgerId) {
+    $scope.ledger = ledgerFactory.removeEntry(ledgerId);
   }
   
 }]);
