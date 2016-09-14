@@ -37,6 +37,10 @@ body.budget {
   padding: 1em 1.5em 0;
 }
 
+.budget label {
+  display: inline-block;
+}
+
 .budget main {
   padding: 0 1.25em 2.25em;
 }

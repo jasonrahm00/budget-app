@@ -6,11 +6,17 @@ budgetApp.controller('ledgerController', ['$scope', 'catFactory', 'ledgerFactory
   
   "use strict";
   
-  /**************************
-    VARIABLE DECLARATIONS
-  **************************/
+  $scope.amount; 
+  $scope.date; 
+  $scope.entryType = "";
+  $scope.ledger; 
+  $scope.ledgerCategories;
+  $scope.payeeSource; 
+  $scope.selectedCategory;
   
-  $scope.totalExpenses; $scope.totalIncome; $scope.remainingFunds; $scope.payeeSource; $scope.amount; $scope.selectedCategory; $scope.date; $scope.ledger; $scope.ledgerCategories;
+  /******************************************************************
+                          FUNCTIONS
+  ******************************************************************/
   
   //Get ledgery categories from data file and assign values to the legderCategories scope variable
   catFactory.getLedgerCategories()
@@ -19,43 +25,26 @@ budgetApp.controller('ledgerController', ['$scope', 'catFactory', 'ledgerFactory
     }, function(error) {
       console.log(error.message);
   });
-
-  /**************************
-    FUNCTIONS
-  **************************/
   
   //jQuery UI Datepicker
   $(function() {
     $("input[type=date]").datepicker();
   });
-  
-  //Calculate total expenses using functional programming .reduce and shorthand (y = current object being iterated over)
-  /*
-  var calculateExpenses = function () {
-    $scope.totalExpenses = expenses.reduce(function(x, y) {
-      return x + y.amount
-    },0);
-    $scope.totalIncome = income.reduce(function(x, y) {
-      return x + y.amount;
-    },0);
-    $scope.remainingFunds = $scope.totalIncome - $scope.totalExpenses;
-  }; 
-  */
-  
-  //Call the calculateExpenses function when the controller loads to gain the inital value if there are default expenses/sources of income set
-  //calculateExpenses();
     
   /***************** addNewEntry Function **************************/
 
   $scope.newLedgerEntry = function () {
     if(!checkAmount($scope.amount)) {
       alert ("Please add an Amount")
+    }else if($scope.entryType === "") {
+      alert ("Please select an entry type")
     } else {
       $scope.ledger = ledgerFactory.addNewEntry(
         $scope.payeeSource, 
         $scope.amount, 
         $scope.selectedCategory, 
-        $scope.date
+        $scope.date,
+        $scope.entryType
       );
       resetValues();
     }
