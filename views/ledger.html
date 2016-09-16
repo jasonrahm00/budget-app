@@ -3,28 +3,28 @@
 <form class="add-entry">
   <div>
     <label>
-      <input type="radio" data-ng-model="entryType" value="income">
+      <input type="radio" name="entryType" data-ng-model="entryType" value="income">
         Income
     </label>
     <label>
-      <input type="radio" data-ng-model="entryType" value="expense">
+      <input type="radio" name="entryType" data-ng-model="entryType" value="expense">
         Expense
     </label>
   </div>
-  <input class="entry-date" type="text" data-ng-model="date" placeholder="Date" datepicker readonly="true">
-  <select class="entry-category" data-ng-model="selectedCategory" data-ng-options="incomeCategory.name group by incomeCategory.group for incomeCategory in ledgerCategories.incomeCategories | orderBy: ['group', 'name']">
+  <input class="entry-date" type="text" name="date" data-ng-model="date" placeholder="Date" datepicker readonly="true">
+  <select class="entry-category" name="category" data-ng-model="selectedCategory" data-ng-options="incomeCategory.name group by incomeCategory.group for incomeCategory in ledgerCategories.incomeCategories | orderBy: ['group', 'name']">
     <option value="" disabled>-- Income Category --</option>
   </select>
-  <input class="entry-payee-source" type="text" data-ng-model="payeeSource" placeholder="Source">
-  <input class="entry-amount" type="number" min="0" step="0.01" data-ng-model="amount" placeholder="Amount">
+  <input class="entry-payee-source" type="text" name="payeeSource" data-ng-model="payeeSource" placeholder="Payee/Source">
+  <input class="entry-amount" name="amount" type="number" min="0" step="0.01" data-ng-model="amount" placeholder="Amount">
   <button data-ng-click="newLedgerEntry()">Add</button>
 </form> 
 
 <table class="budget-table">
   <tr>
-    <th class="entry-date">Income Date</th>
+    <th class="entry-date">Date</th>
     <th class="entry-category">Category</th>
-    <th class="entry-payee-source">Source</th>
+    <th class="entry-payee-source">Source/Payee</th>
     <th class="entry-amount">Amount</th>
     <th class="add-edit-entry">Edit</th>
   </tr>
