@@ -6,11 +6,13 @@ budgetApp.controller('ledgerController', ['$scope', 'catFactory', 'ledgerFactory
   
   "use strict";
   
+  var availableCategories;
+  
   $scope.amount; 
   $scope.date; 
   $scope.entryType = "";
   $scope.ledger = ledgerFactory; 
-  $scope.ledgerCategories;
+  $scope.ledgerCategories = [];
   $scope.payeeSource; 
   $scope.selectedCategory;
   
@@ -21,7 +23,7 @@ budgetApp.controller('ledgerController', ['$scope', 'catFactory', 'ledgerFactory
   //Get ledgery categories from data file and assign values to the legderCategories scope variable
   catFactory.getLedgerCategories()
     .then(function(response) {
-      $scope.ledgerCategories = response.data;
+      availableCategories = response.data;
     }, function(error) {
       console.log(error.message);
   });
@@ -48,6 +50,18 @@ budgetApp.controller('ledgerController', ['$scope', 'catFactory', 'ledgerFactory
     $scope.payeeSource = '';
     $scope.selectedCategory = '';
   }
+  
+  $scope.$watch('entryType', function(newValue, oldValue) {
+    if(newValue !== oldValue) {
+      if(newValue === 'expense') {
+        $scope.ledgerCategories = availableCategories.expenseCategories;
+      } else {
+        $scope.ledgerCategories = availableCategories.incomeCategories;
+      }
+    } else {
+      $scope.ledgerCategories = [];
+    }
+  });
     
   /***************** addNewEntry Function **************************/
 

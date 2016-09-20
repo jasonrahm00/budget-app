@@ -10,7 +10,7 @@
   </tr>
 
   <tr data-ng-repeat="entry in ledger.entries | orderBy: 'date'">
-    <td class="entry-type">{{ entry.entryType }}</td>
+    <td class="entry-type">{{ entry.entryType | capitalize }}</td>
     <td class="entry-date" data-ng-if="entry.date">{{ entry.date | date:'MM/dd/yyyy' }}</td>
     <td class="entry-date" data-ng-if="!entry.date"><em>No Date</em></td>
 
@@ -26,5 +26,3 @@
 </table>
 
 <button data-ng-click="printReport()">Print Report</button>
-
-<pre>{{ ledger }}</pre>

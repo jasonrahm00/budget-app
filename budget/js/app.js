@@ -20,6 +20,13 @@ budgetApp.directive("datepicker", function () {
   }
 });
 
+//Capitalize Filter
+budgetApp.filter('capitalize', function() {
+  return function(input) {
+    return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : '';
+  }
+});
+
 //ROUTES
 
 budgetApp.config(['$stateProvider', '$urlRouterProvider',  function ($stateProvider, $urlRouterProvider) {

@@ -12,8 +12,8 @@
     </label>
   </div>
   <input class="entry-date" type="text" name="date" data-ng-model="date" placeholder="Date" datepicker readonly="true">
-  <select class="entry-category" name="category" data-ng-model="selectedCategory" data-ng-options="incomeCategory.name group by incomeCategory.group for incomeCategory in ledgerCategories.incomeCategories | orderBy: ['group', 'name']">
-    <option value="" disabled>-- Income Category --</option>
+  <select class="entry-category" name="category" data-ng-model="selectedCategory" data-ng-options="category.name group by category.group for category in ledgerCategories | orderBy: ['group', 'name']">
+    <option value="" disabled>-- {{ entryType | capitalize }} Category --</option>
   </select>
   <input class="entry-payee-source" type="text" name="payeeSource" data-ng-model="payeeSource" placeholder="Payee/Source">
   <input class="entry-amount" name="amount" type="number" min="0" step="0.01" data-ng-model="amount" placeholder="Amount">
@@ -48,5 +48,3 @@
   </tr>
 
 </table>
-
-<pre>{{ ledger }}</pre>
