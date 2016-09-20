@@ -33,22 +33,21 @@
         <h1>Personal Budget</h1>  
         <p>I've never been good at creating and following a personal budget. On the rare occasions I tried to budget, any free software I could find was all based on Excel spreadsheets. I hate spreadsheets. There's just something about them that I find inelegant. So, I decided to create this simple budget application to get away from spreadsheets, try to budget better and learn more development tricks along the way. I do realize that, in its current form, this app is little better than a spreadsheet, but it's a work-in-progress.</p>
 
-        <!--
-        <table class="summary-table" data-ng-init="ledgerFactory.calculateExpenses()" data-ng-controller="snapshotController">
+        <!-- data-ng-init="ledgerFactory.calculateExpenses()"  -->
+        <table class="summary-table" data-ng-controller="snapshotController">
           <tr>
             <td>Available Funds</td>
-            <td>{{ totalIncome | currency }}</td>
+            <td>{{ ledger.totalIncome | currency }}</td>
           </tr>
           <tr>
             <td>Expenses</td>
-            <td>{{ totalExpenses | currency }}</td>
+            <td>{{ ledger.totalExpenses | currency }}</td>
           </tr>
           <tr>
             <td>Remaining</td>
-            <td data-ng-class="remainingFunds < 0 ? 'bold red' : ''">{{ remainingFunds | currency }}</td>
+            <td data-ng-class="ledger.remainingFunds < 0 ? 'bold red' : ''">{{ ledger.remainingFunds | currency }}</td>
           </tr>
         </table>
-        -->
         
       </header>
     
@@ -67,6 +66,7 @@
     <!-- Controllers -->
     <script src="budget/js/controllers/ledgerController.js"></script>
     <script src="budget/js/controllers/reportController.js"></script>
+    <script src="budget/js/controllers/snapshotController.js"></script>
 
     <!-- Directives -->
     

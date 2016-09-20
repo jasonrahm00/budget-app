@@ -15,8 +15,32 @@ budgetApp.factory('ledgerFactory', function() {
     return newId;
   }
   
+  //The calculateTotals() function is called every time a ledger entry is added, edited or removed. It loops over every entry, checks the entry type and adds the amount to the appropriate "expense" or "income" ledger property. Finally, the remaining funds is caluclted by subtracting the totalExpenses local variable form the totalIncome.
+  
+  function calculateTotals() {
+    var totalIncome = 0;
+    var totalExpenses = 0;
+    for(var i = 0; i < ledger.entries.length; i++) {
+      if(ledger.entries[i].entryType === 'income') {
+        totalIncome += ledger.entries[i].amount;
+      } else {
+        totalExpenses += ledger.entries[i].amount;
+      }
+    }
+    ledger.totalIncome = totalIncome;
+    ledger.totalExpenses = totalExpenses;
+    ledger.remainingFunds = totalIncome - totalExpenses;
+  }
+  
+  function calculateExpenses() {
+    ledger.totalExpenses = ledger.entries.reduce(function(x, y) {
+      return x + y.amount;
+    },0);
+  }
+  
   /***************** addNewEntry Function **************************/
   //Takes form data as inputs and pushes a new object to the ledger.entries array
+  //'this' refers to the entire ledger object
   
   ledger.addNewEntry = function(payeeSource, amount, category, date, entryType) {
     this.entries.push({
@@ -27,6 +51,7 @@ budgetApp.factory('ledgerFactory', function() {
       "category": category,
       "date": date
     });
+    calculateTotals();
     return this; 
   }
   
@@ -38,10 +63,9 @@ budgetApp.factory('ledgerFactory', function() {
       var entry = this.entries[i];
       if(entry.ledgerId === ledgerId) {
         ledger.entries.splice(i, 1);
-      } else {
-        console.log("Error with removeLedgerEntry() if/else statements");
       }
     }
+    calculateTotals();
     return this;
   }
 
