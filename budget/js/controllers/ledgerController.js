@@ -51,6 +51,7 @@ budgetApp.controller('ledgerController', ['$scope', 'catFactory', 'ledgerFactory
     $scope.selectedCategory = '';
   }
   
+  //Watcher used to update ledgerCategories dropdown when entryType changes
   $scope.$watch('entryType', function(newValue, oldValue) {
     if(newValue !== oldValue) {
       if(newValue === 'expense') {
