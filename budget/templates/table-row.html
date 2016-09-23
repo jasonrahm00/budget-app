@@ -1,0 +1,8 @@
+<div class="entry-date">{{ entry.date | date:'MM/dd/yyyy' }}</div>
+  <div class="entry-category">{{ entry.category.name }}</div>
+  <div class="entry-payee-source">{{ entry.payeeSource }}</div>
+  <div class="entry-amount" data-ng-class="entry.entryType === 'expense' ? 'red' : ''">{{ entry.amount | currency}}</div>
+  <div class="add-edit-entry">
+    <button data-ng-click="editEntry(entry)">Edit</button>
+    <button data-ng-click="removeEntry(entry.ledgerId)">Delete</button>
+</div>

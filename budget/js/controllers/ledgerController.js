@@ -19,6 +19,10 @@ budgetApp.controller('ledgerController', ['$scope', 'catFactory', 'ledgerFactory
   /******************************************************************
                           FUNCTIONS
   ******************************************************************/
+
+  $scope.getTemplate = function() {
+    return 'budget/templates/table-row.html';
+  };
   
   //Get ledgery categories from data file and assign values to the legderCategories scope variable
   catFactory.getLedgerCategories()
@@ -65,7 +69,7 @@ budgetApp.controller('ledgerController', ['$scope', 'catFactory', 'ledgerFactory
   });
     
   /***************** addNewEntry Function **************************/
-  $scope.newLedgerEntry = function () {
+  $scope.addEntry = function () {
     if(!checkAmount($scope.amount)) {
       alert ("Please add an Amount")
     }else if($scope.entryType === "") {
@@ -81,10 +85,15 @@ budgetApp.controller('ledgerController', ['$scope', 'catFactory', 'ledgerFactory
       resetValues();
     }
   };
+  
+  /***************** editLedgerEntry Function **************************/  
+  $scope.editEntry = function (entryId) {
+    console.log(entryId);
+  }
    
   /***************** removeLedgerEntry Function **************************/   
-  $scope.removeEntry = function (ledgerId) {
-    $scope.ledger = ledgerFactory.removeEntry(ledgerId);
+  $scope.removeEntry = function (entry) {
+    $scope.ledger = ledgerFactory.removeEntry(entry);
   }
   
 }]);
