@@ -26,39 +26,56 @@ header {
   border-color: #a11e2d;
 }
 
-body.budget {
+body {
   padding-top: 20px;
 }
 
-.budget header,
-.budget nav {
+header,
+nav {
   margin: 0 auto;
   max-width: 1150px;
   padding: 1em 1.5em 0;
 }
 
-.budget label {
-  display: inline-block;
+main {
+  padding: 0 1.5em 2.25em;
 }
 
-.budget main {
-  padding: 0 1.25em 2.25em;
+main>div {
+  border: 1px solid #dfdfdf;
+  border-radius: 2px;
+  padding: 0 1rem 1rem;
 }
 
-.budget nav {
+/* ---- Nav Elements ---- */
+
+nav {
   background: none;
   position: relative;
   z-index: 0;
 }
 
-.budget nav ul {
+nav ul {
   float: none;
   margin-top: 0;
 }
 
-.budget nav li {
+nav li {
   background: rgb(0, 46, 100);
+  margin-bottom: 0;
 }
+
+nav li:hover,
+nav li.active {
+  background: #dfdfdf;
+}
+
+nav li:hover a,
+nav li.active a {
+  color: #002E64;
+}
+
+/* ---- Datepicker Elements ---- */
 
 .ui-state-hover,
 .ui-widget-content,
@@ -97,81 +114,115 @@ a.ui-state-highlight.ui-state-active {
 
 /* ---- Budget Table Defaults ---- */
 
-.budget table {
+.budget-table,
+table {
   background: #fff;
   border: 1px solid #ccc;
+  border-collapse: collapse;
 }
 
-.budget td {
+td,
+th {
   border-bottom: 1px solid #ccc;
+  border-right: 1px solid #ccc;
 }
 
-.budget td,
-.budget th {
-  border-right: 1px solid #ccc; 
+th {
+  text-align: left;
 }
 
 .budget-table {
-  display: none;
+  display: table;
+  width: 100%;
+}
+
+.budget-table>div {
+  display: table-row;
+}
+
+.budget-table>div>div {
+  border-right: 1px solid #ccc;
+  display: table-cell;
+}
+
+.table-header {
+  font-weight: bold;
+}
+
+.table-header>div {
+  padding: .5rem;
+}
+
+.table-row {
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: inherit;
+}
+
+.table-row>div {
+  padding: 0 .5rem;
 }
 
 .summary-table td {
   width: 50%;
 }
 
-.summary-table td:first-child {
+/* ---- Form Elements ---- */
+
+form>div {
+  display: inline-block;
+}
+
+input,
+select {
+  width: 100%;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+label {
+  font-size: .85rem;
   font-weight: bold;
 }
 
-.mobile-table {
-  padding-top: 20px;
+label span {
+  color: red;
 }
 
-.mobile-table span {
-  padding: 10px;
+.entry-type {
+  display: block;
 }
 
-.mobile-table-row {
-  background: white;
+.entry-type label {
+  width: 100%;
+}
+
+.radio-buttons>div {
+  display: inline-block;
+}
+
+button,
+.radio-buttons label {
+  background: #002E64;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 5px;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  margin: .5rem 0;
+  padding: .38rem;
 }
 
-.mobile-table-caption {
-  font-size: .75em;
-  font-style: italic;
-}
-
-/* ---- Form Elements ---- */
-
-.add-entry select,
-.add-entry button {
-  height: 36px;
+input.ng-valid-parse + label,
+.radio-buttons label:hover {
+  background: #dfdfdf;
+  color: #002E64;
 }
 
 select {
-  margin-bottom: 10px;
+  height: 29px;
 }
-
-/* ---- Modal Styling ---- */
-
-form.edit-ledger {
-  padding: 15px;
-}
-
-.modal-content h3 {
-  border-bottom: 1px solid #ccc;
-  margin: 0;
-  padding: 10px;
-}
-
-.modal-dialog {
-  margin-top: 20%;
-}
-
 
 /************************************** 
   MEDIA QUERIES
@@ -179,10 +230,6 @@ form.edit-ledger {
 
 /*Large Screens */
 @media (min-width: 769px) {
-  
-  .mobile-table {
-    display: none;
-  }
   
   header p {
     float: left;
@@ -192,10 +239,6 @@ form.edit-ledger {
   .summary-table {
     float: right;
     width: 30%;
-  }
-
-  .add-entry input {
-    display: inline-block;
   }
   
   .entry-payee-source {
@@ -209,33 +252,13 @@ form.edit-ledger {
     width: 15%;
   }
   
-  /* ---- Budget Table ---- */
   
-  .budget-table {
-    display: table;  
-  }
-  
-  .budget-table td {
-    border-top: 1px solid #ccc; 
-    border-bottom: 0;
-  }
-  
-}
-
 /* Print View */
 @media print {
   
   button,
   header {
     display: none;
-  }
-  
-  .budget-table {
-    display: table;
-  }
-  
-  .budget-table th {
-    border-bottom: 1px solid #ccc;
   }
   
 }

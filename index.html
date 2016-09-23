@@ -5,60 +5,58 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <meta content="" name="description">
+    <meta content="Simple budget application" name="description">
 
     <title>Budget Application</title>
-
-    <!-- Favicon -->
-    <!--[if IE]><link rel="shortcut icon" href="path/to/favicon.ico"><![endif]-->
-    <link rel="icon" type="image/png" href="">
-    <!-- end Favicon -->       
     
+    <!-- Style Sheets -->
     <link src="//normalize-css.googlecode.com/svn/trunk/normalize.css" rel="stylesheet">
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link href="budget/css/jquery-ui-1-11-4.min.css" rel="stylesheet">
     <link href="budget/css/main.css" rel="stylesheet">
     <link href="budget/css/budget.css" rel="stylesheet">
     
+    <!-- Vendor JS Files -->
     <script src="//code.jquery.com/jquery-3.0.0.min.js"></script>
-    <script src="budget/js/vendor/jquery-ui-1.11.4.min.js"></script>
+    <script src="//code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
     <script src="//code.angularjs.org/1.5.3/angular.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js"></script>
     
   </head>
   
-  <body class="budget">
+  <body>
 
-      <header class="clearfix">
-        <h1>Personal Budget</h1>  
-        <p>I've never been good at creating and following a personal budget. On the rare occasions I tried to budget, any free software I could find was all based on Excel spreadsheets. I hate spreadsheets. There's just something about them that I find inelegant. So, I decided to create this simple budget application to get away from spreadsheets, try to budget better and learn more development tricks along the way. I do realize that, in its current form, this app is little better than a spreadsheet, but it's a work-in-progress.</p>
+    <header class="clearfix">
+      
+      <h1>Personal Budget</h1>  
+      <p>I've never been good at creating and following a personal budget. On the rare occasions I tried to budget, any free software I could find was all based on Excel spreadsheets. I hate spreadsheets. There's just something about them that I find inelegant. So, I decided to create this simple budget application to get away from spreadsheets, try to budget better and learn more development tricks along the way. I do realize that, in its current form, this app is little better than a spreadsheet, but it's a work-in-progress.</p>
 
-        <!-- data-ng-init="ledgerFactory.calculateExpenses()"  -->
-        <table class="summary-table" data-ng-controller="snapshotController">
-          <tr>
-            <td>Available Funds</td>
-            <td>{{ ledger.totalIncome | currency }}</td>
-          </tr>
-          <tr>
-            <td>Expenses</td>
-            <td>{{ ledger.totalExpenses | currency }}</td>
-          </tr>
-          <tr>
-            <td>Remaining</td>
-            <td data-ng-class="ledger.remainingFunds < 0 ? 'bold red' : ''">{{ ledger.remainingFunds | currency }}</td>
-          </tr>
-        </table>
-        
-      </header>
+      <table class="summary-table" data-ng-controller="snapshotController">
+        <tr>
+          <th scope="row">Available Funds</th>
+          <td>{{ ledger.totalIncome | currency }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Expenses</th>
+          <td>{{ ledger.totalExpenses | currency }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Remaining</th>
+          <td data-ng-class="ledger.remainingFunds < 0 ? 'bold red' : ''">{{ ledger.remainingFunds | currency }}</td>
+        </tr>
+      </table>
+      
+    </header>
     
     <nav>
       <ul>
-        <li><a data-ui-sref="ledger">Ledger</a></li>
-        <li><a data-ui-sref="report">Report</a></li>
+        <li data-ui-sref-active="active"><a data-ui-sref="ledger">Ledger</a></li>
+        <li data-ui-sref-active="active"><a data-ui-sref="report">Report</a></li>
       </ul>
     </nav>
     
-    <main data-ui-view></main>
+    <main>
+      <div data-ui-view></div>
+    </main>
 
     <!-- App -->
     <script src="budget/js/app.js"></script>
@@ -77,4 +75,5 @@
     <!-- Services -->
 
   </body>
+  
 </html>

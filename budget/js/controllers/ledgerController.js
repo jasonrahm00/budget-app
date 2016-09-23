@@ -44,7 +44,7 @@ budgetApp.controller('ledgerController', ['$scope', 'catFactory', 'ledgerFactory
   }  
   
   //The reusable resetValues() function clears all of the data in the entry creation form once the new object is created
-  var resetValues = function() {
+  function resetValues() {
     $scope.amount = null;
     $scope.date = '';
     $scope.payeeSource = '';
@@ -65,7 +65,6 @@ budgetApp.controller('ledgerController', ['$scope', 'catFactory', 'ledgerFactory
   });
     
   /***************** addNewEntry Function **************************/
-
   $scope.newLedgerEntry = function () {
     if(!checkAmount($scope.amount)) {
       alert ("Please add an Amount")
@@ -83,8 +82,7 @@ budgetApp.controller('ledgerController', ['$scope', 'catFactory', 'ledgerFactory
     }
   };
    
-  /***************** removeLedgerEntry Function **************************/
-      
+  /***************** removeLedgerEntry Function **************************/   
   $scope.removeEntry = function (ledgerId) {
     $scope.ledger = ledgerFactory.removeEntry(ledgerId);
   }

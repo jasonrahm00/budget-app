@@ -9,6 +9,7 @@ budgetApp.factory('ledgerFactory', function() {
     "entries": []
   };
 
+  //A unique entry ID is created whenever a new ledger entry is added. This makes it easy to reference individual entries and find the right one to edit/delete
   function createLedgerEntryId () {
     var newId = 0;
     newId = ledgerEntryId += 1;
@@ -16,7 +17,6 @@ budgetApp.factory('ledgerFactory', function() {
   }
   
   //The calculateTotals() function is called every time a ledger entry is added, edited or removed. It loops over every entry, checks the entry type and adds the amount to the appropriate "expense" or "income" ledger property. Finally, the remaining funds is caluclted by subtracting the totalExpenses local variable form the totalIncome.
-  
   function calculateTotals() {
     var totalIncome = 0;
     var totalExpenses = 0;
@@ -32,16 +32,10 @@ budgetApp.factory('ledgerFactory', function() {
     ledger.remainingFunds = totalIncome - totalExpenses;
   }
   
-  function calculateExpenses() {
-    ledger.totalExpenses = ledger.entries.reduce(function(x, y) {
-      return x + y.amount;
-    },0);
-  }
-  
   /***************** addNewEntry Function **************************/
   //Takes form data as inputs and pushes a new object to the ledger.entries array
+  //The parameters are provided by the call to the function in the controller
   //'this' refers to the entire ledger object
-  
   ledger.addNewEntry = function(payeeSource, amount, category, date, entryType) {
     this.entries.push({
       "ledgerId": createLedgerEntryId(),
@@ -56,8 +50,7 @@ budgetApp.factory('ledgerFactory', function() {
   }
   
   /***************** removeLedgerEntry Function **************************/
-  //Takes ledgerId and searches ledger.entries array for matching object then removes that entrie from the array
-  
+  //Takes ledgerId and searches ledger.entries array for matching object then removes that entry from the array  
   ledger.removeEntry = function(ledgerId) {
     for(var i = 0; i < this.entries.length; i++) {
       var entry = this.entries[i];
