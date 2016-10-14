@@ -1,5 +1,7 @@
 budgetApp.factory('ledgerFactory', function() {
   
+  'use strict';
+  
   var ledgerEntryId = 100;
   
   var ledger = {

@@ -6,27 +6,6 @@ budgetApp.run(function($rootScope, $state) {
   })
 });
 
-//Datepicker Directive
-budgetApp.directive("datepicker", function () {
-  return {
-    restrict: "AEC",
-    require: "ngModel",
-    link: function (scope, elem, attrs, ngModelCtrl) {
-      var updateModel = function (dateText) {
-        scope.$apply(function () {
-          ngModelCtrl.$setViewValue(dateText);
-        });
-      };
-      var options = {
-        onSelect: function (dateText) {
-          updateModel(dateText);
-        }
-      };
-      elem.datepicker(options);
-    }
-  }
-});
-
 //Capitalize Filter
 budgetApp.filter('capitalize', function() {
   return function(input) {
@@ -44,12 +23,12 @@ budgetApp.config(['$stateProvider', '$urlRouterProvider',  function ($stateProvi
     .state('ledger', {
       url: '/',
       templateUrl: 'budget/views/ledger.html',
-      controller: 'ledgerController'
+      controller: 'ledgerCtrl'
     })
     .state('report', {
       url: '/report',
       templateUrl: 'budget/views/report.html',
-      controller: 'reportController'
+      controller: 'reportCtrl'
     });
   
   $urlRouterProvider.otherwise('/');

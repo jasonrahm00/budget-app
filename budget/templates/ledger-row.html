@@ -3,6 +3,6 @@
   <div class="entry-payee-source">{{ entry.payeeSource }}</div>
   <div class="entry-amount" data-ng-class="entry.entryType === 'expense' ? 'red' : ''">{{ entry.amount | currency}}</div>
   <div class="add-edit-entry">
-    <button data-ng-click="editEntry(entry)">Edit</button>
+    <button>Edit</button>
     <button data-ng-click="removeEntry(entry.ledgerId)">Delete</button>
 </div>

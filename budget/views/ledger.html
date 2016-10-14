@@ -1,46 +1,6 @@
 <h2>Add Ledger Entry</h2>
 
-<form class="add-entry">
-  
-  <div class="input-group entry-type">
-    <label>Entry Type <span>*</span></label>
-      <div class="radio-buttons">
-        <div>
-          <input type="radio" name="entryType" id="income" value="income" data-ng-model="entryType">
-          <label for="income">Income</label>
-        </div>
-        <div>
-          <input type="radio" name="entryType" id="expense" value="expense" data-ng-model="entryType">
-          <label for="expense">Expense</label>
-        </div>
-      </div>
-  </div>
-  
-  <div class="input-group entry-date">
-    <label for="date">Date</label>
-    <input type="text" id="date" data-ng-model="date" placeholder="Date" readonly class="datepicker">
-  </div>
-
-  <div class="input-group entry-category">
-    <label for="category">Category</label>
-    <select id="category" data-ng-model="selectedCategory" data-ng-options="category.name group by category.group for category in ledgerCategories | orderBy: ['group', 'name']">
-      <option value="" disabled>-- {{ entryType | capitalize }} Category --</option>
-    </select>
-  </div>
-
-  <div class="input-group entry-payee-source">
-    <label for="payeeSource">Payee/Source</label>
-    <input type="text" id="payeeSource" data-ng-model="payeeSource" placeholder="Payee/Source">
-  </div>
-
-  <div class="input-group entry-amount">
-    <label for="amount">Amount <span>*</span></label>
-    <input id="amount" type="number" min="0" step="0.01" data-ng-model="amount" placeholder="Amount">
-  </div>
-
-  <button data-ng-click="addEntry()">Add</button>
-
-</form> 
+<ledgerform></ledgerform>
 
 <div class="budget-table">
   <div class="table-header">
@@ -51,6 +11,6 @@
     <div class="add-edit-entry">Edit</div>
   </div>
 
-  <div class="table-row" data-ng-repeat="entry in ledger.entries | orderBy: 'date'" data-ng-include="getTemplate()"></div>
+  <div class="table-row" data-ng-repeat="entry in ledger.entries | orderBy: 'date'" data-ng-include="getTemplate(false, entry)"></div>
   
 </div>

@@ -1,5 +1,7 @@
 budgetApp.factory('catFactory', ['$http', function($http){
 
+  'use strict';
+  
   var catData = {};
   
   catData.getLedgerCategories = function() {
