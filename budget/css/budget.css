@@ -227,23 +227,6 @@ select {
 /*Large Screens */
 @media (min-width: 769px) {
   
-  form div:nth-child(2)>div {
-    display: inline-block;
-  }
-  
-  form>div:nth-child(3) {
-    float: right;
-    height: 0px;
-    position: relative;
-    top: -47px;
-    width: 15%;
-    z-index: 500;
-  }
-  
-  form>div:nth-child(3) button {
-    margin: .5rem;
-  }
-  
   header p {
     float: left;
     width: 65%;
@@ -255,6 +238,7 @@ select {
   }
   
   .entry-payee-source {
+    display: inline-block;
     width: 39%;
   }
   
@@ -262,6 +246,7 @@ select {
   .entry-category,
   .entry-amount,
   .add-edit-entry {
+    display: inline-block;
     width: 15%;
   }
   

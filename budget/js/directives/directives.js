@@ -19,15 +19,6 @@ budgetApp.directive("datepicker", function () {
   };
 });
 
-//Editable Form Fields Directive
-budgetApp.directive('editFields', function () {
-  return {
-    restrict: 'E',
-    replace: true,
-    templateUrl: 'budget/templates/edit-fields.html'
-  };
-});
-
 //Ledger Form Directive
 budgetApp.directive('ledgerForm', function () {
   return {
@@ -36,4 +27,3 @@ budgetApp.directive('ledgerForm', function () {
     templateUrl: 'budget/templates/ledger-form.html'
   };
 });
-

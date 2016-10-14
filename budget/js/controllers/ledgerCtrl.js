@@ -90,12 +90,8 @@ budgetApp.controller('ledgerCtrl', ['$scope', 'catFactory', 'ledgerFactory', fun
   
   /***************** Edit/Save Functions **************************/
   
-  $scope.editEntry = function(editing) {
-    console.log('Editing Value: ' + editing);
-  };
-  
-  $scope.saveEdit = function(editing) {
-    console.log('Editing Value: ' + editing);
+  $scope.saveEdit = function() {
+    ledgerFactory.saveEdit();
   };
   
   /***************** removeLedgerEntry Function **************************/   
