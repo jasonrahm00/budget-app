@@ -9,7 +9,8 @@ budgetApp.controller('ledgerCtrl', ['$scope', 'catFactory', 'ledgerFactory', fun
   var availableCategories;
   
   $scope.amount; 
-  $scope.date; 
+  $scope.date;
+  $scope.editing = false;
   $scope.entryType = "";
   $scope.entryToEdit = {};
   $scope.ledger = ledgerFactory; 
@@ -86,10 +87,20 @@ budgetApp.controller('ledgerCtrl', ['$scope', 'catFactory', 'ledgerFactory', fun
       resetValues();
     }
   };
-   
+  
+  /***************** Edit/Save Functions **************************/
+  
+  $scope.editEntry = function(editing) {
+    console.log('Editing Value: ' + editing);
+  };
+  
+  $scope.saveEdit = function(editing) {
+    console.log('Editing Value: ' + editing);
+  };
+  
   /***************** removeLedgerEntry Function **************************/   
   $scope.removeEntry = function (entry) {
     $scope.ledger = ledgerFactory.removeEntry(entry);
-  }
+  };
   
 }]);

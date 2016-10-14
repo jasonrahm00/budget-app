@@ -63,7 +63,15 @@ budgetApp.factory('ledgerFactory', function() {
     calculateTotals();
     return this;
   }
-
+  
+  /***************** saveEdits Function **************************/
+  
+  ledger.saveEdits = function() {
+    calculateTotals();
+    console.log('factory.saveEdits function fired');
+    return this;
+  }
+  
   //Return ledger value from factory
   return ledger;
     

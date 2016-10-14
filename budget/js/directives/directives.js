@@ -19,11 +19,21 @@ budgetApp.directive("datepicker", function () {
   };
 });
 
+//Editable Form Fields Directive
+budgetApp.directive('editFields', function () {
+  return {
+    restrict: 'E',
+    replace: true,
+    templateUrl: 'budget/templates/edit-fields.html'
+  };
+});
+
 //Ledger Form Directive
-budgetApp.directive('ledgerform', function () {
+budgetApp.directive('ledgerForm', function () {
   return {
     restrict: 'E',
     replace: true,
     templateUrl: 'budget/templates/ledger-form.html'
   };
 });
+
