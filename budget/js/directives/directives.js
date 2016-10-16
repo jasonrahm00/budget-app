@@ -27,3 +27,12 @@ budgetApp.directive('ledgerForm', function () {
     templateUrl: 'budget/templates/ledger-form.html'
   };
 });
+
+//Budget Table Directive
+budgetApp.directive('budgetTable', function () {
+  return {
+    restrict: 'E',
+    replace: true,
+    templateUrl: 'budget/templates/budget-table.html'
+  };
+});

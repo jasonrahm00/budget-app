@@ -1,0 +1,46 @@
+<div class="budget-table">
+  
+  <div class="table-header">
+    <div class="entry-date">Date</div>
+    <div class="entry-category">Category</div>
+    <div class="entry-payee-source">Source/Payee</div>
+    <div class="entry-amount">Amount</div>
+    <div class="add-edit-entry">Edit</div>
+  </div>
+
+  <div class="table-row" data-ng-repeat="entry in ledger.entries | orderBy: 'date'">
+    
+    <div class="entry-date" data-ng-if="!editing">{{ entry.date | date:'MM/dd/yyyy' }}</div>
+    <div class="entry-date" data-ng-if="editing">
+      <input type="text" data-ng-model="entry.date" placeholder="Date" class="datepicker" readonly>
+    </div>
+    
+    <div class="entry-category" data-ng-if="!editing">{{ entry.category.name }}</div>
+    <div class="entry-category" data-ng-if="editing">
+      <select data-ng-model="entry.category" data-ng-options="category.name group by category.group for category in ledgerCategories | orderBy: ['group', 'name']">
+        <option value="" disabled>-- {{ entryType | capitalize }} Category --</option>
+        <option data-ng-value="entry.category" selected>{{ entry.category.name }}</option>
+      </select>
+    </div>
+    
+    <div class="entry-payee-source" data-ng-if="!editing">{{ entry.payeeSource }}</div>
+    <div class="entry-payee-source" data-ng-if="editing">
+      <input type="text"  placeholder="Payee/Source " data-ng-model="entry.payeeSource">
+    </div>
+    
+    <div class="entry-amount" data-ng-if="!editing" data-ng-class="entry.entryType === 'expense' ? 'red' : ''">{{ entry.amount | currency}}</div>
+    <div class="entry-amount" data-ng-if="editing">
+      <input type="number" min="0" step="0.01" data-ng-model="entry.amount" placeholder="entry.mount">
+    </div>
+    
+    <div class="add-edit-entry">
+
+      <button data-ng-show="!editing" data-ng-click="editing = true;">Edit</button>
+      <button data-ng-hide="!editing" data-ng-click="editing = false; saveEdit()">Save</button>
+
+      <button data-ng-click="removeEntry(entry.ledgerId)">Delete</button>
+    </div>
+    
+  </div>
+  
+</div>

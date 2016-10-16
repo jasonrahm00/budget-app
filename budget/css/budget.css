@@ -112,7 +112,7 @@ a.ui-state-highlight.ui-state-active {
   border: 1px solid #ccc;
 }
 
-/* ---- Budget Table Defaults ---- */
+/* ---- Table Defaults ---- */
 
 .budget-table,
 table {
@@ -120,36 +120,19 @@ table {
   border: 1px solid #ccc;
   border-collapse: collapse;
 }
-
-td,
-th {
-  border-bottom: 1px solid #ccc;
-  border-right: 1px solid #ccc;
-}
-
-th {
-  text-align: left;
-}
-
 .budget-table {
   display: table;
   width: 100%;
 }
 
-.budget-table>div {
-  display: table-row;
-}
-
-.budget-table>div>div {
-  border-right: 1px solid #ccc;
-  display: table-cell;
-}
-
 .table-header {
+  display: table-row;
   font-weight: bold;
 }
 
 .table-header>div {
+  border-right: 1px solid #ccc;
+  display: table-cell;
   padding: .5rem;
 }
 
@@ -157,14 +140,25 @@ th {
   border-top-width: 1px;
   border-top-style: solid;
   border-top-color: inherit;
+  display: table-row;
 }
 
 .table-row>div {
+  border-right: 1px solid #ccc;
+  display: table-cell;
   padding: 0 .5rem;
 }
 
 .summary-table td {
   width: 50%;
+}
+
+tr {
+  border-bottom: 1px solid #ccc;
+}
+
+th {
+  border-right: 1px solid #ccc;
 }
 
 /* ---- Form Elements ---- */
@@ -219,6 +213,7 @@ input.ng-valid-parse + label,
 select {
   height: 29px;
 }
+
 
 /************************************** 
   MEDIA QUERIES
