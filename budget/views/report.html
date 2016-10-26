@@ -1,18 +1,19 @@
 <h2>Budget Report</h2>
 
+<p class="disclaimer">Click on column header to sort</p>
 <table class="report-table">
   
   <thead>
     <tr>
-      <th>Date</th>
-      <th>Category</th>
-      <th>Vendor</th>
-      <th>Amount</th>
+      <th data-ng-click="sortType = 'date'; sortReverse = !sortReverse">Date</th>
+      <th data-ng-click="sortType = 'category'; sortReverse = !sortReverse">Category</th>
+      <th data-ng-click="sortType = 'vendor'; sortReverse = !sortReverse">Vendor</th>
+      <th data-ng-click="sortType = 'amount'; sortReverse = !sortReverse">Amount</th>
     </tr>
   </thead>
   
   <tbody>
-    <tr data-ng-repeat="entry in ledger.entries | orderBy: 'date'">
+    <tr data-ng-repeat="entry in ledger.entries | orderBy:sortType:sortReverse">
     
       <td>
         <span data-ng-if="!entry.date"><em>No Date</em></span>

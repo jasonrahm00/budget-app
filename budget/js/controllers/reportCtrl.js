@@ -3,6 +3,9 @@ budgetApp.controller('reportCtrl', ['$scope', '$window', 'ledgerFactory', functi
   'use strict';
   
   $scope.ledger = ledgerFactory;
+
+  $scope.sortType = 'date';
+  $scope.sortRevers = false;
   
   //Print Window
   $scope.printReport = function() { 
