@@ -161,10 +161,6 @@ th {
   border-right: 1px solid #ccc;
 }
 
-.report-table th:hover {
-  cursor: pointer;
-}
-
 .report-table tbody td {
   border-right: 1px solid #ccc;
   text-align: center;
