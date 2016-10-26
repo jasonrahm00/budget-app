@@ -321,4 +321,9 @@ select {
     display: none !important;
   }
   
+  .report-table thead th:nth-child(2),
+  .report-table tbody td:nth-child(2) {
+    display: table-cell;
+  }
+  
 }
