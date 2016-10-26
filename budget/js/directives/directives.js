@@ -36,3 +36,12 @@ budgetApp.directive('budgetTable', function () {
     templateUrl: 'budget/templates/budget-table.html'
   };
 });
+
+//Lightbox Directive
+budgetApp.directive('lightboxDirective', function() {
+  return {
+    restrict: 'E', // applied on 'element',
+    replace: true,
+    templateUrl: 'budget/templates/lightbox-template.html'
+  }
+});

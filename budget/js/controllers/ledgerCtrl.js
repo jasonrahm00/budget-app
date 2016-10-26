@@ -17,6 +17,7 @@ budgetApp.controller('ledgerCtrl', ['$scope', 'catFactory', 'ledgerFactory', fun
   $scope.ledgerCategories = [];
   $scope.payeeSource; 
   $scope.selectedCategory;
+  $scope.showLightbox = false;
   
   /******************************************************************
                           FUNCTIONS
@@ -92,6 +93,14 @@ budgetApp.controller('ledgerCtrl', ['$scope', 'catFactory', 'ledgerFactory', fun
   
   $scope.saveEdit = function() {
     ledgerFactory.saveEdit();
+  };
+  
+  $scope.openLightbox = function() {
+    $scope.showLightbox = true;
+  };
+  
+  $scope.closeLightbox = function() {
+    $scope.showLightbox = false;
   };
   
   /***************** removeLedgerEntry Function **************************/   
