@@ -310,6 +310,7 @@ select {
     display: table-cell;
   }
   
+}
   
 /* Print View */
 @media print {
