@@ -20,7 +20,7 @@
         {{ entry.vendor }}
       </div>
 
-      <div class="entry-amount" data-ng-class="entry.entryType === 'expense' ? 'red' : ''">{{ entry.amount | currency}}</div>
+      <div class="entry-amount" data-ng-class="entry.entryType === 'expense' ? 'red' : ''"><span data-ng-if="entry.entryType === 'expense'">-</span>{{ entry.amount | currency}}</div>
 
     </div>
 

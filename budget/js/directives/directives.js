@@ -60,6 +60,6 @@ budgetApp.directive('editLightbox', function() {
   return {
     restrict: 'E',
     replace: true,
-    templateUrl: 'budget/templates/edit-lightbox-template.html'
+    templateUrl: 'budget/templates/edit-lightbox.html'
   }
 });

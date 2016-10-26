@@ -28,7 +28,7 @@
       <input type="text"  placeholder="Vendor" data-ng-model="entry.vendor">
     </div>
     
-    <div class="entry-amount" data-ng-if="!editing" data-ng-class="entry.entryType === 'expense' ? 'red' : ''">{{ entry.amount | currency}}</div>
+    <div class="entry-amount" data-ng-if="!editing" data-ng-class="entry.entryType === 'expense' ? 'red' : ''"><span data-ng-if="entry.entryType === 'expense'">-</span>{{ entry.amount | currency}}</div>
     <div class="entry-amount" data-ng-if="editing">
       <input type="number" min="0" step="0.01" data-ng-model="entry.amount" placeholder="Amount">
     </div>

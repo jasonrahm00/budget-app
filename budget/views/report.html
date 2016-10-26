@@ -1,28 +1,41 @@
 <h2>Budget Report</h2>
 
-<table class="budget-table report">
+<table class="report-table">
   
-  <tr>
-    <th class="entry-type">Entry Type</th>
-    <th class="entry-date">Payment Date</th>
-    <th class="entry-category">Category</th>
-    <th class="entry-payee-source">Payee</th>
-    <th class="entry-amount">Amount</th>
-  </tr>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Category</th>
+      <th>Vendor</th>
+      <th>Amount</th>
+    </tr>
+  </thead>
+  
+  <tbody>
+    <tr data-ng-repeat="entry in ledger.entries | orderBy: 'date'">
+    
+      <td>
+        <span data-ng-if="!entry.date"><em>No Date</em></span>
+        {{ entry.date | date:'MM/dd/yyyy' }}
+      </td>
 
-  <tr data-ng-repeat="entry in ledger.entries | orderBy: 'date'">
-    <td class="entry-type">{{ entry.entryType | capitalize }}</td>
-    <td class="entry-date" data-ng-if="entry.date">{{ entry.date | date:'MM/dd/yyyy' }}</td>
-    <td class="entry-date" data-ng-if="!entry.date"><em>No Date</em></td>
+      <td>
+        <span data-ng-if="!entry.category.name"><em>No Category</em></span>
+        {{ entry.category.name }}
+      </td>
 
-    <td class="entry-category" data-ng-if="entry.category.name">{{ entry.category.name }}</td>
-    <td class="entry-category" data-ng-if="!entry.category.name"><em>No Date</em></td>
+      <td>
+        <span data-ng-if="!entry.vendor"><em>No Vendor</em></span>
+        {{ entry.vendor }}
+      </td>
 
-    <td class="entry-payee-source" data-ng-if="entry.payeeSource">{{ entry.payeeSource }}</td>
-    <td class="entry-payee-source" data-ng-if="!entry.payeeSource"><em>No Source</em></td>
+      <td data-ng-class="entry.entryType === 'expense' ? 'red' : 'green'">
+        <span data-ng-if="entry.entryType === 'expense'"> - </span>
+        {{ entry.amount | currency}}
+      </td>
 
-    <td class="entry-amount"><span data-ng-if="entry.entryType === 'expense'"> - </span>{{ entry.amount | currency}}</td>
-  </tr>
+    </tr>
+  </tbody>
 
 </table>
 

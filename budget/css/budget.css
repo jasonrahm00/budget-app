@@ -115,6 +115,7 @@ table {
   border: 1px solid #ccc;
   border-collapse: collapse;
 }
+
 .budget-table {
   display: table;
   width: 100%;
@@ -155,6 +156,22 @@ tr {
 th {
   border-right: 1px solid #ccc;
 }
+
+.report-table th:hover {
+  cursor: pointer;
+}
+
+.report-table tbody td {
+  border-right: 1px solid #ccc;
+  text-align: center;
+}
+
+.report-table thead th:nth-child(2),
+.report-table tbody td:nth-child(2) {
+  display: none;
+}
+
+
 
 /* ---- Form Elements ---- */
 
@@ -271,6 +288,11 @@ select {
   
   .table-row>div {
     padding: 0 .5rem;
+  }
+  
+  .report-table thead th:nth-child(2),
+  .report-table tbody td:nth-child(2) {
+    display: table-cell;
   }
   
   

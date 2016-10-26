@@ -2,11 +2,11 @@ budgetApp.controller('reportCtrl', ['$scope', '$window', 'ledgerFactory', functi
   
   'use strict';
   
+  $scope.ledger = ledgerFactory;
+  
   //Print Window
   $scope.printReport = function() { 
     $window.print(); 
   }
-  
-  $scope.ledger = ledgerFactory;
 
 }]);
