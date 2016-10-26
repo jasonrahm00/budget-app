@@ -1,42 +1,72 @@
-<h2>Budget Report</h2>
-
-<table class="report-table">
+<section>
   
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Category</th>
-      <th>Vendor</th>
-      <th>Amount</th>
-    </tr>
-  </thead>
+  <h2>Budget Totals</h2>
   
-  <tbody>
-    <tr data-ng-repeat="entry in ledger.entries | orderBy : 'date' ">
-    
-      <td>
-        <span data-ng-if="!entry.date"><em>No Date</em></span>
-        {{ entry.date | date:'MM/dd/yyyy' }}
-      </td>
+  <table class="report-table totals">
 
-      <td>
-        <span data-ng-if="!entry.category.name"><em>No Category</em></span>
-        {{ entry.category.name }}
-      </td>
+    <thead>
+      <tr>
+        <th scope="col">Total Entries</th>
+        <th scope="col">Total Income</th>
+        <th scope="col">Total Expenses</th>
+        <th scope="col">Remaining Amount</th>
+      </tr>
+    </thead>
 
-      <td>
-        <span data-ng-if="!entry.vendor"><em>No Vendor</em></span>
-        {{ entry.vendor }}
-      </td>
+    <tbody>
+      <tr>
+        <td>{{ totalEntries }}</td>
+        <td>{{ ledger.totalIncome | currency }}</td>
+        <td>{{ ledger.totalExpenses | currency }}</td>
+        <td data-ng-class="ledger.remainingFunds < 0 ? 'bold red' : ''">{{ ledger.remainingFunds | currency }}</td>
+      </tr>
+    </tbody>
 
-      <td data-ng-class="entry.entryType === 'expense' ? 'red' : 'green'">
-        <span data-ng-if="entry.entryType === 'expense'"> - </span>
-        {{ entry.amount | currency}}
-      </td>
+  </table>
+  
+</section>
 
-    </tr>
-  </tbody>
+<section>
+  <h2>All Budget Entries</h2>
 
-</table>
+  <table class="report-table">
+
+    <thead>
+      <tr>
+        <th scope="col">Date</th>
+        <th scope="col">Category</th>
+        <th scope="col">Vendor</th>
+        <th scope="col">Amount</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr data-ng-repeat="entry in ledger.entries | orderBy : 'date' ">
+
+        <td>
+          <span data-ng-if="!entry.date"><em>No Date</em></span>
+          {{ entry.date | date:'MM/dd/yyyy' }}
+        </td>
+
+        <td>
+          <span data-ng-if="!entry.category.name"><em>No Category</em></span>
+          {{ entry.category.name }}
+        </td>
+
+        <td>
+          <span data-ng-if="!entry.vendor"><em>No Vendor</em></span>
+          {{ entry.vendor }}
+        </td>
+
+        <td data-ng-class="entry.entryType === 'expense' ? 'red' : 'green'">
+          <span data-ng-if="entry.entryType === 'expense'"> - </span>
+          {{ entry.amount | currency}}
+        </td>
+
+      </tr>
+    </tbody>
+
+  </table>
+</section>
 
 <button data-ng-click="printReport()">Print Report</button>

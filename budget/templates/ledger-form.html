@@ -1,6 +1,6 @@
 <form class="add-entry">
 
-  <div class="entry-type">
+  <div>
     <label>Entry Type <span>*</span></label>
       <div class="radio-buttons">
         <div>
@@ -14,24 +14,24 @@
       </div>
   </div>
 
-  <div class="entry-date">
+  <div>
     <label for="date">Date</label>
     <input type="text" id="date" data-ng-model="date" placeholder="Date" readonly class="datepicker">
   </div>
 
-  <div class="entry-category">
+  <div>
     <label for="category">Category</label>
     <select id="category" data-ng-model="selectedCategory" data-ng-options="category.name group by category.group for category in ledgerCategories | orderBy: ['group', 'name']">
       <option value="" disabled>-- {{ entryType | capitalize }} Category --</option>
     </select>
   </div>
 
-  <div class="entry-vendor">
+  <div>
     <label for="vendor">Vendor</label>
     <input type="text" id="vendor" data-ng-model="vendor" placeholder="Vendor">
   </div>
 
-  <div class="entry-amount">
+  <div>
     <label for="amount">Amount <span>*</span></label>
     <input id="amount" type="number" min="0" step="0.01" data-ng-model="amount" placeholder="Amount">
   </div>

@@ -39,6 +39,23 @@ p.disclaimer {
   text-align: center;
 }
 
+.flex-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap-reverse;
+  justify-content: space-between;
+}
+
+.right-column {
+  flex-grow: 1;
+  order: 2;
+}
+
+.left-column {
+  flex-grow: 2;
+  order: 1;
+}
+
 .green {
   color: #00640e;
 }
@@ -173,6 +190,11 @@ th {
   display: none;
 }
 
+.report-table thead th:nth-child(2),
+.report-table tbody td:nth-child(2) {
+  display: table-cell;
+}
+
 
 
 /* ---- Form Elements ---- */
@@ -267,27 +289,6 @@ select {
     padding: 0 1.5em 2.25em;
   }
   
-  .image-wrapper {
-    display: inline-block;
-    float: left;
-    text-align: center;
-    width: 65%;
-  }
-  
-  .image-wrapper img {
-    display: inline-block;
-    width: 20%;
-  }
-  
-  .image-wrapper img:nth-child(2) {
-    margin: 0 10%;
-  }
-  
-  .summary-table {
-    float: right;
-    width: 30%;
-  }
-  
   .entry-vendor {
     display: inline-block;
     width: 39%;
@@ -299,6 +300,21 @@ select {
   .add-edit-entry {
     display: inline-block;
     width: 15%;
+  }
+  
+  .image-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  
+  .image-wrapper img {
+    width: 175px;
+    height: 100%;
+  }
+    
+  .left-column {
+    padding-right: 10%;
   }
   
   .table-row>div {

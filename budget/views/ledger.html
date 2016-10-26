@@ -1,7 +1,38 @@
-<h2>Add Ledger Entry</h2>
-
 <edit-lightbox data-ng-if="showLightbox" class="lightbox"></edit-lightbox>
 
-<ledger-form></ledger-form>
+<div class="flex-wrapper">
 
-<budget-table></budget-table>
+  <section class="right-column">
+    <h2>Report Snapshot</h2>
+    <table class="summary-table">
+      <tr>
+        <th scope="row">Available Funds</th>
+        <td>{{ ledger.totalIncome | currency }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Expenses</th>
+        <td>{{ ledger.totalExpenses | currency }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Remaining</th>
+        <td data-ng-class="ledger.remainingFunds < 0 ? 'bold red' : ''">{{ ledger.remainingFunds | currency }}</td>
+      </tr>
+    </table>
+  </section>
+
+  <section class="left-column">
+    <h2>Add Ledger Entry</h2>
+
+    <ledger-form></ledger-form>
+
+  </section>
+  
+</div>
+
+
+<section>
+  <h2>Ledger Entries</h2>
+
+  <budget-table></budget-table>
+  
+</section>

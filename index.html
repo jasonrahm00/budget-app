@@ -33,24 +33,12 @@
         
         <img alt="Glass jar filled with assorted U.S. currency bills and a label saying:'401K' on the front of the jar" src="budget/images/401k-jar.jpg">
         <img alt="Glass jar filled with assorted U.S. currency bills and a label saying:'Health' on the front of the jar" src="budget/images/health-jar.jpg">
+        <img alt="Glass jar filled with assorted U.S. currency bills and a label saying:'Credit Card' on the front of the jar" src="budget/images/credit-card-jar.jpg">
         <img alt="Glass jar filled with assorted U.S. currency bills and a label saying:'Money' on the front of the jar" src="budget/images/money-jar.jpg">
         
       </div>
       
-      <table class="summary-table" data-ng-controller="snapshotCtrl">
-        <tr>
-          <th scope="row">Available Funds</th>
-          <td>{{ ledger.totalIncome | currency }}</td>
-        </tr>
-        <tr>
-          <th scope="row">Expenses</th>
-          <td>{{ ledger.totalExpenses | currency }}</td>
-        </tr>
-        <tr>
-          <th scope="row">Remaining</th>
-          <td data-ng-class="ledger.remainingFunds < 0 ? 'bold red' : ''">{{ ledger.remainingFunds | currency }}</td>
-        </tr>
-      </table>
+      
       
     </header>
     
@@ -71,7 +59,6 @@
     <!-- Controllers -->
     <script src="budget/js/controllers/ledgerCtrl.js"></script>
     <script src="budget/js/controllers/reportCtrl.js"></script>
-    <script src="budget/js/controllers/snapshotCtrl.js"></script>
 
     <!-- Directives -->
     <script src="budget/js/directives/directives.js"></script>
