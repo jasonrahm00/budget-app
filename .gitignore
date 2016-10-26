@@ -1,0 +1,4 @@
+# Exclude files from version tracking
+
+budget-app.html
+/budget/css/main.css
