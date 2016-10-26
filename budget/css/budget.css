@@ -17,6 +17,10 @@ nav {
   padding: 1em 0 0;
 }
 
+.image-wrapper {
+  display: none;
+}
+
 main {
   padding: 0 0 2.25em;
 }
@@ -263,9 +267,20 @@ select {
     padding: 0 1.5em 2.25em;
   }
   
-  header p {
+  .image-wrapper {
+    display: inline-block;
     float: left;
+    text-align: center;
     width: 65%;
+  }
+  
+  .image-wrapper img {
+    display: inline-block;
+    width: 20%;
+  }
+  
+  .image-wrapper img:nth-child(2) {
+    margin: 0 10%;
   }
   
   .summary-table {
@@ -300,7 +315,8 @@ select {
 @media print {
   
   button,
-  header {
+  header,
+  nav {
     display: none;
   }
   
