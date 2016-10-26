@@ -1,0 +1,28 @@
+<div>
+  <div class="add-entry">
+    <h2>Edit Entry</h2>
+    
+    <div class="entry-date">
+      <input type="text" data-ng-model="entryToEdit.date" placeholder="Date" class="datepicker" readonly>
+    </div>
+    
+    <div class="entry-category">
+      <select data-ng-model="entryToEdit.category" data-ng-options="category.name group by category.group for category in ledgerCategories | orderBy: ['group', 'name']">
+        <option value="" disabled>-- {{ entryToEdit.entryType | capitalize }} Category --</option>
+        <option data-ng-value="entryToEdit.category" selected>{{ entryToEdit.category.name }}</option>
+      </select>
+    </div>
+    
+    <div class="entry-vendor">
+      <input type="text"  placeholder="Vendor" data-ng-model="entryToEdit.vendor">
+    </div>
+    
+    <div class="entry-amount">
+      <input type="number" min="0" step="0.01" data-ng-model="entryToEdit.amount" placeholder="Amount">
+    </div>
+    
+    <button data-ng-click="closeLightbox()">Save/Close</button>
+    <button data-ng-click="removeEntry(entryToEdit.ledgerId)">Delete</button>
+    
+  </div>
+</div>
