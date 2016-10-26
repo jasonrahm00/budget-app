@@ -14,7 +14,6 @@ body {
 
 header,
 nav {
-  
   padding: 1em 0 0;
 }
 
@@ -279,15 +278,6 @@ select {
 
 /*Large Screens */
 @media (min-width: 769px) {
-  
-  header,
-  nav {
-    padding: 1em 1.5em 0;
-  }
-
-  main {
-    padding: 0 1.5em 2.25em;
-  }
   
   .entry-vendor {
     display: inline-block;
