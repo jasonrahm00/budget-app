@@ -1,10 +1,7 @@
 <h2>Add Ledger Entry</h2>
 
-<lightbox-directive data-ng-if="showLightbox" class="lightbox"></lightbox-directive>
+<edit-lightbox data-ng-if="showLightbox" class="lightbox"></edit-lightbox>
 
 <ledger-form></ledger-form>
 
 <budget-table></budget-table>
-
-<button data-ng-click="openLightbox()" data-ng-show="!showLightbox">Open Lightbox</button>
-<button data-ng-show="showLightbox">Lightbox Open</button>

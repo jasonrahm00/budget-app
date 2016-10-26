@@ -3,7 +3,7 @@
   <div class="table-header">
     <div class="entry-date">Date</div>
     <div class="entry-category">Category</div>
-    <div class="entry-payee-source">Source/Payee</div>
+    <div class="entry-vendor">Vendor</div>
     <div class="entry-amount">Amount</div>
     <div class="add-edit-entry">Edit</div>
   </div>
@@ -23,22 +23,23 @@
       </select>
     </div>
     
-    <div class="entry-payee-source" data-ng-if="!editing">{{ entry.payeeSource }}</div>
-    <div class="entry-payee-source" data-ng-if="editing">
-      <input type="text"  placeholder="Payee/Source " data-ng-model="entry.payeeSource">
+    <div class="entry-vendor" data-ng-if="!editing">{{ entry.vendor }}</div>
+    <div class="entry-vendor" data-ng-if="editing">
+      <input type="text"  placeholder="Vendor" data-ng-model="entry.vendor">
     </div>
     
     <div class="entry-amount" data-ng-if="!editing" data-ng-class="entry.entryType === 'expense' ? 'red' : ''">{{ entry.amount | currency}}</div>
     <div class="entry-amount" data-ng-if="editing">
-      <input type="number" min="0" step="0.01" data-ng-model="entry.amount" placeholder="entry.mount">
+      <input type="number" min="0" step="0.01" data-ng-model="entry.amount" placeholder="Amount">
     </div>
     
     <div class="add-edit-entry">
-
+      
       <button data-ng-show="!editing" data-ng-click="editing = true;">Edit</button>
       <button data-ng-hide="!editing" data-ng-click="editing = false; saveEdit()">Save</button>
-
+      
       <button data-ng-click="removeEntry(entry.ledgerId)">Delete</button>
+      
     </div>
     
   </div>

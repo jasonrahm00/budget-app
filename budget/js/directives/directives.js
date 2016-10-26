@@ -29,19 +29,37 @@ budgetApp.directive('ledgerForm', function () {
 });
 
 //Budget Table Directive
-budgetApp.directive('budgetTable', function () {
+budgetApp.directive('budgetTable', function($window) {
   return {
     restrict: 'E',
     replace: true,
-    templateUrl: 'budget/templates/budget-table.html'
-  };
+    template: '<div ng-include="templateUrl"></div>',
+    link: function(scope) {
+      
+      $window.onresize = function() {
+        changeTemplate();
+        scope.$apply();
+      };
+      
+      changeTemplate();
+      
+      function changeTemplate() {
+        var screenWidth = $window.innerWidth;
+        if (screenWidth < 768) {
+          scope.templateUrl = 'budget/templates/mobile-budget-table.html';
+        } else if (screenWidth >= 768) {
+          scope.templateUrl = 'budget/templates/budget-table.html';
+        }
+      }
+    }
+  }
 });
 
 //Lightbox Directive
-budgetApp.directive('lightboxDirective', function() {
+budgetApp.directive('editLightbox', function() {
   return {
-    restrict: 'E', // applied on 'element',
+    restrict: 'E',
     replace: true,
-    templateUrl: 'budget/templates/lightbox-template.html'
+    templateUrl: 'budget/templates/edit-lightbox-template.html'
   }
 });

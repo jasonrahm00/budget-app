@@ -38,11 +38,11 @@ budgetApp.factory('ledgerFactory', function() {
   //Takes form data as inputs and pushes a new object to the ledger.entries array
   //The parameters are provided by the call to the function in the controller
   //'this' refers to the entire ledger object
-  ledger.addNewEntry = function(payeeSource, amount, category, date, entryType) {
+  ledger.addNewEntry = function(vendor, amount, category, date, entryType) {
     this.entries.push({
       "ledgerId": createLedgerEntryId(),
       "entryType": entryType,
-      "payeeSource": payeeSource,
+      "vendor": vendor,
       "amount": amount,
       "category": category,
       "date": date

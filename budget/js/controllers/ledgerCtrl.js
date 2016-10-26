@@ -15,7 +15,7 @@ budgetApp.controller('ledgerCtrl', ['$scope', 'catFactory', 'ledgerFactory', fun
   $scope.entryToEdit = {};
   $scope.ledger = ledgerFactory; 
   $scope.ledgerCategories = [];
-  $scope.payeeSource; 
+  $scope.vendor; 
   $scope.selectedCategory;
   $scope.showLightbox = false;
   
@@ -54,7 +54,7 @@ budgetApp.controller('ledgerCtrl', ['$scope', 'catFactory', 'ledgerFactory', fun
   function resetValues() {
     $scope.amount = null;
     $scope.date = '';
-    $scope.payeeSource = '';
+    $scope.vendor = '';
     $scope.selectedCategory = '';
   }
   
@@ -79,7 +79,7 @@ budgetApp.controller('ledgerCtrl', ['$scope', 'catFactory', 'ledgerFactory', fun
       alert ("Please select an entry type")
     } else {
       $scope.ledger = ledgerFactory.addNewEntry(
-        $scope.payeeSource, 
+        $scope.vendor, 
         $scope.amount, 
         $scope.selectedCategory, 
         $scope.date,
@@ -95,17 +95,24 @@ budgetApp.controller('ledgerCtrl', ['$scope', 'catFactory', 'ledgerFactory', fun
     ledgerFactory.saveEdit();
   };
   
-  $scope.openLightbox = function() {
+  $scope.openLightbox = function(entry) {
+    $scope.entryToEdit = entry;
     $scope.showLightbox = true;
   };
   
   $scope.closeLightbox = function() {
+    $scope.entryToEdit = {};
+    ledgerFactory.saveEdit();
     $scope.showLightbox = false;
   };
   
   /***************** removeLedgerEntry Function **************************/   
-  $scope.removeEntry = function (entry) {
-    $scope.ledger = ledgerFactory.removeEntry(entry);
+  $scope.removeEntry = function (ledgerId) {
+    if($scope.showLightbox = true) {
+      $scope.entryToEdit = {};
+      $scope.showLightbox = false;
+    }     
+    $scope.ledger = ledgerFactory.removeEntry(ledgerId);
   };
   
 }]);

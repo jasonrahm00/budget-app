@@ -6,8 +6,32 @@ header {
   padding-bottom: 20px;
 }
 
-.bold {
-  font-weight: bold;
+body {
+  padding-top: 0;
+}
+
+header,
+nav {
+  margin: 0 auto;
+  max-width: 1150px;
+  padding: 1em 0 0;
+}
+
+main {
+  padding: 0 0 2.25em;
+}
+
+main>div {
+  border: 1px solid #dfdfdf;
+  border-radius: 2px;
+  padding: 0 1rem 1rem;
+}
+
+p.disclaimer {
+  font-size: .75rem;
+  font-style: italic;
+  margin: 0;
+  text-align: center;
 }
 
 .green {
@@ -16,35 +40,6 @@ header {
 
 .red {
   color: #a11e2d;
-}
-
-.income {
-  border-color: #00640e;
-}
-
-.expense {
-  border-color: #a11e2d;
-}
-
-body {
-  padding-top: 20px;
-}
-
-header,
-nav {
-  margin: 0 auto;
-  max-width: 1150px;
-  padding: 1em 1.5em 0;
-}
-
-main {
-  padding: 0 1.5em 2.25em;
-}
-
-main>div {
-  border: 1px solid #dfdfdf;
-  border-radius: 2px;
-  padding: 0 1rem 1rem;
 }
 
 /* ---- Nav Elements ---- */
@@ -146,7 +141,7 @@ table {
 .table-row>div {
   border-right: 1px solid #ccc;
   display: table-cell;
-  padding: 0 .5rem;
+  padding: .75rem .5rem;
 }
 
 .summary-table td {
@@ -212,6 +207,7 @@ input.ng-valid-parse + label,
 
 select {
   height: 29px;
+  margin-bottom: 10px;
 }
 
 /* ---- Lightbox ---- */
@@ -241,6 +237,15 @@ select {
 /*Large Screens */
 @media (min-width: 769px) {
   
+  header,
+  nav {
+    padding: 1em 1.5em 0;
+  }
+
+  main {
+    padding: 0 1.5em 2.25em;
+  }
+  
   header p {
     float: left;
     width: 65%;
@@ -251,7 +256,7 @@ select {
     width: 30%;
   }
   
-  .entry-payee-source {
+  .entry-vendor {
     display: inline-block;
     width: 39%;
   }
@@ -263,6 +268,11 @@ select {
     display: inline-block;
     width: 15%;
   }
+  
+  .table-row>div {
+    padding: 0 .5rem;
+  }
+  
   
 /* Print View */
 @media print {
