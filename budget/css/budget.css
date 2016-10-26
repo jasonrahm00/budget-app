@@ -17,10 +17,6 @@ nav {
   padding: 1em 0 0;
 }
 
-.image-wrapper {
-  display: none;
-}
-
 main {
   padding: 0 0 2.25em;
 }
@@ -290,17 +286,6 @@ select {
   .add-edit-entry {
     display: inline-block;
     width: 15%;
-  }
-  
-  .image-wrapper {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-  }
-  
-  .image-wrapper img {
-    width: 175px;
-    height: 100%;
   }
     
   .left-column {
