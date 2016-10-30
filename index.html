@@ -24,7 +24,12 @@
     <header>
       
       <h1>Personal Budget Application</h1>
-
+      <div class="image-wrapper">
+        <img alt="A glass jar filled with various denominations of U.S. currency and a '401K' label on the front" src="budget/images/401k-jar.jpg">
+        <img alt="A glass jar filled with various denominations of U.S. currency and a 'Credit Card' label on the front" src="budget/images/credit-card-jar.jpg">
+        <img alt="A glass jar filled with various denominations of U.S. currency and a 'Health' label on the front" src="budget/images/health-jar.jpg">
+        <img alt="A glass jar filled with various denominations of U.S. currency and a 'Money' label on the front" src="budget/images/money-jar.jpg">
+      </div>
     </header>
     
     <nav>
@@ -35,6 +40,9 @@
     </nav>
     
     <main>
+      <div data-ng-if="loading" class="loading-screen">
+        <h2>Loading...</h2>
+      </div>
       <div data-ui-view></div>
     </main>
   

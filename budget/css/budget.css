@@ -59,6 +59,16 @@ p.disclaimer {
   color: #a11e2d;
 }
 
+.image-wrapper {
+  display: none;
+}
+
+.loading-screen {
+  padding: 2rem;
+  text-align: center;
+}
+
+
 /* ---- Nav Elements ---- */
 
 nav {
@@ -272,7 +282,7 @@ select {
   MEDIA QUERIES
 **************************************/
 
-/*Large Screens */
+/* Large Screens */
 @media (min-width: 769px) {
   
   .entry-vendor {
@@ -301,6 +311,34 @@ select {
     display: table-cell;
   }
   
+  
+  .image-wrapper {
+    display: block;
+    text-align: center;
+  }
+
+  .image-wrapper img {
+    max-width: 200px;
+    height: 100%;
+  }
+
+  .image-wrapper img:nth-child(2) {
+    margin: 0 5%;
+  }
+  
+  .image-wrapper img:nth-child(3) {
+    margin-right: 5%;
+  }
+  
+}
+
+/*Medium Screens */
+@media (min-width: 769px) and (max-width: 960px) {
+  
+  .image-wrapper img:last-child {
+    display: none;
+  }
+  
 }
   
 /* Print View */
@@ -310,6 +348,10 @@ select {
   header,
   nav {
     display: none !important;
+  }
+  
+  .image-wrapper {
+    display: none;
   }
   
   .report-table thead th:nth-child(2),
