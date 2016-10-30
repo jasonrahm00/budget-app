@@ -1,5 +1,5 @@
 //Datepicker Directive
-budgetApp.directive("datepicker", function () {
+angular.module('budgetApp').directive("datepicker", function () {
   return {
     restrict: "AEC",
     require: "ngModel",
@@ -20,7 +20,7 @@ budgetApp.directive("datepicker", function () {
 });
 
 //Ledger Form Directive
-budgetApp.directive('ledgerForm', function () {
+angular.module('budgetApp').directive('ledgerForm', function () {
   return {
     restrict: 'E',
     replace: true,
@@ -29,7 +29,7 @@ budgetApp.directive('ledgerForm', function () {
 });
 
 //Budget Table Directive
-budgetApp.directive('budgetTable', function($window) {
+angular.module('budgetApp').directive('budgetTable', function($window) {
   return {
     restrict: 'E',
     replace: true,
@@ -56,7 +56,7 @@ budgetApp.directive('budgetTable', function($window) {
 });
 
 //Lightbox Directive
-budgetApp.directive('editLightbox', function() {
+angular.module('budgetApp').directive('editLightbox', function() {
   return {
     restrict: 'E',
     replace: true,

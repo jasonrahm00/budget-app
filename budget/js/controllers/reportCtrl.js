@@ -1,4 +1,4 @@
-budgetApp.controller('reportCtrl', ['$scope', '$window', 'ledgerFactory', function ($scope, $window, ledgerFactory) { 
+angular.module('budgetApp').controller('reportCtrl', function ($scope, $window, ledgerFactory) { 
   
   'use strict';
   
@@ -11,4 +11,4 @@ budgetApp.controller('reportCtrl', ['$scope', '$window', 'ledgerFactory', functi
     $window.print(); 
   }
 
-}]);
+});

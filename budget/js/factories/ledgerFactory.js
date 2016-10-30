@@ -1,4 +1,4 @@
-budgetApp.factory('ledgerFactory', function() {
+angular.module('budgetApp').factory('ledgerFactory', function() {
   
   'use strict';
   

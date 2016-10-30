@@ -2,7 +2,7 @@
   MAIN BUDGET CONTROLLER
 ***********************************************/
 
-budgetApp.controller('ledgerCtrl', ['$scope', 'catFactory', 'ledgerFactory', function ($scope, catFactory, ledgerFactory) {
+angular.module('budgetApp').controller('ledgerCtrl', function ($scope, catFactory, ledgerFactory) {
   
   'use strict';
   
@@ -36,8 +36,8 @@ budgetApp.controller('ledgerCtrl', ['$scope', 'catFactory', 'ledgerFactory', fun
   });
   
   //jQuery UI Datepicker
-  $(function() {
-    $("input[type=date]").datepicker();
+  jQuery(function() {
+    jQuery("input[type=date]").datepicker();
   });
 
   //The checkAmount function is called whenever a new expense or income entry is added.
@@ -115,4 +115,4 @@ budgetApp.controller('ledgerCtrl', ['$scope', 'catFactory', 'ledgerFactory', fun
     $scope.ledger = ledgerFactory.removeEntry(ledgerId);
   };
   
-}]);
+});

@@ -1,13 +1,13 @@
-budgetApp.factory('catFactory', ['$http', function($http){
+angular.module('budgetApp').factory('catFactory', function($http){
 
   'use strict';
   
   var catData = {};
   
   catData.getLedgerCategories = function() {
-    return $http.get('budget/js/data/ledgerCategories.json');
+    return $http.get('budget/data/ledgerCategories.json');
   }
 
   return catData;  
   
-}]);
+});

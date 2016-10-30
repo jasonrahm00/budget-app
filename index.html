@@ -10,10 +10,12 @@
     <title>Budget Application</title>
     
     <!-- Style Sheets -->
-    <link href="budget/css/normalize-5.0.0.min.css" rel="stylesheet">
-    <link href="budget/css/jquery-ui-1-11-4.min.css" rel="stylesheet">
-    <link href="budget/css/main.css" rel="stylesheet">
-    <link href="budget/css/budget.css" rel="stylesheet">
+    <!-- build:css budget/main.min.css -->
+      <link href="budget/css/normalize-5.0.0.min.css" rel="stylesheet">
+      <link href="budget/css/jquery-ui-1-11-4.min.css" rel="stylesheet">
+      <link href="budget/css/main.css" rel="stylesheet">
+      <link href="budget/css/budget.css" rel="stylesheet">
+    <!-- endbuild -->
 
   </head>
   
@@ -35,29 +37,31 @@
     <main>
       <div data-ui-view></div>
     </main>
-
+  
     <!-- Vendor JS Files -->
-    <script src="budget/js/vendor/jquery-3.1.1.min.js"></script>
-    <script src="budget/js/vendor/jquery-ui-1.12.1.min.js" async></script>
-    <script src="budget/js/vendor/angular-1.5.3.min.js"></script>
-    <script src="budget/js/vendor/angular-ui-router-0.2.18.min.js"></script>
-    
-    <!-- App -->
-    <script src="budget/js/app.js"></script>
+    <!-- build:js budget/js/vendor.min.js -->
+      <script src="budget/js/vendor/jquery-3.1.1.min.js"></script>
+      <script src="budget/js/vendor/jquery-ui-1.12.1.min.js" async></script>
+      <script src="budget/js/vendor/angular-1.5.3.min.js"></script>
+      <script src="budget/js/vendor/angular-ui-router-0.2.18.min.js"></script>
+    <!-- endbuild -->
 
-    <!-- Controllers -->
-    <script src="budget/js/controllers/ledgerCtrl.js"></script>
-    <script src="budget/js/controllers/reportCtrl.js"></script>
+    <!-- build:js budget/js/app.min.js -->   
+      <!-- App -->
+      <script src="budget/js/app.js"></script>
 
-    <!-- Directives -->
-    <script src="budget/js/directives/directives.js"></script>
-    
-    <!-- Factories -->
-    <script src="budget/js/factories/catFactory.js"></script>
-    <script src="budget/js/factories/ledgerFactory.js"></script>
-    
-    <!-- Services -->
+      <!-- Controllers -->
+      <script src="budget/js/controllers/ledgerCtrl.js"></script>
+      <script src="budget/js/controllers/reportCtrl.js"></script>
 
+      <!-- Directives -->
+      <script src="budget/js/directives/directives.js"></script>
+
+      <!-- Factories -->
+      <script src="budget/js/factories/catFactory.js"></script>
+      <script src="budget/js/factories/ledgerFactory.js"></script> 
+    <!-- endbuild -->
+    
   </body>
   
 </html>
