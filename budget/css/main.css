@@ -19,37 +19,49 @@ a:hover {
 
 body {
   background-color: whitesmoke;
+  color: #333;
   font-family: Helvetica, sans-serif;
+  font-size: 14px;
 }
 
 button,
 .button {
   background-color: #002E64;
-  border: 1px solid #ccc;
   border-radius: 4px;
   font-weight: bold;
-  color: #fff;
-  cursor: pointer;
-}
-  
-.clearfix:after {
-  clear: both;
-  content: "";
-  display: table;
+  color: #fff; 
 }
 
+button:focus,
+.button:focus,
 button:hover,
 .button:hover {
   background-color: #dfdfdf;
   color: #002E64;
 }
+button:hover,
+.button:hover {
+  cursor: pointer;
+}
 
 h1 {
+  font-size: 2.25rem;
   margin-top: 0;
 }
 
 h2 {
   color: #002E64;
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+h1,
+h2,
+h3 {
+  margin: 1.25rem 0 1rem 0;
 }
 
 h1, 
@@ -86,6 +98,17 @@ ul li a:hover {
   margin-left: 1em;
 }
 
+.clearfix:after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+.loading-screen {
+  padding: 2rem;
+  text-align: center;
+}
+
 /* Override default button and input borders and outlines */ 
 
 a,
@@ -108,6 +131,12 @@ button:hover {
   border-color: #ccc !important;
 }
 
+input {
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: 1px solid #ccc
+}
+
 
 
 /************************************** 
@@ -119,6 +148,7 @@ button:hover {
 nav {
   background-color: #000f21;
   left: 0;
+  min-height: 60px;
   right: 0;
 }
 
@@ -130,10 +160,9 @@ nav a {
 }
 
 nav div {
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
   max-width: 1150px;
-  padding: 0 1.5em 1em;
+  padding: 0 1em;
 }
 
 nav div>a {
@@ -145,14 +174,14 @@ nav li {
 }
 
 nav li {
-  background: rgba(0, 46, 100, .60);
+  background: rgba(0, 83, 179, .60);
   border-radius: 2px;
   margin-bottom: 5px;
 }
 
 nav li:hover,
 nav li.active {
-  background: rgba(0, 46, 100, 1);
+  background: rgba(0, 83, 179, .90);
 }
 
 nav div>a:active,
@@ -167,120 +196,57 @@ nav ul {
   padding: 0;
 }
 
+/* ---- Nav Flexbox ---- */
+
+nav div,
+nav ul {
+  display: flex;
+  flex-direction: column;
+}
+
 /* ---- Tables ---- */
 
 table {
+  border-collapse: collapse;
   margin-bottom: 20px;
   width: 100%;
 }
 
-td,
+table td {
+  padding: 8px;
+}
+
+table.skills td,
+table.skills th {
+  border-top: 1px solid #ccc;
+}
+table.skills th {
+  text-align: left;
+}
+
 th {
   padding: 8px;
 }
 
-table.skills tr {
-  border-top: 1px solid #DDD;
-}
-
-/* ---- Accordion ---- */
-
-a.accordion-toggle {
-  display: block;
-  padding: 10px  15px;
-}
-
-div.panel-heading {
-  padding: 0;
-}
-
-h4.panel-title {
-  color: #a9a9a9;
-}
-
-h4.panel-title a:hover {
-  text-decoration: none;
-  color: #dfdfdf;
-}
-
-h4.panel-title a:focus {
-  text-decoration: none;
-  outline: 0;
-  border: none;
-}
-
-.panel-defaul, 
-.panel-primary {
-  border-color: #ddd;
-}
-
-.panel>.panel-heading {
-  background-color: #002E64;
-}
-
-/* ---- Forms ---- */
+/* ---- Contact Form ---- */
 
 label {
   display: block;
 }
 
-input,
-textarea {
+.contact input,
+.contact textarea {
   display: block;
-  padding: 6px 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
   margin-bottom: 10px;
+  width: 75%;
 }
 
 label span {
   color: red;
 }
 
-select {
-  border-color: #ccc;
-  border-radius: 5px;
-}
-
-select:focus {
-  outline: 0px !important;
-}
-
-
-
-/*****************************
-  ANIMATIONS
-*****************************/
-
-/* View Change Navigation */
-
-.slide-view {
-  position: relative;
-}
-
-.slide-view.ng-enter {
-  transition: 0.5s linear all;
-  transition-delay: 0.45s;
-  z-index: 100;
-  left: 7em;
-  opacity: 0;
-}
-
-.slide-view.ng-enter.ng-enter-active {
-  left: 0;
-  opacity: 1;
-}
-
-.slide-view.ng-leave {
-  transition: 0.5s linear all;
-  z-index: 101;
-  opacity: 1;
-  left: 0;
-}
-
-.slide-view.ng-leave.ng-leave-active {
-  left: -7em;
-  opacity:0;
+.contact input.button {
+  width: 85px;
 }
 
 
@@ -295,10 +261,6 @@ select:focus {
     padding-top: 60px; /* to account for the fixed navbar */
   }
   
-  main {
-    padding: 1.5em 2.25em;
-  }
-  
   /* ---- Navigation ---- */
   
   nav {
@@ -307,38 +269,19 @@ select:focus {
     z-index: 1000;
   }
   
-  nav div {
-    padding: 0 1.5em;
-  }
-  
-  nav div>a {
-    float: left;
-    padding-left: 0;
-  }
-
+  nav div, 
   nav ul {
-    float: right;
+    flex-direction: row;
     margin-top: 5px;
   }
-
-  nav li {
-    display: inline-block;
+  
+  nav div {
+    justify-content: space-between;
   }
   
-  /* ---- Contact Form ---- */
-
-  .contact {
-    margin: 0 auto;
-    max-width: 800px;
+  nav ul li:first-child,
+  nav ul li:nth-child(2) {
+    margin-right: .75em;
   }
   
-  input,
-  textarea {
-    width: 75%;
-  }
-  
-  input.button {
-    width: 85px;
-  }
-
 }
