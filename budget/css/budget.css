@@ -217,6 +217,10 @@ label span {
   color: red;
 }
 
+.add-entry>div {
+  margin-bottom: 10px;
+}
+
 .entry-type {
   display: block;
 }
@@ -250,7 +254,6 @@ select {
   border: 1px solid #ccc;
   border-radius: 4px;
   height: 29px;
-  margin-bottom: 10px;
 }
 
 /* ---- Lightbox ---- */
