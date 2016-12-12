@@ -22,7 +22,7 @@ angular.module('budgetApp').controller('ledgerCtrl', function ($scope, catFactor
   /******************************************************************
                           FUNCTIONS
   ******************************************************************/
-
+  
   $scope.getTemplate = function() {
     return 'budget/templates/ledger-row.html';
   };

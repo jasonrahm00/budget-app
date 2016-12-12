@@ -28,7 +28,7 @@ gulp.task('viewChange', function() {
 });
 
 gulp.task('dataFileChange', function() {
-  return gulp.src('budget/data/*.json')
+  return gulp.src(['budget/data/*.json', '!budget/data/testData.json'])
     .pipe(gulp.dest('dist/budget/data'));
 });
 

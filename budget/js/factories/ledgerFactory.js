@@ -1,4 +1,4 @@
-angular.module('budgetApp').factory('ledgerFactory', function() {
+angular.module('budgetApp').factory('ledgerFactory', function($http) {
   
   'use strict';
   
@@ -10,6 +10,19 @@ angular.module('budgetApp').factory('ledgerFactory', function() {
     "remainingFunds": 0,
     "entries": []
   };
+  
+  //Get test data
+  function getTestData() {
+    $http.get('budget/data/testData.json')
+      .then(function(response) {
+        ledger.entries = response.data;
+      }, function(error) {
+      console.log(error.message);
+    });
+  }
+  
+  //Remove comments from getTestData() function to assign test data to ledger.entries array                               
+  //getTestData() 
 
   //A unique entry ID is created whenever a new ledger entry is added. This makes it easy to reference individual entries and find the right one to edit/delete
   function createLedgerEntryId () {

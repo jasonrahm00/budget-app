@@ -1,6 +1,7 @@
 # Exclude files from version tracking
 
 /budget/css/main.css
+/budget/data/testData.json
 node_modules
 package.json
 dist
