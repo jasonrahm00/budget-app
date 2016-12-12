@@ -13,6 +13,20 @@ angular.module('budgetApp').filter('capitalize', function() {
   }
 });
 
+//Entry Type Filter
+//Used to separate ledger entries by income/expense on the report page to build separate tables for each
+angular.module('budgetApp').filter('typeFilter', function() {
+  return function(entries, type) {
+    return entries.filter(function(element) {
+      if(type === element.entryType) {
+        return true;
+      }
+    });
+  }
+});
+
+
+
 //ROUTES
 angular.module('budgetApp').config(function ($stateProvider, $urlRouterProvider) {
   
