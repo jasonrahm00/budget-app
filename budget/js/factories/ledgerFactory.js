@@ -22,7 +22,8 @@ angular.module('budgetApp').factory('ledgerFactory', function($http) {
   }
   
   //Remove comments from getTestData() function to assign test data to ledger.entries array                               
-  //getTestData() 
+  getTestData();
+  calculateTotals();
 
   //A unique entry ID is created whenever a new ledger entry is added. This makes it easy to reference individual entries and find the right one to edit/delete
   function createLedgerEntryId () {

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>List Cleaner</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
+    
+    <style>
+      body {
+        margin: 0 auto;
+        max-width: 1080px;
+        padding-top: 1em;
+      }
+      
+      input {
+        padding-bottom: 1em;
+      }
+      
+      section {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+        min-height: 250px;
+        padding: 10px;
+      }
+      
+      section div:first-child {
+        width: 45%;
+      }
+      
+      section div:last-child {
+        width: 45%;
+      }
+      
+      textarea {
+        height: 244px;
+        width: 100%;
+      }
+
+    </style>
+  </head>
+  <body>
+    <h1>List Cleaner</h1>
+    <input type="file" name="File Upload" id="txtFileUpload" accept=".csv">
+    <button onclick="exportCleanList()">Export Cleaned List</button>
+    <button onclick="exportUglyList()">Export Ugly List</button>
+    <div id="formattedLists"></div>
+
+    <script>
+      
+      /**********************************************************************
+                                Global Variabls
+      **********************************************************************/
+      
+      var skuCount = 1;
+      var newParts;
+      var printPretty = [];
+      var printUgly = [];
+      
+      /**********************************************************************
+                              Dependent Functions
+      **********************************************************************/
+      
+      //Remove "return" character from end of each item in the uploaded list
+        //Push those altered values into the newParts[] array, which will be used for further cleaning
+      function removeReturn(x) {
+        newParts = [];
+        for(var i = 0; i < x.length - 1; i++) {
+          var j = x[i];
+          j = j.substring(0, j.length - 1);
+          newParts.push(j);
+        }
+        newParts.push(x.slice(-1)[0]);
+      }
+      
+      //Beautify the list items so a properly formatted/indented <ul> is returned
+      function beautifyList(x) {
+        
+        var div = document.createElement('div');
+        div.innerHTML = x.trim();
+        
+        return format(div, 0).innerHTML;
+      }
+      
+      //Main beautify/format function solution found on Stack Overflow
+      //http://stackoverflow.com/questions/26360414/javascript-how-to-correct-indentation-in-html-string
+      function format(node, level) {
+    
+        var indentBefore = new Array(level++ + 1).join('  '),
+          indentAfter  = new Array(level - 1).join('  '),
+          textNode;
+        
+        for (var i = 0; i < node.children.length; i++) {
+            
+          textNode = document.createTextNode('\n' + indentBefore);
+          node.insertBefore(textNode, node.children[i]);
+          
+          format(node.children[i], level);
+          
+          if (node.lastElementChild == node.children[i]) {
+            textNode = document.createTextNode('\n' + indentAfter);
+            node.appendChild(textNode);
+          }
+        }
+        
+        return node;
+      }
+      
+      /**********************************************************************
+                                Upload File
+      **********************************************************************/
+      
+      $(document).ready(function() {
+
+        // The event listener for the file upload
+        document.getElementById('txtFileUpload').addEventListener('change', upload, false);
+
+        // Method that checks that the browser supports the HTML5 File API
+        function browserSupportFileUpload() {
+          var isCompatible = false;
+          if (window.File && window.FileReader && window.FileList && window.Blob) {
+            isCompatible = true;
+          }
+          return isCompatible;
+        }
+
+        // Method that reads and processes the selected file
+        function upload(evt) {
+          if (!browserSupportFileUpload()) {
+            alert('The File APIs are not fully supported in this browser!');
+          } else {
+            printPretty = [];
+            printUgly = [];
+            var listItems = [];
+            var data = null;
+            var file = evt.target.files[0];
+            var reader = new FileReader();
+            reader.readAsText(file);
+            reader.onload = function(event) {
+              var csvData = event.target.result;
+              data = $.csv.toArrays(csvData);
+              if (data && data.length > 0) {
+                alert('Imported -' + data.length + '- rows successfully!');
+              } else {
+                alert('No data to import!');
+              }
+              //Create an object from the data and push to the listItems array
+              //The count starts at index 1 to skip the top row of column headers in the csv file
+              for(var i = 1; i < data.length; i++) {
+                var listItem = {
+                  "sku": data[i][0],
+                  "list": data[i][1]                   
+                } 
+                listItems.push(listItem);
+              }
+              
+              //Iterate over array and replace <br> with <li>
+              //Solution refactored from: http://stackoverflow.com/questions/21237725/replace-br-with-li
+              for(var i = 0; i < listItems.length; i++) {
+                var formattedLists = document.getElementById("formattedLists");
+                var listItem = listItems[i].list;
+                var sku = listItems[i].sku;
+
+                //The list item split element (<br> or <li>) can be swapped out 
+                  //The only pre-upload formatting that needs to occur is removing the MS Word bullet that the code won't recognize
+                  //Replacing other special characters (trademark and registered) with their HTML equivalents is also advisable  
+                var parts = listItem.split("<br>");
+                parts.shift();
+                
+                //Send the Parts array through the removeReturn() function to get rid of the "Return" from the source file
+                removeReturn(parts);
+                
+                var list = "<ul><li>" + newParts.join ("</li><li>") + "</li></ul>";
+                printUgly.push(
+                  {
+                    "SKU": sku,
+                    "LongDescription": list
+                  }
+                );
+                
+                var section = document.createElement('section');
+                section.id = "sku" + skuCount;
+                formattedLists.appendChild(section);
+
+                var h2 = document.createElement('h2');
+                h2.innerHTML = sku;
+                section.appendChild(h2);
+                
+                var leftDiv = document.createElement('div');
+                section.appendChild(leftDiv);
+                leftDiv.innerHTML = list;
+                
+                var rightDiv = document.createElement('div');
+                section.appendChild(rightDiv);
+                
+                var textArea = document.createElement('textarea');
+                rightDiv.appendChild(textArea);
+                
+                //Call the beautifyList function and pass in the list item so a properly formatted <ul> is displayed in the text area
+                textArea.innerHTML = beautifyList(list).trim();
+                
+                $('section:odd').css('background', '#ccc');
+                
+                skuCount++;
+                
+                printPretty.push(
+                  {
+                    "SKU": sku,
+                    "LongDescription": beautifyList(list).trim()
+                  }
+                )
+                
+              }
+              
+            };
+            reader.onerror = function() {
+              alert('Unable to read ' + file.fileName);
+            };
+          }
+        }
+      });
+      
+      /**********************************************************************
+                                Export File
+      **********************************************************************/
+      //http://stackoverflow.com/questions/14964035/how-to-export-javascript-array-info-to-csv-on-client-side
+      
+      function exportCleanList() {
+        console.log(printPretty);
+      }
+      
+      function exportUglyList() {
+        console.log(printUgly);
+      }
+
+    </script>
+    
+  </body>
+</html>
