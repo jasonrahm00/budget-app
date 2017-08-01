@@ -348,6 +348,10 @@ select {
     display: none !important;
   }
   
+  main>div {
+    border: 0;
+  }
+  
   .image-wrapper {
     display: none;
   }
